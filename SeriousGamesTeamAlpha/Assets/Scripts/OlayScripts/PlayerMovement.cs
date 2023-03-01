@@ -11,7 +11,7 @@ public class PlayerMovement : MonoBehaviour
     
     [SerializeField] float walkSpeed = 6f;
 
-    [SerializeField] private float boostSpeed = 12f;
+    [SerializeField] private float boostRate = 2f;
 
     [SerializeField] float acceleration;
 
@@ -35,6 +35,7 @@ public class PlayerMovement : MonoBehaviour
 
     [SerializeField] private CircleCollider2D groundCollider;
 
+    private float startSpeed;
    
     private bool isBoosting;
     // Start is called before the first frame update
@@ -75,12 +76,16 @@ public class PlayerMovement : MonoBehaviour
         //if isBoosting is true, set the maxVelocity to maxRunVelocity otherwise set it to maxWalkVelocity.
         maxVelocity = isBoosting ? maxRunVelocity : maxWalkVelocity;
 
-        speed = isBoosting ? boostSpeed : walkSpeed;
+        speed = walkSpeed * boostRate;
+
+        speed += acceleration * Time.deltaTime * GameManager.instance.GameSpeed;
         
         moveInput = new Vector2(Input.GetAxisRaw("Horizontal"), 0);
+        
+        rb.velocity += (moveInput * (speed  * Time.fixedDeltaTime));
 
-        speed += Time.deltaTime * acceleration;
-        rb.velocity += (moveInput * speed * Time.fixedDeltaTime);
+        
+        
         
         //prevents velocity from going higher than the Max Velocity.
         rb.velocity = Vector2.ClampMagnitude(rb.velocity, maxVelocity);
@@ -89,6 +94,11 @@ public class PlayerMovement : MonoBehaviour
         GameManager.instance.UpdateScoreText(s);
 
 
+    }
+
+    public void ResetAcceleration()
+    {
+        speed = walkSpeed;
     }
 
     IEnumerator Boost(float time)
@@ -102,7 +112,7 @@ public class PlayerMovement : MonoBehaviour
         isBoosting = false;
         //Game resumes original speed.
         GameManager.instance.SetGameState(GameState.Normal);
-
+        ResetAcceleration();
 
 
     }

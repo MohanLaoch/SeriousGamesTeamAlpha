@@ -22,6 +22,7 @@ namespace OlayScripts.ItemClassScripts
             GameManager.instance.DecreaseHydration(HitHydrationAmount);
             yield return new WaitForSeconds(time);
             GameManager.instance.SetGameState(GameState.Normal);
+            GameManager.instance.player.GetComponent<PlayerMovement>().ResetAcceleration();
         }
     }
 }

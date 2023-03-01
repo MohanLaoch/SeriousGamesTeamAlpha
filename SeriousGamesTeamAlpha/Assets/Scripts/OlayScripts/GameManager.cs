@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using OlayScripts.ItemClassScripts;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -27,11 +28,13 @@ public class GameManager : MonoBehaviour
     public int maxDistance;
     public Vector2 startPos;
     public float totalTime;
-
-    public bool canSpawnItems;
+    
     public GameState gameState;
 
-    [SerializeField] public float GameSpeed = 1;
+    [HideInInspector]
+    public float GameSpeed = 1;
+
+    [SerializeField] private float GameSpeedRate = 1;
 
      private int BoostHydrationSpeed = 1;
 
@@ -39,7 +42,10 @@ public class GameManager : MonoBehaviour
 
      public int walkingScoreModifier = 1;
 
-     public int previousItemIndex;
+     [HideInInspector]
+     public ItemClass previousItemSpawned;
+
+    
     private void Awake()
     {
         //checks to see if there's already an instance of the class, if not we set the instance. This only should apply at the start of the game since theres no instance of the class yet
@@ -60,15 +66,33 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         totalTime = 0;
-        SpawnBlock(startPos);
+        if (blockParent.childCount > 0)
+        {
+            foreach (Transform child in blockParent.transform)
+            {
+                BlockData.Add(child.gameObject, child.position);
+            }
+        }
         SpawnBlock(startPos);
     }
     
     // Update is called once per frame
     void Update()
     {
-        totalTime += Time.deltaTime;
+        ClockFunc();
         DecreaseHydration(hydrationAmount * Time.deltaTime * GameSpeed * hydrationSpeed * BoostHydrationSpeed);
+      
+    }
+
+    void ClockFunc()
+    {
+        totalTime += Time.deltaTime;
+        float minutes = Mathf.FloorToInt(totalTime / 60);
+        GameSpeed = 1 + ((1 / minutes) * GameSpeedRate);
+        if (float.IsPositiveInfinity(GameSpeed) || float.IsNegativeInfinity(GameSpeed))
+        {
+            GameSpeed = 1;
+        }
       
     }
 
@@ -125,18 +149,15 @@ public class GameManager : MonoBehaviour
         switch (gameState)
         {
             case GameState.Normal:
-                canSpawnItems = true;
                 Time.timeScale = 1;
                 BoostHydrationSpeed = 1;
                 break;
             case GameState.Boosted:
-                canSpawnItems = false;
                 Time.timeScale = 2;
                 BoostHydrationSpeed = 2;
                 break;
             case GameState.Hit:
                 Time.timeScale = 0.75f;
-                canSpawnItems = false;
                 break;
         }
     }

@@ -24,7 +24,6 @@ public class BlockScript : MonoBehaviour
         {
             int x = UnityEngine.Random.Range(0, 100);
             positions.gameObject.SetActive(false);
-            Debug.Log(x);
             if (x < (Mathf.FloorToInt(itemSpawnRate / GameManager.instance.GameSpeed)))
             {
                 positions.gameObject.SetActive(true);
@@ -47,19 +46,29 @@ public class BlockScript : MonoBehaviour
     {
         foreach (Transform position in itemPositions)
         {
-            int count = 0;
-            int x = UnityEngine.Random.Range(0, items.Length);
-            while (x == GameManager.instance.previousItemIndex && count < 1000)
+            if(GameManager.instance.gameState == GameState.Boosted)
+               break;
+            int x = 0;
+
+            if (GameManager.instance.previousItemSpawned == null)
             {
-                x = UnityEngine.Random.Range(0, items.Length);
-                count++;
+                x = 0;
+            }
+            else if ((GameManager.instance.previousItemSpawned.GetType() == typeof(HurdleItemClass)) || GameManager.instance.previousItemSpawned.GetType() == typeof(EnergyDrinkItemClass))
+            {
+                x = 0;
+            }
+
+            else
+            {
+                 x = UnityEngine.Random.Range(0, items.Length);
             }
             
             ItemClass item = Instantiate(items[x], position.position, Quaternion.identity);
             item.transform.parent = position;
+            GameManager.instance.previousItemSpawned = item;
             
-            GameManager.instance.previousItemIndex = x;
-            
+
         }
     }
 
