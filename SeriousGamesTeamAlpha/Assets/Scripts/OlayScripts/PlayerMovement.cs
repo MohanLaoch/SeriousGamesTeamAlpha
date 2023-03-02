@@ -38,6 +38,11 @@ public class PlayerMovement : MonoBehaviour
     private float startSpeed;
    
     private bool isBoosting;
+
+    private static readonly int MoveSpeedHash = Animator.StringToHash("moveSpeed");
+    private static readonly int JumpedHash = Animator.StringToHash("Jumped");
+    private static readonly int isGroundedHash = Animator.StringToHash("isGrounded");
+
     // Start is called before the first frame update
     void Start()
     {
@@ -50,14 +55,16 @@ public class PlayerMovement : MonoBehaviour
     void Update()
     {
         isGrounded = Physics2D.IsTouchingLayers(groundCollider, GroundLayer);
-
         
+        animator.SetBool(isGroundedHash, isGrounded);
+        animator.SetFloat(MoveSpeedHash, moveInput.x);
 
         if (Input.GetKeyDown(KeyCode.Space))
         {
             if(!isGrounded)
                 return;
             rb.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
+            animator.SetTrigger(JumpedHash);
         }
     }
 
@@ -91,6 +98,7 @@ public class PlayerMovement : MonoBehaviour
         rb.velocity = Vector2.ClampMagnitude(rb.velocity, maxVelocity);
 
         int s = Mathf.FloorToInt(GameManager.instance.walkingScoreModifier * rb.velocity.magnitude);
+       
         GameManager.instance.UpdateScoreText(s);
 
 
