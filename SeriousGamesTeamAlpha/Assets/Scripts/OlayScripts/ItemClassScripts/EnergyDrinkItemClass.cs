@@ -7,7 +7,9 @@ namespace OlayScripts.ItemClassScripts
         public float EnergyHydrationAmount;
         public override void OnPlayerCollide()
         {
-            GameManager.instance.IncreaseHydration(EnergyHydrationAmount);
+            if(GameManager.instance.gameState == GameState.Boosted)
+                return;
+            GameManager.instance.DecreaseHydration(EnergyHydrationAmount);
             GameManager.instance.StartBoost();
         }
     }

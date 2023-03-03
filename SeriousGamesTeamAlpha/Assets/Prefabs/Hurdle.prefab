@@ -73,7 +73,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   invisibilityFrameTime: 2
-  HitHydrationAmount: 30
+  HitHydrationAmount: 20
 --- !u!1 &8290224843164423943
 GameObject:
   m_ObjectHideFlags: 0

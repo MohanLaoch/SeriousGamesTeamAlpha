@@ -5,6 +5,8 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
+    
+    public static PlayerMovement instance { get; set; }
     private float speed;
 
     private Rigidbody2D rb;
@@ -39,15 +41,35 @@ public class PlayerMovement : MonoBehaviour
    
     private bool isBoosting;
 
+    public bool canMove;
     private static readonly int MoveSpeedHash = Animator.StringToHash("moveSpeed");
     private static readonly int JumpedHash = Animator.StringToHash("Jumped");
     private static readonly int isGroundedHash = Animator.StringToHash("isGrounded");
+    private static readonly int HitHash = Animator.StringToHash("isHit");
+
+    public GameObject boostParticleSystem;
+
+    [SerializeField] private float invisibilityRate;
+    private void Awake()
+    {
+        if(instance == null)
+        {
+            instance = this;
+            DontDestroyOnLoad(gameObject);
+        
+        }
+
+        else
+        {
+            Destroy(gameObject);
+        }
+    }
 
     // Start is called before the first frame update
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
-        
+        boostParticleSystem.SetActive(false);
 
     }
 
@@ -59,6 +81,8 @@ public class PlayerMovement : MonoBehaviour
         animator.SetBool(isGroundedHash, isGrounded);
         animator.SetFloat(MoveSpeedHash, moveInput.x);
 
+        if(!canMove)
+            return;
         if (Input.GetKeyDown(KeyCode.Space))
         {
             if(!isGrounded)
@@ -74,6 +98,8 @@ public class PlayerMovement : MonoBehaviour
     }
     private void FixedUpdate()
     {
+        if(!canMove)
+            return;
         HandleMovement();
     }
 
@@ -83,7 +109,8 @@ public class PlayerMovement : MonoBehaviour
         //if isBoosting is true, set the maxVelocity to maxRunVelocity otherwise set it to maxWalkVelocity.
         maxVelocity = isBoosting ? maxRunVelocity : maxWalkVelocity;
 
-        speed = walkSpeed * boostRate;
+        
+        speed = isBoosting ? walkSpeed * boostRate : walkSpeed;
 
         speed += acceleration * Time.deltaTime * GameManager.instance.GameSpeed;
         
@@ -104,6 +131,40 @@ public class PlayerMovement : MonoBehaviour
 
     }
 
+    public void PlayHit()
+    {
+        
+        StartCoroutine(HitBlinks());
+    }
+
+    IEnumerator HitBlinks()
+    {
+        
+        SpriteRenderer playerSprite = GetComponentInChildren<SpriteRenderer>();
+        float time = (GameManager.instance.invisibilityFrameTime /invisibilityRate);
+
+        Color ogColour = playerSprite.color;
+        
+        while (GameManager.instance.gameState == GameState.Hit)
+        {
+            playerSprite.color = new Color(1, 1 ,1, 0.1f);
+
+            yield return new WaitForSeconds(time);
+
+            playerSprite.color = new Color(ogColour.r, ogColour.g, ogColour.b, 1);
+
+            yield return new WaitForSeconds(time);
+
+            playerSprite.color = new Color(1, 1, 1, 0.1f);
+            
+            yield return new WaitForSeconds(time);
+
+            playerSprite.color = new Color(ogColour.r, ogColour.g, ogColour.b, 1f);
+        }
+
+    }
+    
+
     public void ResetAcceleration()
     {
         speed = walkSpeed;
@@ -114,14 +175,17 @@ public class PlayerMovement : MonoBehaviour
         //waits a single frame
         yield return null;
         isBoosting = true;
+        boostParticleSystem.SetActive(true);
         GameManager.instance.SetGameState(GameState.Boosted);
         //Makes the game go twice as fast.
         yield return new WaitForSeconds(time);
         isBoosting = false;
         //Game resumes original speed.
         GameManager.instance.SetGameState(GameState.Normal);
+        boostParticleSystem.SetActive(false);
         ResetAcceleration();
 
 
     }
 }
+

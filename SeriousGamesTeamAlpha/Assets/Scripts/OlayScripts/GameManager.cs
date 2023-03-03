@@ -45,7 +45,9 @@ public class GameManager : MonoBehaviour
      [HideInInspector]
      public ItemClass previousItemSpawned;
 
-    
+     public float hydrationSliderValue;
+     
+     public float invisibilityFrameTime = 2;
     private void Awake()
     {
         //checks to see if there's already an instance of the class, if not we set the instance. This only should apply at the start of the game since theres no instance of the class yet
@@ -66,6 +68,7 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         totalTime = 0;
+        PlayerMovement.instance.canMove = true;
         if (blockParent.childCount > 0)
         {
             foreach (Transform child in blockParent.transform)
@@ -80,6 +83,9 @@ public class GameManager : MonoBehaviour
     void Update()
     {
         ClockFunc();
+        hydrationSliderValue = hydrationMeter.value;
+        if(gameState == GameState.Hit)
+            return;
         DecreaseHydration(hydrationAmount * Time.deltaTime * GameSpeed * hydrationSpeed * BoostHydrationSpeed);
       
     }
@@ -105,16 +111,35 @@ public class GameManager : MonoBehaviour
 
     public void IncreaseHydration(float amount)
     {
-        hydrationMeter.value += amount;
+        float Amount = amount / 100;
+        hydrationMeter.value += Amount;
+        
     }
     public void DecreaseHydration(float amount)
     {
-        hydrationMeter.value -= amount;
+        float Amount = amount / 100;    
+        hydrationMeter.value -= Amount;
     }
 
     public void StartBoost()
     {
         player.GetComponent<PlayerMovement>().StartBoost();
+    }
+
+    public void StartHurdleHit()
+    {
+        StartCoroutine(PlayerHit(invisibilityFrameTime));
+    }
+    
+    IEnumerator PlayerHit(float time)
+    {
+           
+        yield return null;
+        SetGameState(GameState.Hit);
+        PlayerMovement.instance.PlayHit();
+        yield return new WaitForSeconds(time);
+        SetGameState(GameState.Normal);
+        PlayerMovement.instance.ResetAcceleration();
     }
 
     public void SpawnBlock(Vector2 pos)
