@@ -11,6 +11,7 @@ public class BlockTriggerLoader : MonoBehaviour
        
         if (col.CompareTag("Player"))
         { 
+            //prevents us from spawning two blocks at the same time
             if(hasSpawned)
                 return;
             Vector2 position = transform.parent.position;

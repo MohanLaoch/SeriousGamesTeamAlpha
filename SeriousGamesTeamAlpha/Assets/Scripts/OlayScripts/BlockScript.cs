@@ -10,7 +10,7 @@ public class BlockScript : MonoBehaviour
     private ItemClass previousItems;
     public float itemSpawnRate = 20;
 
-    public List<Transform> itemPositions = new List<Transform>();
+    private List<Transform> itemPositions = new List<Transform>();
     void Start()
     {
         if(GameManager.instance.gameState == GameState.Boosted)

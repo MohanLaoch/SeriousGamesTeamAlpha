@@ -12,13 +12,15 @@ public class ParallaxScript : MonoBehaviour
         parallaxMaterial = GetComponent<Renderer>().material;
     }
 
-    // Update is called once per frame
+    // In Late update because we want to parallax after the player has moved
     void LateUpdate()
     {
         
-        
+        //gets the player position and creates the offset based on the player's speed and if they're boosting / not
         float x = PlayerMovement.instance.moveInput.x * (PlayerMovement.instance.speed / PlayerMovement.instance.walkSpeedRef) * parallaxSpeed * Time.deltaTime;
-        Mathf.Clamp(x, 0, float.MaxValue);
+        //prevents it from going over the 32 bit integer limit
+        x = Mathf.Clamp(x, 0, float.MaxValue);
+        //moves offset based on the x value
         parallaxMaterial.mainTextureOffset += new Vector2(x, 0);
     }
 }

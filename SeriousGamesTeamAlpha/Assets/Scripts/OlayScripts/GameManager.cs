@@ -71,6 +71,8 @@ public class GameManager : MonoBehaviour
     {
         totalTime = 0;
         PlayerMovement.instance.canMove = true;
+        
+        //checks to see if there's a child attached to the block parent, if so add it to the list.
         if (blockParent.childCount > 0)
         {
             foreach (Transform child in blockParent.transform)
@@ -94,9 +96,14 @@ public class GameManager : MonoBehaviour
 
     void ClockFunc()
     {
+        //adds the time, so we can determine the game speed
         totalTime += Time.deltaTime;
         float minutes = Mathf.FloorToInt(totalTime / 60);
-        GameSpeed = 1 + ((1 / minutes) * GameSpeedRate);
+        
+        GameSpeed = 1 + (((1 / minutes + 1) * GameSpeedRate));
+
+        GameSpeed = Mathf.Clamp(GameSpeed, 0, float.PositiveInfinity);
+        //checks to see if the game speed goes to infinity, in case of a divide by 0 situation
         if (float.IsPositiveInfinity(GameSpeed) || float.IsNegativeInfinity(GameSpeed))
         {
             GameSpeed = 1;
@@ -107,6 +114,8 @@ public class GameManager : MonoBehaviour
     public void UpdateScoreText(int value)
     {
         walkingScore += value;
+        
+        //Another way of writing scoreText.text = walkingScore.ToString();
         scoreText.text = $"{walkingScore}";
     }
     
@@ -119,13 +128,24 @@ public class GameManager : MonoBehaviour
     }
     public void DecreaseHydration(float amount)
     {
-        float Amount = amount / 100;    
-        hydrationMeter.value -= Amount;
+        float Amount = amount / 100;
+        
+        //if the slider is below 20%, make the hydrationMeter go slowly, allowing players to get a little extra movement
+        if (hydrationSliderValue < 0.2)
+        {
+            hydrationMeter.value -= Amount / 2;
+        }
+
+        else
+        {
+            hydrationMeter.value -= Amount;
+        }
+        
     }
 
     public void StartBoost()
     {
-        player.GetComponent<PlayerMovement>().StartBoost();
+        PlayerMovement.instance.StartBoost();
     }
 
     public void StartHurdleHit()
@@ -135,11 +155,15 @@ public class GameManager : MonoBehaviour
     
     IEnumerator PlayerHit(float time)
     {
-           
+        //wait a frame before resuming   
         yield return null;
+        //change game state to hit
         SetGameState(GameState.Hit);
+        //play hit function on the player
         PlayerMovement.instance.PlayHit();
+        //wait a certain amount of time 
         yield return new WaitForSeconds(time);
+        //reset player status and game state
         SetGameState(GameState.Normal);
         PlayerMovement.instance.ResetAcceleration();
     }
@@ -163,9 +187,14 @@ public class GameManager : MonoBehaviour
 
         GameObject block = Instantiate(blockPrefabs[0], pos, Quaternion.identity);
         block.transform.parent = blockParent;
+        //change the scale of the block to be the spawn offset. Allows us to make the level more dynamic 
         block.transform.localScale = new Vector3(spawnOffset.x, 1, 1);
+        
+        //adds block to the dictionary
         BlockData.Add(block, block.transform.position);
         
+        //checks to see if the block size is above the maxLimit if so remove the first child of the parent from the dictionary
+        //and delete the block from the scene
         if (BlockData.Count > maxDistance|| blockParent.childCount > maxDistance )
         {
             GameObject child = blockParent.GetChild(0).gameObject;
@@ -184,6 +213,7 @@ public class GameManager : MonoBehaviour
 
     public void SetGameState(GameState state)
     {
+        //sets the game state as well as custom properties
         gameState = state;
         switch (gameState)
         {
@@ -192,10 +222,12 @@ public class GameManager : MonoBehaviour
                 BoostHydrationSpeed = 1;
                 break;
             case GameState.Boosted:
+                //makes the game go twice as fast
                 Time.timeScale = 2;
                 BoostHydrationSpeed = 2;
                 break;
             case GameState.Hit:
+                //makes the game 25% slower
                 Time.timeScale = 0.75f;
                 break;
         }
