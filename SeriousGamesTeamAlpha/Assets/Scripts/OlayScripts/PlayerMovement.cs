@@ -7,7 +7,7 @@ public class PlayerMovement : MonoBehaviour
 {
     
     public static PlayerMovement instance { get; set; }
-    private float speed;
+    public float speed { get; private set; }
 
     private Rigidbody2D rb;
     
@@ -24,8 +24,10 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] float maxRunVelocity = 40f;
 
     [SerializeField] Animator animator;
+    
+    public float walkSpeedRef { get; private set; }
 
-    private Vector2 moveInput;
+    public Vector2 moveInput { get; private set; }
 
     private bool isGrounded;
 
@@ -50,6 +52,8 @@ public class PlayerMovement : MonoBehaviour
     public GameObject boostParticleSystem;
 
     [SerializeField] private float invisibilityRate;
+    
+    [Range(0, 1)] public float scoreRatio;
     private void Awake()
     {
         if(instance == null)
@@ -70,6 +74,7 @@ public class PlayerMovement : MonoBehaviour
     {
         rb = GetComponent<Rigidbody2D>();
         boostParticleSystem.SetActive(false);
+        walkSpeedRef = walkSpeed;
 
     }
 
@@ -124,7 +129,7 @@ public class PlayerMovement : MonoBehaviour
         //prevents velocity from going higher than the Max Velocity.
         rb.velocity = Vector2.ClampMagnitude(rb.velocity, maxVelocity);
 
-        int s = Mathf.FloorToInt(GameManager.instance.walkingScoreModifier * rb.velocity.magnitude);
+        int s = Mathf.FloorToInt(GameManager.instance.walkingScoreModifier * rb.velocity.magnitude * scoreRatio);
        
         GameManager.instance.UpdateScoreText(s);
 
@@ -167,7 +172,7 @@ public class PlayerMovement : MonoBehaviour
 
     public void ResetAcceleration()
     {
-        speed = walkSpeed;
+        speed = Mathf.Lerp(speed, walkSpeed, Time.deltaTime * 2);
     }
 
     IEnumerator Boost(float time)

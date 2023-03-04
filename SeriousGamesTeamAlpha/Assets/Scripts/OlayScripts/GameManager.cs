@@ -48,6 +48,8 @@ public class GameManager : MonoBehaviour
      public float hydrationSliderValue;
      
      public float invisibilityFrameTime = 2;
+
+     
     private void Awake()
     {
         //checks to see if there's already an instance of the class, if not we set the instance. This only should apply at the start of the game since theres no instance of the class yet
@@ -105,7 +107,7 @@ public class GameManager : MonoBehaviour
     public void UpdateScoreText(int value)
     {
         walkingScore += value;
-        scoreText.text = $"Score: {walkingScore}";
+        scoreText.text = $"{walkingScore}";
     }
     
 
@@ -141,20 +143,16 @@ public class GameManager : MonoBehaviour
         SetGameState(GameState.Normal);
         PlayerMovement.instance.ResetAcceleration();
     }
+    
+  
 
     public void SpawnBlock(Vector2 pos)
     {
         //counter to prevent softlock from while loop
+      
         int count = 0;
 
-        if (BlockData.Count > maxDistance || blockParent.childCount > maxDistance)
-        {
-            GameObject child = blockParent.GetChild(0).gameObject;
-            BlockData.Remove(child);
-            Destroy(child);
-        }
-
-
+        
         while (BlockData.ContainsValue(pos) && count < 1000)
         {
             //keeps adding the offset so we get to a position where a block isn't overlapping another box
@@ -165,8 +163,24 @@ public class GameManager : MonoBehaviour
 
         GameObject block = Instantiate(blockPrefabs[0], pos, Quaternion.identity);
         block.transform.parent = blockParent;
+        block.transform.localScale = new Vector3(spawnOffset.x, 1, 1);
         BlockData.Add(block, block.transform.position);
+        
+        if (BlockData.Count > maxDistance|| blockParent.childCount > maxDistance )
+        {
+            GameObject child = blockParent.GetChild(0).gameObject;
+            BlockData.Remove(child);
+            Destroy(child);
+        } 
+
+        
+        
+        
+
     }
+
+
+ 
 
     public void SetGameState(GameState state)
     {
