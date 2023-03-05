@@ -14,17 +14,16 @@ public class CheckItem : MonoBehaviour
         {
             itemSpawner.InsantiateItem();
             Destroy(other.gameObject);
-            Debug.Log("Green");
-            // add green animation
+            itemSpawner.GreenAnimation();
         }
 
         if (other.gameObject.tag != tag)
         {
             itemSpawner.InsantiateItem();
             Destroy(other.gameObject);
-            Debug.Log("Red");
-            // add red animation
+            itemSpawner.RedAnimation();
         }
     }
+
 
 }

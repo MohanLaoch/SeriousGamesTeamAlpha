@@ -61,4 +61,6 @@ public class LevelLoader : MonoBehaviour
         miniGame.SetActive(false);
         loadingScreen.SetActive(false);
     }
+
+    
 }
