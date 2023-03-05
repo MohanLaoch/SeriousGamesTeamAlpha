@@ -13,6 +13,7 @@ public class DragDrop : MonoBehaviour, IPointerDownHandler, IBeginDragHandler, I
     private void Awake()
     {
         canvas = GameObject.Find("Canvas").GetComponent<Canvas>();
+        
 
         rectTransform = GetComponent<RectTransform>();
 
