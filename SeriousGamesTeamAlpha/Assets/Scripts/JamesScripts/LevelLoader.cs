@@ -14,6 +14,8 @@ public class LevelLoader : MonoBehaviour
     public Slider slider;
     public TMP_Text progressText;
 
+    public GameObject miniGame;
+
     AsyncOperation operation;
 
     public void LoadLevel (string sceneName)
@@ -25,6 +27,7 @@ public class LevelLoader : MonoBehaviour
     IEnumerator LoadScene (string sceneName)
     {
         loadingScreen.SetActive(true);
+        miniGame.SetActive(true);
         activateSceneButton.SetActive(false);
 
         // Here is where you would put the code for a random minigame/ a food pyramid game
@@ -55,6 +58,7 @@ public class LevelLoader : MonoBehaviour
     {
         // Activate the next scene
         operation.allowSceneActivation = true;
+        miniGame.SetActive(false);
         loadingScreen.SetActive(false);
     }
 }
