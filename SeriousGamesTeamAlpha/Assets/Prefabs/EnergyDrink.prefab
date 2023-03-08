@@ -156,4 +156,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 660b0b2067ce4284a3f55204f3e5c719, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  spawnChance: 40
+  inverseSpawnRate: 1
   EnergyHydrationAmount: 40

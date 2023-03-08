@@ -223,6 +223,11 @@ public class GameManager : MonoBehaviour
                 break;
             case GameState.Boosted:
                 //makes the game go twice as fast
+                /*ItemClass[] itemsInSight = GameObject.FindObjectsOfType<ItemClass>();
+                foreach (var items in itemsInSight)
+                {
+                    Destroy(items.gameObject);
+                }*/
                 Time.timeScale = 2;
                 BoostHydrationSpeed = 2;
                 break;

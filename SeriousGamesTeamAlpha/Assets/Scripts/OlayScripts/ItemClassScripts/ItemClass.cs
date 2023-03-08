@@ -5,7 +5,10 @@ namespace OlayScripts.ItemClassScripts
 {
     public class ItemClass : MonoBehaviour
     {
-        
+        public float spawnChance;
+
+        //More frequent the farther you go if yes or less common the farther you go
+        public bool inverseSpawnRate;
         //Bit of an explanation as to why I made this a class instead of a scriptableObject. I thought about making it a scriptable Object
         //it would've been neater and more presentable....however I thought that I wouldn't be able to give each SO it's own scripts
         //as i would need to somehow reference each script on a global level and somehow use MonoBehaviour functions.
@@ -31,6 +34,7 @@ namespace OlayScripts.ItemClassScripts
                 Destroy(gameObject);
             }
         }
+        
 
         public virtual void OnPlayerCollide()
         {

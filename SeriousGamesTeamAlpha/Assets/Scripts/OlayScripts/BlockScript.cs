@@ -22,13 +22,15 @@ public class BlockScript : MonoBehaviour
     {
         foreach (Transform positions in possibleItemPositions)
         {
-            int x = UnityEngine.Random.Range(0, 100);
+            //int x = UnityEngine.Random.Range(0, 100);
             positions.gameObject.SetActive(false);
-            if (x < (Mathf.FloorToInt(itemSpawnRate / GameManager.instance.GameSpeed)))
+            /*if (x < (Mathf.FloorToInt(itemSpawnRate / GameManager.instance.GameSpeed)))
             {
-                positions.gameObject.SetActive(true);
-                itemPositions.Add(positions);
-            }
+                
+            }*/
+            
+            positions.gameObject.SetActive(true);
+            itemPositions.Add(positions);
             
 
             
@@ -61,12 +63,32 @@ public class BlockScript : MonoBehaviour
 
             else
             {
-                 x = UnityEngine.Random.Range(0, items.Length);
+                x = UnityEngine.Random.Range(0, items.Length);
+
             }
             
-            ItemClass item = Instantiate(items[x], position.position, Quaternion.identity);
-            item.transform.parent = position;
-            GameManager.instance.previousItemSpawned = item;
+            int y = Random.Range(0, 100);
+            float z = 0;
+                 
+            if (items[x].inverseSpawnRate)
+            {
+                z = (items[x].spawnChance / GameManager.instance.GameSpeed);
+            }
+
+            else
+            {
+                z = (items[x].spawnChance * GameManager.instance.GameSpeed);
+            }
+
+            if (y < z)
+            {
+                ItemClass item = Instantiate(items[x], position.position, Quaternion.identity);
+                item.transform.parent = position;
+                GameManager.instance.previousItemSpawned = item;
+            }
+            
+            
+            
             
 
         }

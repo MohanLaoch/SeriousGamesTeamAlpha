@@ -100,9 +100,11 @@ public class PlayerMovement : MonoBehaviour
 
         if(!canMove)
             return;
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.UpArrow))
         {
             if(!isGrounded)
+                return;
+            if (isBoosting)
                 return;
             //makes player jump based on its mass
             rb.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
