@@ -13,6 +13,7 @@ namespace OlayScripts.ItemClassScripts
             //decrease hydration
             //GameManager.instance.DecreaseHydration(EnergyHydrationAmount);
             //activates boost from the GameManager as I only have a single frame to activate all these scripts 
+            AudioManager.instance.Play("Fizzy");
             GameManager.instance.StartBoost();
         }
     }

@@ -5104,7 +5104,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 1
-  m_Sprite: {fileID: 21300000, guid: 28c4dc00a5873b24d86da664e760a139, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 8763b7c2a56cd8a459ec23b8e543462d, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -5981,9 +5981,9 @@ GameObject:
   m_Component:
   - component: {fileID: 491165182}
   - component: {fileID: 491165181}
-  - component: {fileID: 491165180}
   - component: {fileID: 491165183}
   - component: {fileID: 491165184}
+  - component: {fileID: 491165185}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -5991,14 +5991,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!81 &491165180
-AudioListener:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 491165179}
-  m_Enabled: 1
 --- !u!20 &491165181
 Camera:
   m_ObjectHideFlags: 0
@@ -6152,6 +6144,14 @@ MonoBehaviour:
   m_BeforeTransparentBundles: []
   m_BeforeStackBundles: []
   m_AfterStackBundles: []
+--- !u!81 &491165185
+AudioListener:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 491165179}
+  m_Enabled: 1
 --- !u!1 &513562247
 GameObject:
   m_ObjectHideFlags: 0
@@ -18235,6 +18235,87 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
+--- !u!1 &1783670052
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1783670054}
+  - component: {fileID: 1783670053}
+  m_Layer: 0
+  m_Name: AudioManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1783670053
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1783670052}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bee9ea74fd3950d4d869502290592254, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sounds:
+  - name: Walking
+    clip: {fileID: 8300000, guid: 214f94723b309d847a4ecb0d48e20d06, type: 3}
+    volume: 0.021
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+  - name: Water
+    clip: {fileID: 8300000, guid: 01e18f0273ab11d4d83bc647ce550f86, type: 3}
+    volume: 0.12
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+  - name: Fizzy Drink
+    clip: {fileID: 8300000, guid: 8a65f37cbdaa57344b8fdf92a2c4498a, type: 3}
+    volume: 0.12
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+  - name: Hit
+    clip: {fileID: 8300000, guid: 0442d0d7f8ba05343935827536021367, type: 3}
+    volume: 0.354
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+  - name: Boost Up
+    clip: {fileID: 8300000, guid: 2a17e4367035e6949a9e16dd1205b8ce, type: 3}
+    volume: 0.521
+    pitch: 1
+    loop: 1
+    source: {fileID: 0}
+  - name: Boost Down
+    clip: {fileID: 8300000, guid: 05c1abb581123f9418743e4db19fbba1, type: 3}
+    volume: 1
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+--- !u!4 &1783670054
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1783670052}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 14
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1820830193
 GameObject:
   m_ObjectHideFlags: 0

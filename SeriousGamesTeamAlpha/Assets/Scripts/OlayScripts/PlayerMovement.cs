@@ -92,6 +92,8 @@ public class PlayerMovement : MonoBehaviour
     {
         //self-explanatory
         isGrounded = Physics2D.IsTouchingLayers(groundCollider, GroundLayer);
+
+
         
         //sets the isGrounded variable in the animator to be the result of the isGrounded variable here
         animator.SetBool(isGroundedHash, isGrounded);
@@ -148,11 +150,21 @@ public class PlayerMovement : MonoBehaviour
         
         //prevents velocity from going higher than the Max Velocity.
         rb.velocity = Vector2.ClampMagnitude(rb.velocity, maxVelocity);
-
+        
+        
         //creates score based on the speed of the rigidbody, score modifier and walkingScoreModifier. 
         int s = Mathf.FloorToInt(GameManager.instance.walkingScoreModifier * rb.velocity.magnitude * scoreRatio);
        
         GameManager.instance.UpdateScoreText(s);
+
+        
+        if (AudioManager.instance.CheckIfPlaying("Walking") == false)
+        {
+            Debug.Log("True");
+            AudioManager.instance.Play("Walking");
+        }
+
+       
 
 
     }
@@ -206,11 +218,14 @@ public class PlayerMovement : MonoBehaviour
         yield return null;
         isBoosting = true;
         boostParticleSystem.SetActive(true);
+        AudioManager.instance.Play("Boost Up");
         GameManager.instance.SetGameState(GameState.Boosted);
         //Makes the game go twice as fast.
         yield return new WaitForSeconds(time);
         isBoosting = false;
         //Game resumes original speed.
+        AudioManager.instance.Stop("Boost Up");
+        AudioManager.instance.Play("Boost Down");
         Time.timeScale = 1;
         boostParticleSystem.SetActive(false);
         ResetAcceleration();

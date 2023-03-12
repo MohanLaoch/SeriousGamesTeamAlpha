@@ -12,6 +12,7 @@ namespace OlayScripts.ItemClassScripts
             //checks the game state so we don't have infinite invisibility frames
             if (GameManager.instance.gameState == GameState.Hit)
                 return;
+            AudioManager.instance.Play("Hit");
             GameManager.instance.DecreaseHydration(HitHydrationAmount);
             GameManager.instance.StartHurdleHit();
             

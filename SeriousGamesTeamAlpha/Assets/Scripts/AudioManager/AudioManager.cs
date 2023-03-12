@@ -36,7 +36,7 @@ public class AudioManager : MonoBehaviour
 
     private void Start()
     {
-        Play("BackgroundTheme");
+        //Play("BackgroundTheme");
     }
 
     public void Play(string name)
@@ -58,6 +58,22 @@ public class AudioManager : MonoBehaviour
         {
             return;
         }
+    }
+
+    public void PlayAtLocation(string name, Vector3 position)
+    {
+        Sound s = Array.Find(sounds, sound => sound.name == name);
+        
+        if(s == null)
+            return;
+        AudioSource.PlayClipAtPoint(s.clip, position);
+    }
+
+    public bool CheckIfPlaying(string name)
+    {
+        Sound s = Array.Find(sounds, sound => sound.name == name);
+
+        return s.source.isPlaying;
     }
 
 }
