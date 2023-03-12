@@ -14,4 +14,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/ShellWebGL.unity
     guid: 0b412e3ec91f7b4418e57206da0be8af
+  - enabled: 1
+    path: Assets/Scenes/OlayScene.unity
+    guid: afd44ed6167c3424c9ff4a70f5cd9cfa
   m_configObjects: {}
