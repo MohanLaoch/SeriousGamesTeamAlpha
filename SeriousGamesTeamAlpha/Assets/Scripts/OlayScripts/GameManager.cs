@@ -272,7 +272,7 @@ public class GameManager : MonoBehaviour
 
     public void QuitRunner()
     {
-        //do some stuff that will lead game back to main menu!
+        SceneManager.LoadScene(0);
     }
 
 
