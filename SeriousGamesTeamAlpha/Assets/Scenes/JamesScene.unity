@@ -1569,9 +1569,17 @@ PrefabInstance:
     m_TransformParent: {fileID: 1081756273}
     m_Modifications:
     - target: {fileID: 3638591212205276613, guid: b1a11b2cd868eab42a4525c774acf536, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3638591212205276613, guid: b1a11b2cd868eab42a4525c774acf536, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 921110554}
+    - target: {fileID: 3638591212205276613, guid: b1a11b2cd868eab42a4525c774acf536, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: ActivateLoadLevel
+      objectReference: {fileID: 0}
     - target: {fileID: 3638591212394330010, guid: b1a11b2cd868eab42a4525c774acf536, type: 3}
       propertyPath: m_Name
       value: LoadScreen

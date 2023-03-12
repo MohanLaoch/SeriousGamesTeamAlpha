@@ -18732,6 +18732,10 @@ PrefabInstance:
     serializedVersion: 2
     m_TransformParent: {fileID: 760816681}
     m_Modifications:
+    - target: {fileID: 3638591210537196430, guid: b1a11b2cd868eab42a4525c774acf536, type: 3}
+      propertyPath: m_text
+      value: Continue to Menu
+      objectReference: {fileID: 0}
     - target: {fileID: 3638591211571373994, guid: b1a11b2cd868eab42a4525c774acf536, type: 3}
       propertyPath: m_IsActive
       value: 0
@@ -18762,7 +18766,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3638591212394330010, guid: b1a11b2cd868eab42a4525c774acf536, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3638591212394330011, guid: b1a11b2cd868eab42a4525c774acf536, type: 3}
       propertyPath: m_Pivot.x
