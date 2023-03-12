@@ -17,10 +17,21 @@ namespace OlayScripts.ItemClassScripts
         {
             //checks to see if it collides with the player, when it does activates a function and then destroys. This applies to all classes so I don't have to individually write each one..
 
+            
             if (col.gameObject.CompareTag("Player"))
             {
-                OnPlayerCollide();
-                Destroy(gameObject);
+                if (GameManager.instance.gameState == GameState.Boosted)
+                {
+                    Destroy(gameObject);
+                }
+
+                else
+                {
+                    OnPlayerCollide();
+                    Destroy(gameObject);
+                }
+                
+                
             }
         }
 
@@ -28,7 +39,12 @@ namespace OlayScripts.ItemClassScripts
         {
             //checks to see if it collides with the player, when it does activates a function and then destroys. This applies to all classes so I don't have to individually write each one..
 
-            if (col.gameObject.CompareTag("Player"))
+            if (GameManager.instance.gameState == GameState.Boosted)
+            {
+                Destroy(gameObject);
+            }
+
+            else
             {
                 OnPlayerCollide();
                 Destroy(gameObject);

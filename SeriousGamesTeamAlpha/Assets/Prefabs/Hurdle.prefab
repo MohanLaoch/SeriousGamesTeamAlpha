@@ -72,7 +72,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ad7548e802cf40b2a9ad32a8dfd616b4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  spawnChance: 40
+  spawnChance: 15
   inverseSpawnRate: 1
   HitHydrationAmount: 20
 --- !u!1 &8290224843164423943

@@ -11,7 +11,7 @@ namespace OlayScripts.ItemClassScripts
             if(GameManager.instance.gameState == GameState.Boosted)
                 return;
             //decrease hydration
-            GameManager.instance.DecreaseHydration(EnergyHydrationAmount);
+            //GameManager.instance.DecreaseHydration(EnergyHydrationAmount);
             //activates boost from the GameManager as I only have a single frame to activate all these scripts 
             GameManager.instance.StartBoost();
         }

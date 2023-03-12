@@ -4,13 +4,16 @@ using System.Collections.Generic;
 using OlayScripts.ItemClassScripts;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Playables;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public enum GameState
 {
     Normal,
     Hit,
-    Boosted
+    Boosted,
+    Finished
 };
 public class GameManager : MonoBehaviour
 {
@@ -49,7 +52,13 @@ public class GameManager : MonoBehaviour
      
      public float invisibilityFrameTime = 2;
 
-     
+     public PlayableDirector Director;
+
+     public GameObject cutsceneObject;
+
+     public GameObject playerVisuals;
+
+     public float timelineSpeed;
     private void Awake()
     {
         //checks to see if there's already an instance of the class, if not we set the instance. This only should apply at the start of the game since theres no instance of the class yet
@@ -70,6 +79,7 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         totalTime = 0;
+        cutsceneObject.SetActive(false);
         PlayerMovement.instance.canMove = true;
         
         //checks to see if there's a child attached to the block parent, if so add it to the list.
@@ -86,6 +96,8 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if(gameState == GameState.Finished)
+            return;
         ClockFunc();
         hydrationSliderValue = hydrationMeter.value;
         if(gameState == GameState.Hit)
@@ -140,7 +152,12 @@ public class GameManager : MonoBehaviour
         {
             hydrationMeter.value -= Amount;
         }
-        
+
+
+        if (hydrationMeter.value <= 0)
+        {
+            SetGameState(GameState.Finished);
+        }
     }
 
     public void StartBoost()
@@ -229,13 +246,42 @@ public class GameManager : MonoBehaviour
                     Destroy(items.gameObject);
                 }*/
                 Time.timeScale = 2;
-                BoostHydrationSpeed = 2;
+                BoostHydrationSpeed = 1;
                 break;
             case GameState.Hit:
                 //makes the game 25% slower
                 Time.timeScale = 0.75f;
                 break;
+            case GameState.Finished:
+                PlayerMovement.instance.canMove = false;
+                //Time.timeScale = 0f;
+                blockParent.gameObject.SetActive(false);
+                cutsceneObject.SetActive(true);
+                playerVisuals.SetActive(false);
+                Director.Play();
+                Director.playableGraph.GetRootPlayable(0).SetSpeed(timelineSpeed);
+                break;
         }
+    }
+
+
+    public void RetryRunner()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+    }
+
+    public void QuitRunner()
+    {
+        //do some stuff that will lead game back to main menu!
+    }
+
+
+    public IEnumerator StartCoroutineBoostCountDown()
+    {
+        BoostHydrationSpeed = 2;
+        yield return new WaitForSeconds(3);
+        BoostHydrationSpeed = 1;
+        SetGameState(GameState.Normal);
     }
 
     

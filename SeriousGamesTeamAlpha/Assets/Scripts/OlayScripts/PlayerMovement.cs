@@ -47,7 +47,7 @@ public class PlayerMovement : MonoBehaviour
    
     private bool isBoosting;
 
-    public bool canMove;
+    public bool canMove { get;  set; }
     private static readonly int MoveSpeedHash = Animator.StringToHash("moveSpeed");
     private static readonly int JumpedHash = Animator.StringToHash("Jumped");
     private static readonly int isGroundedHash = Animator.StringToHash("isGrounded");
@@ -211,9 +211,10 @@ public class PlayerMovement : MonoBehaviour
         yield return new WaitForSeconds(time);
         isBoosting = false;
         //Game resumes original speed.
-        GameManager.instance.SetGameState(GameState.Normal);
+        Time.timeScale = 1;
         boostParticleSystem.SetActive(false);
         ResetAcceleration();
+        StartCoroutine(GameManager.instance.StartCoroutineBoostCountDown());
 
 
     }
