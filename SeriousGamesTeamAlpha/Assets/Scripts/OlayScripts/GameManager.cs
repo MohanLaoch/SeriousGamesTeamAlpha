@@ -293,12 +293,12 @@ public class GameManager : MonoBehaviour
 
     public void RetryRunner()
     {
-        
+        Loader.LoadLevel(SceneManager.GetActiveScene().name);
     }
 
     public void QuitRunner()
     {
-        SceneManager.LoadScene(0);
+        Loader.LoadLevel("JamesScene");
     }
 
 
