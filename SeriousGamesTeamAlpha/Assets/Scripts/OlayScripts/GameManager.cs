@@ -18,7 +18,10 @@ public enum GameState
 public class GameManager : MonoBehaviour
 {
     //creates an instance of this class in the scene. Allows us to call it anywhere without having each script have its own reference
+    
     public static GameManager instance { get; set; }
+    
+    [Header("Game Stuff")]
     public Transform player;
     public GameObject[] blockPrefabs;
     private Dictionary<GameObject, Vector2> BlockData = new Dictionary<GameObject, Vector2>();
@@ -30,8 +33,11 @@ public class GameManager : MonoBehaviour
     public Transform blockParent;
     public int maxDistance;
     public Vector2 startPos;
+    
+    [HideInInspector]
     public float totalTime;
     
+    [HideInInspector]
     public GameState gameState;
 
     [HideInInspector]
@@ -48,10 +54,15 @@ public class GameManager : MonoBehaviour
      [HideInInspector]
      public ItemClass previousItemSpawned;
 
+     [HideInInspector]
      public float hydrationSliderValue;
      
      public float invisibilityFrameTime = 2;
 
+     [Header("CutsceneStuff")]
+     
+     public bool playCutscene;
+     
      public PlayableDirector Director;
 
      public GameObject cutsceneObject;
@@ -59,6 +70,11 @@ public class GameManager : MonoBehaviour
      public GameObject playerVisuals;
 
      public float timelineSpeed;
+
+     public GameObject endCanvas;
+
+     [SerializeField] private LevelLoader Loader;
+     
     private void Awake()
     {
         //checks to see if there's already an instance of the class, if not we set the instance. This only should apply at the start of the game since theres no instance of the class yet
@@ -255,11 +271,21 @@ public class GameManager : MonoBehaviour
             case GameState.Finished:
                 PlayerMovement.instance.canMove = false;
                 //Time.timeScale = 0f;
-                blockParent.gameObject.SetActive(false);
-                cutsceneObject.SetActive(true);
-                playerVisuals.SetActive(false);
-                Director.Play();
-                Director.playableGraph.GetRootPlayable(0).SetSpeed(timelineSpeed);
+
+                if (playCutscene)
+                {
+                    blockParent.gameObject.SetActive(false);
+                    cutsceneObject.SetActive(true);
+                    playerVisuals.SetActive(false);
+                    Director.Play();
+                    Director.playableGraph.GetRootPlayable(0).SetSpeed(timelineSpeed);
+                }
+
+                else
+                {
+                    endCanvas.SetActive(true);
+                }
+
                 break;
         }
     }
@@ -267,7 +293,7 @@ public class GameManager : MonoBehaviour
 
     public void RetryRunner()
     {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        
     }
 
     public void QuitRunner()
