@@ -6389,7 +6389,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 397767596}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -0.3, z: 0}
+  m_LocalPosition: {x: 0, y: -0.24, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -19107,6 +19107,7 @@ MonoBehaviour:
   jumpForce: 8
   boostTime: 2
   groundCollider: {fileID: 397767597}
+  jumpKeys: 
   boostParticleSystem: {fileID: 596255595}
   invisibilityRate: 6
   scoreRatio: 0.306
@@ -19446,7 +19447,7 @@ MonoBehaviour:
     pitch: 2.12
     loop: 0
     source: {fileID: 0}
-  - name: Fizzy Drink
+  - name: Fizzy
     clip: {fileID: 8300000, guid: 8a65f37cbdaa57344b8fdf92a2c4498a, type: 3}
     volume: 0.861
     pitch: 1.7

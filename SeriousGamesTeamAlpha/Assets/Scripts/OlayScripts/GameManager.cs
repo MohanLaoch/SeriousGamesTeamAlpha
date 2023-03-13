@@ -253,6 +253,7 @@ public class GameManager : MonoBehaviour
             case GameState.Normal:
                 Time.timeScale = 1;
                 BoostHydrationSpeed = 1;
+                player.gameObject.layer = 7;
                 break;
             case GameState.Boosted:
                 //makes the game go twice as fast
@@ -263,10 +264,12 @@ public class GameManager : MonoBehaviour
                 }*/
                 Time.timeScale = 2;
                 BoostHydrationSpeed = 1;
+                player.gameObject.layer = 9;
                 break;
             case GameState.Hit:
                 //makes the game 25% slower
                 Time.timeScale = 0.75f;
+                player.gameObject.layer = 9;
                 break;
             case GameState.Finished:
                 PlayerMovement.instance.canMove = false;

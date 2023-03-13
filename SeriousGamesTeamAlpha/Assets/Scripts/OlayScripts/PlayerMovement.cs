@@ -47,6 +47,7 @@ public class PlayerMovement : MonoBehaviour
    
     private bool isBoosting;
 
+    public KeyCode[] jumpKeys;
     public bool canMove { get;  set; }
     private static readonly int MoveSpeedHash = Animator.StringToHash("moveSpeed");
     private static readonly int JumpedHash = Animator.StringToHash("Jumped");
@@ -56,7 +57,8 @@ public class PlayerMovement : MonoBehaviour
     public GameObject boostParticleSystem;
 
     [SerializeField] private float invisibilityRate;
-    
+
+    private int jumpCount;
     //slider in the inspector
     [Range(0, 1)] public float scoreRatio;
     private void Awake()
@@ -93,6 +95,16 @@ public class PlayerMovement : MonoBehaviour
         //self-explanatory
         isGrounded = Physics2D.IsTouchingLayers(groundCollider, GroundLayer);
 
+        if (isGrounded)
+        {
+            jumpCount = 0;
+        }
+        bool spacePressed = Input.GetKeyDown(KeyCode.Space);
+        bool upArrowPressed = Input.GetKeyDown(KeyCode.UpArrow);
+        bool wKeyPressed = Input.GetKeyDown(KeyCode.W);
+        
+        
+        
 
         
         //sets the isGrounded variable in the animator to be the result of the isGrounded variable here
@@ -102,17 +114,63 @@ public class PlayerMovement : MonoBehaviour
 
         if(!canMove)
             return;
-        if (Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.UpArrow))
+        if(!isGrounded)
+            return;
+        
+        if (Input.GetButtonDown("Vertical") || Input.GetKeyDown(KeyCode.Space))
         {
-            if(!isGrounded)
-                return;
-            if (isBoosting)
-                return;
-            //makes player jump based on its mass
-            rb.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
-            //sets the trigger in animator
-            animator.SetTrigger(JumpedHash);
+            JumpFunction();
         }
+
+       
+    }
+
+    void JumpFunction()
+    {
+        if (isBoosting)
+            return;
+        if(jumpCount > 0)
+            return;
+        jumpCount = 1;
+        //makes player jump based on its mass
+        rb.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
+        //sets the trigger in animator
+        animator.SetTrigger(JumpedHash);
+        
+        
+    }
+
+    private bool CheckForDoubleJumpInput(bool space, bool up, bool W)
+    {
+        
+        
+        if (space)
+        {
+            return true;
+        }
+
+        else if ((up && !W) || (!up && W))
+        {
+            up = false;
+            W = false;
+            return true;
+        }
+        
+        else if (up & W)
+        {
+            up = false;
+            W = false;
+            Debug.Log("Pressed At Same Tiem");
+            return false;
+        }
+
+        else
+        {
+            return false;
+        }
+
+
+
     }
 
     public void StartBoost()
@@ -220,6 +278,7 @@ public class PlayerMovement : MonoBehaviour
         isBoosting = true;
         boostParticleSystem.SetActive(true);
         AudioManager.instance.Play("Boost Up");
+        
         GameManager.instance.SetGameState(GameState.Boosted);
         //Makes the game go twice as fast.
         yield return new WaitForSeconds(time);
@@ -229,6 +288,7 @@ public class PlayerMovement : MonoBehaviour
         AudioManager.instance.Play("Boost Down");
         Time.timeScale = 1;
         boostParticleSystem.SetActive(false);
+        
         ResetAcceleration();
         StartCoroutine(GameManager.instance.StartCoroutineBoostCountDown());
 
