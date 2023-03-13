@@ -39,7 +39,7 @@ public class PlayerMovement : MonoBehaviour
 
     [SerializeField] private float jumpForce;
 
-    [SerializeField] float boostTime;
+    [SerializeField] public float boostTime;
 
     [SerializeField] private CircleCollider2D groundCollider;
 
@@ -157,6 +157,7 @@ public class PlayerMovement : MonoBehaviour
        
         GameManager.instance.UpdateScoreText(s);
 
+        
         
         if (AudioManager.instance.CheckIfPlaying("Walking") == false)
         {

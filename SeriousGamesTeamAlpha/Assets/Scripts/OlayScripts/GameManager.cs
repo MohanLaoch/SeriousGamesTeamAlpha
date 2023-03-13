@@ -270,6 +270,7 @@ public class GameManager : MonoBehaviour
                 break;
             case GameState.Finished:
                 PlayerMovement.instance.canMove = false;
+                
                 //Time.timeScale = 0f;
 
                 if (playCutscene)
@@ -304,10 +305,11 @@ public class GameManager : MonoBehaviour
 
     public IEnumerator StartCoroutineBoostCountDown()
     {
-        BoostHydrationSpeed = 2;
-        yield return new WaitForSeconds(3);
-        BoostHydrationSpeed = 1;
         SetGameState(GameState.Normal);
+        BoostHydrationSpeed = 2;
+        yield return new WaitForSeconds(PlayerMovement.instance.boostTime);
+        BoostHydrationSpeed = 1;
+       
     }
 
     

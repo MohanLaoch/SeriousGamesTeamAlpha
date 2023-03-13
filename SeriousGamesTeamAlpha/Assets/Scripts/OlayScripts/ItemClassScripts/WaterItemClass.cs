@@ -11,6 +11,7 @@ namespace OlayScripts.ItemClassScripts
         //Linked to the GameManager class as I needed a reference to the slider.
         public override void OnPlayerCollide()
         {
+           
             AudioManager.instance.Play("Water");
             GameManager.instance.IncreaseHydration(hydrationAmount);
         }

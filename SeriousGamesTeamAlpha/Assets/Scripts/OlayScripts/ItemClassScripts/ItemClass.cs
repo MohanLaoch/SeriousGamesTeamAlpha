@@ -17,6 +17,8 @@ namespace OlayScripts.ItemClassScripts
         {
             //checks to see if it collides with the player, when it does activates a function and then destroys. This applies to all classes so I don't have to individually write each one..
 
+            if(GameManager.instance.gameState == GameState.Finished)
+                return;
             
             if (col.gameObject.CompareTag("Player"))
             {
