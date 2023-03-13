@@ -48,8 +48,7 @@ public class BlockScript : MonoBehaviour
     {
         foreach (Transform position in itemPositions)
         {
-            if(GameManager.instance.gameState == GameState.Boosted)
-               break;
+            
             int x = 0;
 
             if (GameManager.instance.previousItemSpawned == null)
