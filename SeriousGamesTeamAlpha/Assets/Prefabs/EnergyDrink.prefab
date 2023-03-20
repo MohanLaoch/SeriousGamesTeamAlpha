@@ -157,5 +157,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   spawnChance: 20
-  inverseSpawnRate: 1
+  inverseSpawnRate: 0
   EnergyHydrationAmount: 40

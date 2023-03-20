@@ -73,7 +73,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   spawnChance: 15
-  inverseSpawnRate: 1
+  inverseSpawnRate: 0
   HitHydrationAmount: 20
 --- !u!1 &8290224843164423943
 GameObject:

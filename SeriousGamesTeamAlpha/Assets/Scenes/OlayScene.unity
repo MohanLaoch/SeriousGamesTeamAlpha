@@ -5584,7 +5584,7 @@ MonoBehaviour:
   m_MinValue: 0
   m_MaxValue: 1
   m_WholeNumbers: 0
-  m_Value: 0.069
+  m_Value: 1
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -12207,7 +12207,7 @@ MonoBehaviour:
   previousItemSpawned: {fileID: 0}
   hydrationSliderValue: 0
   invisibilityFrameTime: 2
-  playCutscene: 1
+  playCutscene: 0
   Director: {fileID: 298965502}
   cutsceneObject: {fileID: 1478342422}
   playerVisuals: {fileID: 81151952}
