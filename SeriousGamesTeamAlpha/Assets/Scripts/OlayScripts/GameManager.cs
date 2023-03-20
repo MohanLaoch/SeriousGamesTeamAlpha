@@ -32,6 +32,7 @@ public class GameManager : MonoBehaviour
     public float hydrationAmount;
     public Transform blockParent;
     public int maxDistance;
+    public float boostHydrationSpeed;
     public Vector2 startPos;
     
     [HideInInspector]
@@ -45,7 +46,7 @@ public class GameManager : MonoBehaviour
 
     [SerializeField] private float GameSpeedRate = 1;
 
-     private int BoostHydrationSpeed = 1;
+     private float BoostHydrationSpeed = 1;
 
      private float walkingScore;
 
@@ -81,7 +82,6 @@ public class GameManager : MonoBehaviour
         if (instance == null)
         {
             instance = this;
-            DontDestroyOnLoad(gameObject);
         }
 
         else
@@ -94,6 +94,7 @@ public class GameManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        Director.Stop();
         totalTime = 0;
         cutsceneObject.SetActive(false);
         PlayerMovement.instance.canMove = true;
@@ -309,7 +310,7 @@ public class GameManager : MonoBehaviour
     public IEnumerator StartCoroutineBoostCountDown()
     {
         SetGameState(GameState.Normal);
-        BoostHydrationSpeed = 2;
+        BoostHydrationSpeed = boostHydrationSpeed;
         yield return new WaitForSeconds(PlayerMovement.instance.boostTime);
         BoostHydrationSpeed = 1;
        

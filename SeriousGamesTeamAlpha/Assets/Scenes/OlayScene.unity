@@ -5584,7 +5584,7 @@ MonoBehaviour:
   m_MinValue: 0
   m_MaxValue: 1
   m_WholeNumbers: 0
-  m_Value: 1
+  m_Value: 0.069
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -12197,6 +12197,7 @@ MonoBehaviour:
   hydrationAmount: 50
   blockParent: {fileID: 258817252}
   maxDistance: 3
+  boostHydrationSpeed: 4
   startPos: {x: 0, y: 0}
   totalTime: 0
   gameState: 0
@@ -19096,7 +19097,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   walkSpeed: 10
-  boostRate: 2.5
+  boostRate: 0.8
   acceleration: 1
   maxWalkVelocity: 20
   maxRunVelocity: 60
@@ -19105,7 +19106,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 64
   jumpForce: 8
-  boostTime: 2
+  boostTime: 1.2
   groundCollider: {fileID: 397767597}
   jumpKeys: 
   boostParticleSystem: {fileID: 596255595}

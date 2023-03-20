@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PlayerMovement : MonoBehaviour
 {
@@ -63,19 +64,16 @@ public class PlayerMovement : MonoBehaviour
     [Range(0, 1)] public float scoreRatio;
     private void Awake()
     {
-        
-        //creates an instance of this class in the scene
-        if(instance == null)
-        {
-            instance = this;
-            DontDestroyOnLoad(gameObject);
-        
-        }
 
-        else
+        instance = this;
+        /*if (SceneManager.GetActiveScene().buildIndex == 2)
         {
-            Destroy(gameObject);
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
         }
+        */
+
+
+
     }
 
     // Start is called before the first frame update

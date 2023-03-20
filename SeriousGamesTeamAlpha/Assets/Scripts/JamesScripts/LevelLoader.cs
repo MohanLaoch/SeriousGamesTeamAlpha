@@ -16,6 +16,7 @@ public class LevelLoader : MonoBehaviour
 
     public GameObject miniGame;
 
+    
     AsyncOperation operation;
 
     public void LoadLevel (string sceneName)
@@ -28,7 +29,11 @@ public class LevelLoader : MonoBehaviour
     {
         loadingScreen.SetActive(true);
         miniGame.SetActive(true);
-        activateSceneButton.SetActive(false);
+
+        if (activateSceneButton != null)
+        {
+            activateSceneButton.SetActive(false);
+        }
 
         // Here is where you would put the code for a random minigame/ a food pyramid game
 
@@ -47,7 +52,11 @@ public class LevelLoader : MonoBehaviour
             if (operation.progress >= 0.9f)
             {
                 // Show the swap scene button when the game is loaded
-                activateSceneButton.SetActive(true);
+                if (activateSceneButton != null)
+                {
+
+                    activateSceneButton.SetActive(true);
+                }
             }
 
             yield return null;
