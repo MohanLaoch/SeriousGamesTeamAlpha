@@ -15,11 +15,11 @@ public enum GameState
     Boosted,
     Finished
 };
-public class GameManager : MonoBehaviour
+public class RunningGameManager : MonoBehaviour
 {
     //creates an instance of this class in the scene. Allows us to call it anywhere without having each script have its own reference
     
-    public static GameManager instance { get; set; }
+    public static RunningGameManager instance { get; set; }
     
     [Header("Game Stuff")]
     public Transform player;
@@ -34,6 +34,7 @@ public class GameManager : MonoBehaviour
     public int maxDistance;
     public float boostHydrationSpeed;
     public Vector2 startPos;
+    public float initialSliderValue;
     
     [HideInInspector]
     public float totalTime;
@@ -60,6 +61,7 @@ public class GameManager : MonoBehaviour
      
      public float invisibilityFrameTime = 2;
 
+     public float distanceCheck = 1000;
      [Header("CutsceneStuff")]
      
      public bool playCutscene;
@@ -75,6 +77,8 @@ public class GameManager : MonoBehaviour
      public GameObject endCanvas;
 
      [SerializeField] private LevelLoader Loader;
+
+     
      
     private void Awake()
     {
@@ -94,6 +98,7 @@ public class GameManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        hydrationMeter.value = initialSliderValue;
         Director.Stop();
         totalTime = 0;
         cutsceneObject.SetActive(false);
@@ -119,7 +124,7 @@ public class GameManager : MonoBehaviour
         hydrationSliderValue = hydrationMeter.value;
         if(gameState == GameState.Hit)
             return;
-        DecreaseHydration(hydrationAmount * Time.deltaTime * GameSpeed * hydrationSpeed * BoostHydrationSpeed);
+        DecreaseHydration(hydrationAmount * Time.deltaTime * GameSpeed * hydrationSpeed);
       
     }
 
@@ -128,15 +133,18 @@ public class GameManager : MonoBehaviour
         //adds the time, so we can determine the game speed
         totalTime += Time.deltaTime;
         float minutes = Mathf.FloorToInt(totalTime / 60);
-        
-        GameSpeed = 1 + (((1 / minutes + 1) * GameSpeedRate));
 
-        GameSpeed = Mathf.Clamp(GameSpeed, 0, float.PositiveInfinity);
+
+        float Varspeed =  (walkingScore / distanceCheck * PlayerMovement.instance.scoreRatio);
+
+        float t_GameSpeed = 1 + (Varspeed / 10);
+
+        GameSpeed = Mathf.Lerp(GameSpeed, t_GameSpeed, Time.deltaTime);
+
+        GameSpeed = Mathf.Clamp(GameSpeed, 1, 2);
         //checks to see if the game speed goes to infinity, in case of a divide by 0 situation
-        if (float.IsPositiveInfinity(GameSpeed) || float.IsNegativeInfinity(GameSpeed))
-        {
-            GameSpeed = 1;
-        }
+
+        Debug.Log(GameSpeed);
       
     }
 
@@ -263,7 +271,7 @@ public class GameManager : MonoBehaviour
                 {
                     Destroy(items.gameObject);
                 }*/
-                Time.timeScale = 2;
+                Time.timeScale = 1;
                 BoostHydrationSpeed = 1;
                 player.gameObject.layer = 9;
                 break;
@@ -307,14 +315,6 @@ public class GameManager : MonoBehaviour
     }
 
 
-    public IEnumerator StartCoroutineBoostCountDown()
-    {
-        SetGameState(GameState.Normal);
-        BoostHydrationSpeed = boostHydrationSpeed;
-        yield return new WaitForSeconds(PlayerMovement.instance.boostTime);
-        BoostHydrationSpeed = 1;
-       
-    }
-
+  
     
 }

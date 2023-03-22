@@ -24,7 +24,7 @@ public class CameraFollow : MonoBehaviour
 
     private void LateUpdate()
     {
-        Vector3 targetPos = GameManager.instance.player.transform.position;
+        Vector3 targetPos = RunningGameManager.instance.player.transform.position;
         
         transform.position = Vector3.SmoothDamp(transform.position, targetPos + offset, ref currentVelocity, smoothTime );
     }

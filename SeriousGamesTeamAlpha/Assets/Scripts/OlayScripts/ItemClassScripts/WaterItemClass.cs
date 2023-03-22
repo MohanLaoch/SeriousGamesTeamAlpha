@@ -13,7 +13,7 @@ namespace OlayScripts.ItemClassScripts
         {
            
             AudioManager.instance.Play("Water");
-            GameManager.instance.IncreaseHydration(hydrationAmount);
+            RunningGameManager.instance.IncreaseHydration(hydrationAmount);
         }
     }
 }

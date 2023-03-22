@@ -36,13 +36,7 @@ public class PlayerMovement : MonoBehaviour
 
     private bool isGrounded;
 
-    [SerializeField] private LayerMask GroundLayer;
-
-    [SerializeField] private float jumpForce;
-
-    [SerializeField] public float boostTime;
-
-    [SerializeField] private CircleCollider2D groundCollider;
+  
 
     private float startSpeed;
    
@@ -61,7 +55,21 @@ public class PlayerMovement : MonoBehaviour
 
     private int jumpCount;
     //slider in the inspector
-    [Range(0, 1)] public float scoreRatio;
+    [Range(0, 6)] public float scoreRatio;
+
+    [Header("Jump Physics")] 
+    public float fallMultiplier = 2.5f;
+
+    public float lowJumpMultiplier = 2f;
+    
+    [SerializeField] private LayerMask GroundLayer;
+
+    [SerializeField] private float jumpForce;
+
+    [SerializeField] public float boostTime;
+
+    [SerializeField] private CircleCollider2D groundCollider;
+    
     private void Awake()
     {
 
@@ -97,13 +105,12 @@ public class PlayerMovement : MonoBehaviour
         {
             jumpCount = 0;
         }
-        bool spacePressed = Input.GetKeyDown(KeyCode.Space);
-        bool upArrowPressed = Input.GetKeyDown(KeyCode.UpArrow);
-        bool wKeyPressed = Input.GetKeyDown(KeyCode.W);
-        
-        
-        
 
+        if (rb.velocity.y < 0)
+        {
+            rb.velocity += Vector2.up * (Physics.gravity.y * (fallMultiplier - 1) * Time.deltaTime);
+        }
+        
         
         //sets the isGrounded variable in the animator to be the result of the isGrounded variable here
         animator.SetBool(isGroundedHash, isGrounded);
@@ -125,8 +132,7 @@ public class PlayerMovement : MonoBehaviour
 
     void JumpFunction()
     {
-        if (isBoosting)
-            return;
+        
         if(jumpCount > 0)
             return;
         jumpCount = 1;
@@ -134,6 +140,8 @@ public class PlayerMovement : MonoBehaviour
         rb.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
         //sets the trigger in animator
         animator.SetTrigger(JumpedHash);
+        
+        
         
         
     }
@@ -193,7 +201,7 @@ public class PlayerMovement : MonoBehaviour
         speed = isBoosting ? walkSpeed * boostRate : walkSpeed;
 
         //adds acceleration over time
-        speed += acceleration * Time.deltaTime * GameManager.instance.GameSpeed;
+        speed += acceleration * Time.deltaTime * RunningGameManager.instance.GameSpeed;
         
         //moveinput is always going to be one
         moveInput = new Vector2(1, 0);
@@ -209,9 +217,9 @@ public class PlayerMovement : MonoBehaviour
         
         
         //creates score based on the speed of the rigidbody, score modifier and walkingScoreModifier. 
-        int s = Mathf.FloorToInt(GameManager.instance.walkingScoreModifier * rb.velocity.magnitude * scoreRatio);
+        int s = Mathf.FloorToInt(RunningGameManager.instance.walkingScoreModifier * rb.velocity.magnitude * scoreRatio);
        
-        GameManager.instance.UpdateScoreText(s);
+        RunningGameManager.instance.UpdateScoreText(s);
 
         
         
@@ -236,13 +244,13 @@ public class PlayerMovement : MonoBehaviour
     {
         //Creates blinks for sprite
         SpriteRenderer playerSprite = GetComponentInChildren<SpriteRenderer>();
-        float time = (GameManager.instance.invisibilityFrameTime /invisibilityRate);
+        float time = (RunningGameManager.instance.invisibilityFrameTime /invisibilityRate);
 
         Color ogColour = playerSprite.color;
         
         
         //while the player is hit, change the opacity of the sprite 3 times in 4 intervals
-        while (GameManager.instance.gameState == GameState.Hit)
+        while (RunningGameManager.instance.gameState == GameState.Hit)
         {
             playerSprite.color = new Color(1, 1 ,1, 0.1f);
 
@@ -277,18 +285,16 @@ public class PlayerMovement : MonoBehaviour
         boostParticleSystem.SetActive(true);
         AudioManager.instance.Play("Boost Up");
         
-        GameManager.instance.SetGameState(GameState.Boosted);
+        RunningGameManager.instance.SetGameState(GameState.Boosted);
         //Makes the game go twice as fast.
         yield return new WaitForSeconds(time);
         isBoosting = false;
         //Game resumes original speed.
         AudioManager.instance.Stop("Boost Up");
         AudioManager.instance.Play("Boost Down");
-        Time.timeScale = 1;
+        //Time.timeScale = 1;
         boostParticleSystem.SetActive(false);
-        
-        ResetAcceleration();
-        StartCoroutine(GameManager.instance.StartCoroutineBoostCountDown());
+        RunningGameManager.instance.SetGameState(GameState.Normal);
 
 
     }

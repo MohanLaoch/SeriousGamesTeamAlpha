@@ -13,7 +13,7 @@ public class BlockScript : MonoBehaviour
     private List<Transform> itemPositions = new List<Transform>();
     void Start()
     {
-        if(GameManager.instance.gameState == GameState.Boosted)
+        if(RunningGameManager.instance.gameState == GameState.Boosted)
             return;
         SetPossiblePositions();
     }
@@ -30,14 +30,29 @@ public class BlockScript : MonoBehaviour
             }*/
             
             positions.gameObject.SetActive(true);
-            itemPositions.Add(positions);
+            int x = UnityEngine.Random.Range(0, 100);
+
+            if (x < 80)
+            {
+                itemPositions.Add(positions);
+            }
+           
             
 
             
             
         }
 
-
+        if (itemPositions.Count < 2)
+        {
+            for (int i = 0; i < 2; i++)
+            {
+                int x = Random.Range(0, possibleItemPositions.Count);
+                itemPositions.Add(possibleItemPositions[x]);
+            }
+            
+            
+        }
         SpawnItem();
         
         
@@ -48,42 +63,59 @@ public class BlockScript : MonoBehaviour
     {
         foreach (Transform position in itemPositions)
         {
-            
+            ItemClass tempItem = null;
             int x = 0;
 
-            if (GameManager.instance.previousItemSpawned == null)
+            if (RunningGameManager.instance.GameSpeed < 1.4f)
             {
-                x = 0;
-            }
-            else if ((GameManager.instance.previousItemSpawned.GetType() == typeof(HurdleItemClass)) || GameManager.instance.previousItemSpawned.GetType() == typeof(EnergyDrinkItemClass))
-            {
-                x = 0;
+
+                if (previousItems == null)
+                {
+                    x = Random.Range(0, items.Length);
+                }
+                else if ((previousItems.GetType() == typeof(HurdleItemClass)) || previousItems.GetType() == typeof(EnergyDrinkItemClass))
+                {
+                    int count = 0;
+                    while ((items[x] == previousItems) && count < 1000)
+                    {
+                        x = Random.Range(0, items.Length);
+                        count++;
+                    }
+                    
+                }
+                
+
+                else
+                {
+                    x = UnityEngine.Random.Range(0, items.Length);
+
+                }
             }
 
             else
             {
                 x = UnityEngine.Random.Range(0, items.Length);
-
             }
-            
+
             int y = Random.Range(0, 100);
             float z = 0;
                  
             if (items[x].inverseSpawnRate)
             {
-                z = (items[x].spawnChance / GameManager.instance.GameSpeed);
+                z = (items[x].spawnChance / RunningGameManager.instance.GameSpeed);
             }
 
             else
             {
-                z = (items[x].spawnChance * GameManager.instance.GameSpeed);
+                z = (items[x].spawnChance * RunningGameManager.instance.GameSpeed);
             }
 
             if (y < z)
             {
                 ItemClass item = Instantiate(items[x], position.position, Quaternion.identity);
                 item.transform.parent = position;
-                GameManager.instance.previousItemSpawned = item;
+                RunningGameManager.instance.previousItemSpawned = item;
+                previousItems = item;
             }
             
             

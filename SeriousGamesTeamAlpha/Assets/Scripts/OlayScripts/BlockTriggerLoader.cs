@@ -15,7 +15,7 @@ public class BlockTriggerLoader : MonoBehaviour
             if(hasSpawned)
                 return;
             Vector2 position = transform.parent.position;
-            GameManager.instance.SpawnBlock(position);
+            RunningGameManager.instance.SpawnBlock(position);
             hasSpawned = true;
         }
     }
