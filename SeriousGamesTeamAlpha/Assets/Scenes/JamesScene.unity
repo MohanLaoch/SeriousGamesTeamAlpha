@@ -1569,6 +1569,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: FoodPyramid
       objectReference: {fileID: 0}
+    - target: {fileID: 1452849342752801689, guid: 199e33dd042d2c14dae2ba4b9ef555e1, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_AddedGameObjects: []
   m_SourcePrefab: {fileID: 100100000, guid: 199e33dd042d2c14dae2ba4b9ef555e1, type: 3}

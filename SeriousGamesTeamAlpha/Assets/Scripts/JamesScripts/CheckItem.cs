@@ -12,14 +12,14 @@ public class CheckItem : MonoBehaviour
     {
         if (other.gameObject.tag == tag)
         {
-            itemSpawner.InsantiateItem();
+            itemSpawner.InstantiateItem();
             Destroy(other.gameObject);
             itemSpawner.GreenAnimation();
         }
 
         if (other.gameObject.tag != tag)
         {
-            itemSpawner.InsantiateItem();
+            itemSpawner.InstantiateItem();
             Destroy(other.gameObject);
             itemSpawner.RedAnimation();
         }

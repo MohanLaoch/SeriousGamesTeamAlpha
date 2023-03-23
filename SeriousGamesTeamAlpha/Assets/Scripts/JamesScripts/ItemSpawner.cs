@@ -12,7 +12,12 @@ public class ItemSpawner : MonoBehaviour
 
     public GameObject[] foodItems;
 
-    public void InsantiateItem()
+    public void Awake()
+    {
+        InstantiateItem();
+    }
+
+    public void InstantiateItem()
     {
         int randomIndex = Random.Range(0, foodItems.Length);
 
