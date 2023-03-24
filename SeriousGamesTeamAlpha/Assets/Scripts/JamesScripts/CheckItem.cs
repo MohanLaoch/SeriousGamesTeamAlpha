@@ -10,19 +10,23 @@ public class CheckItem : MonoBehaviour
 
     public void OnTriggerEnter2D(Collider2D other)
     {
+        Destroy(other.gameObject);
+        itemSpawner.InstantiateItem();
+        
+
         if (other.gameObject.tag == tag)
         {
-            itemSpawner.InstantiateItem();
-            Destroy(other.gameObject);
+            itemSpawner.score++;
             itemSpawner.GreenAnimation();
         }
 
         if (other.gameObject.tag != tag)
         {
-            itemSpawner.InstantiateItem();
-            Destroy(other.gameObject);
+            itemSpawner.score = 0;
             itemSpawner.RedAnimation();
         }
+
+        itemSpawner.scoreText.text = "Current Streak:" + " " + itemSpawner.score.ToString();
     }
 
 

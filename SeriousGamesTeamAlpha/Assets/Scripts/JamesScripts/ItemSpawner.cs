@@ -2,18 +2,35 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Animations;
+using TMPro;
 
 public class ItemSpawner : MonoBehaviour
 {
+    [Header("Animation")]
+
     public float secondsToWait = 1;
 
-    public GameObject animationObject;
+    public GameObject colourScreen;
     public Animator animator;
+
+    [Header("Score")]
+    public int score;
+
+    public TMP_Text scoreText;
+
+
+    [Header("Food")]
 
     public GameObject[] foodItems;
 
+    public TMP_Text currentFoodText;
+
+    public string[] foodItemsText;
+
     public void Awake()
     {
+        score = 0;
+        scoreText.text = "Current Streak:" + " " + score.ToString();
         InstantiateItem();
     }
 
@@ -23,7 +40,11 @@ public class ItemSpawner : MonoBehaviour
 
         Vector3 spawnPos = this.transform.position;
 
-        GameObject newItem = Instantiate(foodItems[randomIndex], spawnPos, Quaternion.identity, transform.parent);
+        GameObject newItem = Instantiate(foodItems[randomIndex], spawnPos, Quaternion.identity);
+
+        string foodText = foodItemsText[randomIndex];
+
+        currentFoodText.text = foodText;
     }
 
     public void GreenAnimation()
@@ -40,9 +61,9 @@ public class ItemSpawner : MonoBehaviour
 
     IEnumerator Switch()
     {
-        animationObject.SetActive(true);
+        colourScreen.SetActive(true);
         yield return new WaitForSeconds(secondsToWait);
-        animationObject.SetActive(false);
+        colourScreen.SetActive(false);
     }
 
 }
