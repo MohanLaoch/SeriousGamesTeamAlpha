@@ -10,13 +10,10 @@ public class LevelLoader : MonoBehaviour
     // Make sure the scene you are trying to load is in the "Scenes in Build" in the build settings :)
 
     public GameObject loadingScreen;
-    public GameObject activateSceneButton;
+    public GameObject activateLoadedSceneButton;
     public Slider slider;
     public TMP_Text progressText;
 
-    public GameObject miniGame;
-
-    
     AsyncOperation operation;
 
     public void LoadLevel (string sceneName)
@@ -28,11 +25,10 @@ public class LevelLoader : MonoBehaviour
     IEnumerator LoadScene (string sceneName)
     {
         loadingScreen.SetActive(true);
-        miniGame.SetActive(true);
 
-        if (activateSceneButton != null)
+        if (activateLoadedSceneButton != null)
         {
-            activateSceneButton.SetActive(false);
+            activateLoadedSceneButton.SetActive(false);
         }
 
         // Here is where you would put the code for a random minigame/ a food pyramid game
@@ -52,10 +48,9 @@ public class LevelLoader : MonoBehaviour
             if (operation.progress >= 0.9f)
             {
                 // Show the swap scene button when the game is loaded
-                if (activateSceneButton != null)
+                if (activateLoadedSceneButton != null)
                 {
-
-                    activateSceneButton.SetActive(true);
+                    activateLoadedSceneButton.SetActive(true);
                 }
             }
 
@@ -67,7 +62,6 @@ public class LevelLoader : MonoBehaviour
     {
         // Activate the next scene
         operation.allowSceneActivation = true;
-        miniGame.SetActive(false);
         loadingScreen.SetActive(false);
     }
 

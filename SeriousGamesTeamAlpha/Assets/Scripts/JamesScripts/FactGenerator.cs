@@ -5,7 +5,7 @@ using TMPro;
 
 public class FactGenerator : MonoBehaviour
 {
-    [TextArea(5,10)]
+    [TextArea(3,10)]
     public string[] facts;
 
     public TMP_Text factText;
