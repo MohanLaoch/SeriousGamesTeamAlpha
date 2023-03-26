@@ -69,6 +69,9 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] public float boostTime;
 
     [SerializeField] private CircleCollider2D groundCollider;
+
+    private float originaldrag;
+    private float currentDrag;
     
     private void Awake()
     {
@@ -81,6 +84,8 @@ public class PlayerMovement : MonoBehaviour
         */
 
 
+        
+        
 
     }
 
@@ -89,6 +94,9 @@ public class PlayerMovement : MonoBehaviour
     {
         rb = GetComponent<Rigidbody2D>();
         boostParticleSystem.SetActive(false);
+        
+        originaldrag = rb.drag;
+        currentDrag = originaldrag;
         //temporary walking speed reference allowing us to reference the walking speed at anypoint
         //bruh I legit could've just made the walkingSpeed variable public...
         walkSpeedRef = walkSpeed;
@@ -110,8 +118,6 @@ public class PlayerMovement : MonoBehaviour
         {
             rb.velocity += Vector2.up * (Physics.gravity.y * (fallMultiplier - 1) * Time.deltaTime);
         }
-        
-        
         //sets the isGrounded variable in the animator to be the result of the isGrounded variable here
         animator.SetBool(isGroundedHash, isGrounded);
         //sets the MoveSpeed variable in the animator to be the result of the moveInput x variable
@@ -121,13 +127,19 @@ public class PlayerMovement : MonoBehaviour
             return;
         if(!isGrounded)
             return;
+
+        if (RunningGameManager.instance.GameSpeed > 1)
+        {
+            currentDrag = 0.8f;
         
+            rb.drag = Mathf.Lerp(rb.drag, currentDrag, Time.deltaTime * 2);
+        }
+    
         if (Input.GetButtonDown("Vertical") || Input.GetKeyDown(KeyCode.Space))
         {
             JumpFunction();
         }
-
-       
+        
     }
 
     void JumpFunction()
@@ -138,6 +150,10 @@ public class PlayerMovement : MonoBehaviour
         jumpCount = 1;
         //makes player jump based on its mass
         rb.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
+        
+        
+
+
         //sets the trigger in animator
         animator.SetTrigger(JumpedHash);
         
@@ -201,7 +217,7 @@ public class PlayerMovement : MonoBehaviour
         speed = isBoosting ? walkSpeed * boostRate : walkSpeed;
 
         //adds acceleration over time
-        speed += acceleration * Time.deltaTime * RunningGameManager.instance.GameSpeed;
+        speed += acceleration * Time.deltaTime;
         
         //moveinput is always going to be one
         moveInput = new Vector2(1, 0);

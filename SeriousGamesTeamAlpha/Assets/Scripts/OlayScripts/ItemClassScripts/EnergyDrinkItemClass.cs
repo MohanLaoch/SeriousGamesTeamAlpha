@@ -11,7 +11,9 @@ namespace OlayScripts.ItemClassScripts
             if(RunningGameManager.instance.gameState == GameState.Boosted)
                 return;
             //decrease hydration
-            RunningGameManager.instance.DecreaseHydration(EnergyHydrationAmount);
+            float gameSpeed = RunningGameManager.instance.GameSpeed;
+            float calculation = gameSpeed > 1 ? gameSpeed * (1 + (1 / gameSpeed)) : 1;
+            RunningGameManager.instance.DecreaseHydration(EnergyHydrationAmount * calculation);
             //activates boost from the GameManager as I only have a single frame to activate all these scripts 
             AudioManager.instance.Play("Fizzy");
             RunningGameManager.instance.StartBoost();

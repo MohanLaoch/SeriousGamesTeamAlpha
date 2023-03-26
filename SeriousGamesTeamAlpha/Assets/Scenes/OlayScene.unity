@@ -12676,6 +12676,7 @@ MonoBehaviour:
   boostHydrationSpeed: 4
   startPos: {x: 0, y: 0}
   initialSliderValue: 1
+  lastSpawnedItemPos: {fileID: 0}
   totalTime: 0
   gameState: 0
   GameSpeed: 1

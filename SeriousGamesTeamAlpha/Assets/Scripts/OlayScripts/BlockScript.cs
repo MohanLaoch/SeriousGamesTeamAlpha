@@ -8,9 +8,13 @@ public class BlockScript : MonoBehaviour
     public List<Transform> possibleItemPositions = new List<Transform>();
     public ItemClass[] items;
     private ItemClass previousItems;
-    public float itemSpawnRate = 20;
-
+    
     private List<Transform> itemPositions = new List<Transform>();
+
+    public float maxDistanceBetweenItems = 2f;
+
+    private int d = -1;
+    private int spawnedItems = 0;
     void Start()
     {
         if(RunningGameManager.instance.gameState == GameState.Boosted)
@@ -20,39 +24,21 @@ public class BlockScript : MonoBehaviour
 
     void SetPossiblePositions()
     {
-        foreach (Transform positions in possibleItemPositions)
+        /*foreach (Transform positions in possibleItemPositions)
         {
             //int x = UnityEngine.Random.Range(0, 100);
             positions.gameObject.SetActive(false);
             /*if (x < (Mathf.FloorToInt(itemSpawnRate / GameManager.instance.GameSpeed)))
             {
                 
-            }*/
+            }#1#
             
             positions.gameObject.SetActive(true);
             int x = UnityEngine.Random.Range(0, 100);
 
-            if (x < 80)
-            {
-                itemPositions.Add(positions);
-            }
-           
+            itemPositions.Add(positions);
             
-
-            
-            
-        }
-
-        if (itemPositions.Count < 2)
-        {
-            for (int i = 0; i < 2; i++)
-            {
-                int x = Random.Range(0, possibleItemPositions.Count);
-                itemPositions.Add(possibleItemPositions[x]);
-            }
-            
-            
-        }
+        }*/
         SpawnItem();
         
         
@@ -61,69 +47,138 @@ public class BlockScript : MonoBehaviour
 
     void SpawnItem()
     {
-        foreach (Transform position in itemPositions)
+        for (int i = 0; i < possibleItemPositions.Count; i++)
         {
-            ItemClass tempItem = null;
-            int x = 0;
+            float distanceNext = 100000000000;
+            int c = Random.Range(0, items.Length);
 
-            if (RunningGameManager.instance.GameSpeed < 1.4f)
+            ItemClass t_item = RunningGameManager.instance.previousItemSpawned;
+            if (RunningGameManager.instance.lastSpawnedItemPos != null && d > -1)
             {
+                float distance = Vector2.Distance(RunningGameManager.instance.lastSpawnedItemPos.position,
+                    possibleItemPositions[i].position);
 
-                if (previousItems == null)
+                if (d > 0)
                 {
-                    x = Random.Range(0, items.Length);
+                    distanceNext = Vector2.Distance(possibleItemPositions[i - 1].position,
+                        possibleItemPositions[i].position);
                 }
-                else if ((previousItems.GetType() == typeof(HurdleItemClass)) || previousItems.GetType() == typeof(EnergyDrinkItemClass))
+
+
+                if (distance < maxDistanceBetweenItems || distanceNext < maxDistanceBetweenItems)
                 {
-                    int count = 0;
-                    while ((items[x] == previousItems) && count < 1000)
+                    float minutes = Mathf.FloorToInt(RunningGameManager.instance.totalTime % 60);
+
+
+                    if (items[d] == items[c])
                     {
-                        x = Random.Range(0, items.Length);
-                        count++;
+                        switch (d)
+                        {
+                            case 0:
+                                c = Random.Range(1, 2);
+                                break;
+                            default:
+                                c = 0;
+                                break;
+                        }
                     }
-                    
+
+                    switch (d)
+                    {
+                        case 0:
+                            //c = Random.Range(1, 2);
+                            break;
+                        case 1:
+                            c = 0;
+                            break;
+                        case 2:
+                            c = 0;
+                            break;
+                    }
                 }
                 
-
-                else
-                {
-                    x = UnityEngine.Random.Range(0, items.Length);
-
-                }
             }
 
-            else
-            {
-                x = UnityEngine.Random.Range(0, items.Length);
-            }
 
-            int y = Random.Range(0, 100);
-            float z = 0;
-                 
-            if (items[x].inverseSpawnRate)
+            int r = Random.Range(0, 100);
+            if (r < items[c].spawnChance)
             {
-                z = (items[x].spawnChance / RunningGameManager.instance.GameSpeed);
-            }
-
-            else
-            {
-                z = (items[x].spawnChance * RunningGameManager.instance.GameSpeed);
-            }
-
-            if (y < z)
-            {
-                ItemClass item = Instantiate(items[x], position.position, Quaternion.identity);
-                item.transform.parent = position;
+           
+                ItemClass item = Instantiate(items[c], possibleItemPositions[i].position, Quaternion.identity);
+                item.transform.parent = possibleItemPositions[i];
+            
+            
                 RunningGameManager.instance.previousItemSpawned = item;
-                previousItems = item;
+                RunningGameManager.instance.lastSpawnedItemPos = possibleItemPositions[i];
+            
+            
+           
+                spawnedItems += 1;
+                d = c;
             }
-            
-            
-            
-            
-
         }
+       
+        GenerateItem();
+        
     }
 
-    
+    private void GenerateItem()
+    {
+        if(spawnedItems > 1)
+            return;
+        int r = Random.Range(0, 100);
+        int count = 0;
+        int x = Random.Range(0, items.Length);
+        while (spawnedItems < 2 && count < 200)
+        {
+            int i = Random.Range(0, possibleItemPositions.Count);
+            while (possibleItemPositions[i].childCount > 0 && count < 150)
+            {
+                i = Random.Range(0, possibleItemPositions.Count);
+                count++;
+                
+            } 
+
+            if (x == d)
+            {
+                x = Random.Range(0, items.Length);
+            }
+
+            else
+            {
+                switch (d)
+                {
+                    case 0:
+                        if (RunningGameManager.instance.GameSpeed > 1)
+                        {
+                            x = Random.Range(1, 2);
+                        }
+                        break;
+                    default:
+                        x = RunningGameManager.instance.GameSpeed > 1 ? Random.Range(0, items.Length) : 0;
+                        
+                        break;
+                    
+                }
+            }
+            r = Random.Range(0, 100);
+          
+            
+            ItemClass item = Instantiate(items[x], possibleItemPositions[i].position, Quaternion.identity);
+            item.transform.parent = possibleItemPositions[i];
+            RunningGameManager.instance.previousItemSpawned = item;
+            RunningGameManager.instance.lastSpawnedItemPos = possibleItemPositions[i];
+            spawnedItems += 1;
+            d = x;
+
+        }
+        
+        
+        
+       
+        
+       
+
+        
+    }
 }

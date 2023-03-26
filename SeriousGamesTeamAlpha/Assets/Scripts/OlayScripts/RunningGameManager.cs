@@ -35,6 +35,7 @@ public class RunningGameManager : MonoBehaviour
     public float boostHydrationSpeed;
     public Vector2 startPos;
     public float initialSliderValue;
+    public Transform lastSpawnedItemPos;
     
     [HideInInspector]
     public float totalTime;
@@ -135,16 +136,12 @@ public class RunningGameManager : MonoBehaviour
         float minutes = Mathf.FloorToInt(totalTime / 60);
 
 
-        float Varspeed =  (walkingScore / distanceCheck * PlayerMovement.instance.scoreRatio);
-
-        float t_GameSpeed = 1 + (Varspeed / 10);
-
-        GameSpeed = Mathf.Lerp(GameSpeed, t_GameSpeed, Time.deltaTime);
-
-        GameSpeed = Mathf.Clamp(GameSpeed, 1, 2);
+        if (minutes > 0.75f)
+        {
+            GameSpeed = 2;
+        }
         //checks to see if the game speed goes to infinity, in case of a divide by 0 situation
-
-        Debug.Log(GameSpeed);
+        
       
     }
 
