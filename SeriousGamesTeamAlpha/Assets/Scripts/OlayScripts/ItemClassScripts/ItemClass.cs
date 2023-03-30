@@ -7,6 +7,8 @@ namespace OlayScripts.ItemClassScripts
     {
         public float spawnChance;
 
+        [HideInInspector]
+        public int index = -1;
         //More frequent the farther you go if yes or less common the farther you go
         public bool inverseSpawnRate;
         //Bit of an explanation as to why I made this a class instead of a scriptableObject. I thought about making it a scriptable Object

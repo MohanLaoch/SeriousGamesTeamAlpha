@@ -139,7 +139,10 @@ MonoBehaviour:
   - {fileID: 2665116293341269435, guid: 29841be96386ec049b68783638525d4f, type: 3}
   - {fileID: 1545637219225645762, guid: 425e099ca7610a742af7ab8e10b3f6ce, type: 3}
   - {fileID: 2872473844007480481, guid: caecfa45ddeb8b545b90fc00351addc3, type: 3}
-  maxDistanceBetweenItems: 13
+  maxDistanceBetweenItems: 6
+  ObstacleMask:
+    serializedVersion: 2
+    m_Bits: 512
 --- !u!1 &2814147969001243364
 GameObject:
   m_ObjectHideFlags: 0

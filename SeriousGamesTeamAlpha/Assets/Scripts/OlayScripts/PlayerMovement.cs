@@ -241,7 +241,6 @@ public class PlayerMovement : MonoBehaviour
         
         if (AudioManager.instance.CheckIfPlaying("Walking") == false)
         {
-            Debug.Log("True");
             AudioManager.instance.Play("Walking");
         }
 

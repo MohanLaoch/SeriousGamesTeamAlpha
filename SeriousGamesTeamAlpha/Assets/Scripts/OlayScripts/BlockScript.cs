@@ -15,6 +15,8 @@ public class BlockScript : MonoBehaviour
 
     private int d = -1;
     private int spawnedItems = 0;
+
+    public LayerMask ObstacleMask;
     void Start()
     {
         if(RunningGameManager.instance.gameState == GameState.Boosted)
@@ -35,7 +37,6 @@ public class BlockScript : MonoBehaviour
             
             positions.gameObject.SetActive(true);
             int x = UnityEngine.Random.Range(0, 100);
-
             itemPositions.Add(positions);
             
         }*/
@@ -104,10 +105,10 @@ public class BlockScript : MonoBehaviour
             if (r < items[c].spawnChance)
             {
            
-                ItemClass item = Instantiate(items[c], possibleItemPositions[i].position, Quaternion.identity);
+                ItemClass item = Instantiate(items[CheckDistance(i, c)], possibleItemPositions[i].position, Quaternion.identity);
                 item.transform.parent = possibleItemPositions[i];
-            
-            
+
+                item.index = c;
                 RunningGameManager.instance.previousItemSpawned = item;
                 RunningGameManager.instance.lastSpawnedItemPos = possibleItemPositions[i];
             
@@ -124,7 +125,7 @@ public class BlockScript : MonoBehaviour
 
     private void GenerateItem()
     {
-        if(spawnedItems > 1)
+        if (spawnedItems > 1)
             return;
         int r = Random.Range(0, 100);
         int count = 0;
@@ -136,8 +137,8 @@ public class BlockScript : MonoBehaviour
             {
                 i = Random.Range(0, possibleItemPositions.Count);
                 count++;
-                
-            } 
+
+            }
 
             if (x == d)
             {
@@ -153,18 +154,22 @@ public class BlockScript : MonoBehaviour
                         {
                             x = Random.Range(1, 2);
                         }
+
                         break;
                     default:
                         x = RunningGameManager.instance.GameSpeed > 1 ? Random.Range(0, items.Length) : 0;
-                        
+
                         break;
-                    
+
                 }
             }
+
             r = Random.Range(0, 100);
-          
+
             
-            ItemClass item = Instantiate(items[x], possibleItemPositions[i].position, Quaternion.identity);
+            
+            ItemClass item = Instantiate(items[CheckDistance(i, x)], possibleItemPositions[i].position, Quaternion.identity);
+            item.index = x;
             item.transform.parent = possibleItemPositions[i];
             RunningGameManager.instance.previousItemSpawned = item;
             RunningGameManager.instance.lastSpawnedItemPos = possibleItemPositions[i];
@@ -173,12 +178,91 @@ public class BlockScript : MonoBehaviour
 
         }
         
-        
-        
-       
-        
-       
-
-        
     }
+
+    private int CheckDistance(int x, int c)
+    {
+        bool canOperate = true;
+        int a = -1;
+        int b = -2;
+
+
+        RaycastHit2D leftRay = Physics2D.Raycast(possibleItemPositions[x].position,
+            -possibleItemPositions[x].right, maxDistanceBetweenItems, ObstacleMask);
+        RaycastHit2D rightRay = Physics2D.Raycast(possibleItemPositions[x].position,
+            possibleItemPositions[x].right, maxDistanceBetweenItems, ObstacleMask);
+
+        ItemClass item;
+
+        if (d > -1)
+        {
+
+
+            if (leftRay.collider == null && rightRay.collider == null)
+            {
+                canOperate = false;
+            }
+
+            if (leftRay.collider == null)
+            {
+                canOperate = false;
+            }
+
+            if (canOperate)
+            {
+
+
+                if (leftRay.collider.TryGetComponent(out ItemClass itemL))
+                {
+                    item = itemL;
+                    a = item.index;
+
+                }
+
+                else if (rightRay.collider.TryGetComponent(out ItemClass itemR))
+                {
+                    item = itemR;
+                    a = item.index;
+                }
+
+
+                if (c == a)
+                {
+                    b = 0;
+                }
+                else
+                {
+                    switch (a)
+                    {
+                        case 0:
+                            b = Random.Range(1, 2);
+                            break;
+                        case 1:
+                            b = 0;
+                            break;
+                        case 2:
+                            b = 0;
+                            break;
+                        default:
+                            break;
+                    }
+
+                }
+            }
+
+            else
+            {
+                b = c;
+            }
+        }
+
+        else
+        {
+            b = c;
+        }
+
+        return b;
+    }
+
+
 }
