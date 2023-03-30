@@ -425,7 +425,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 3.2541747, y: 1.160757}
+  m_Size: {x: 3.2541747, y: 0.754843}
   m_EdgeRadius: 0
 --- !u!114 &231496316
 MonoBehaviour:
@@ -1393,7 +1393,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: beb9648adb4851644849fc8a922b13e9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  secondsToWait: 0.5
+  secondsToWait: 0.6
   colourScreen: {fileID: 6452289253697103402}
   animator: {fileID: 6452289253697103316}
   score: 0
@@ -1437,11 +1437,6 @@ MonoBehaviour:
   - Spagetti
   - Candy
   - Tomatoes
---- !u!1 &802510943 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 7208019672136973955, guid: 9f9bd37dd0af894478a8ca1ba3d25a0d, type: 3}
-  m_PrefabInstance: {fileID: 274873455}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &852400148
 GameObject:
   m_ObjectHideFlags: 0
@@ -1851,7 +1846,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: -0.21569633}
+  m_Offset: {x: 0, y: -0.32807624}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -1862,7 +1857,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 9.17167, y: 1.1849551}
+  m_Size: {x: 9.17167, y: 1.0796025}
   m_EdgeRadius: 0
 --- !u!114 &1239895811
 MonoBehaviour:
@@ -2506,7 +2501,7 @@ PrefabInstance:
     - target: {fileID: 4683527406127081218, guid: 6a32b21c599944646be18af626d26fb7, type: 3}
       propertyPath: loadingText
       value: 
-      objectReference: {fileID: 802510943}
+      objectReference: {fileID: 0}
     - target: {fileID: 4683527406127081218, guid: 6a32b21c599944646be18af626d26fb7, type: 3}
       propertyPath: progressText
       value: 
