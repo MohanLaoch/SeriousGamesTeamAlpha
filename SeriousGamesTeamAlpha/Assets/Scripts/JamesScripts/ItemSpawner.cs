@@ -27,24 +27,34 @@ public class ItemSpawner : MonoBehaviour
 
     public string[] foodItemsText;
 
+    public bool canSpawn;
+
     public void Awake()
     {
         score = 0;
         scoreText.text = "Current Streak:" + " " + score.ToString();
+        canSpawn = true;
         InstantiateItem();
     }
 
     public void InstantiateItem()
     {
-        int randomIndex = Random.Range(0, foodItems.Length);
+        if (canSpawn)
+        {
+            int randomIndex = Random.Range(0, foodItems.Length);
 
-        Vector3 spawnPos = this.transform.position;
+            Vector3 spawnPos = this.transform.position;
 
-        GameObject newItem = Instantiate(foodItems[randomIndex], spawnPos, Quaternion.identity);
+            GameObject newItem = Instantiate(foodItems[randomIndex], spawnPos, Quaternion.identity);
 
-        string foodText = foodItemsText[randomIndex];
+            canSpawn = false;
 
-        currentFoodText.text = foodText;
+            string foodText = foodItemsText[randomIndex];
+
+            currentFoodText.text = foodText;
+        }
+
+        StartCoroutine(SpawnTimer());
     }
 
     public void GreenAnimation()
@@ -64,6 +74,12 @@ public class ItemSpawner : MonoBehaviour
         colourScreen.SetActive(true);
         yield return new WaitForSeconds(secondsToWait);
         colourScreen.SetActive(false);
+    }
+
+    IEnumerator SpawnTimer()
+    {
+        yield return new WaitForSeconds(0.1f);
+        canSpawn = true;
     }
 
 }
