@@ -7181,6 +7181,11 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 463935576}
   m_CullTransparentMesh: 1
+--- !u!1 &471985524 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7208019672136973955, guid: 9f9bd37dd0af894478a8ca1ba3d25a0d, type: 3}
+  m_PrefabInstance: {fileID: 1948155254}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &482049100
 GameObject:
   m_ObjectHideFlags: 0
@@ -18566,6 +18571,10 @@ PrefabInstance:
       propertyPath: miniGame
       value: 
       objectReference: {fileID: 0}
+    - target: {fileID: 4158011457948091639, guid: 0abc7e79c2b6d8040ae2469bdc7e7564, type: 3}
+      propertyPath: loadingText
+      value: 
+      objectReference: {fileID: 471985524}
     - target: {fileID: 4158011457948091639, guid: 0abc7e79c2b6d8040ae2469bdc7e7564, type: 3}
       propertyPath: progressText
       value: 

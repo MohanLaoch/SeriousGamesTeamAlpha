@@ -12,9 +12,11 @@ public class LevelLoader : MonoBehaviour
     public GameObject loadingScreen;
     public GameObject activateLoadedSceneButton;
     public Slider slider;
-    public TMP_Text progressText;
+    //public TMP_Text progressText;
 
     AsyncOperation operation;
+
+    
 
     public void LoadLevel (string sceneName)
     {
@@ -28,6 +30,7 @@ public class LevelLoader : MonoBehaviour
 
         if (activateLoadedSceneButton != null)
         {
+            
             activateLoadedSceneButton.SetActive(false);
         }
 
@@ -43,10 +46,11 @@ public class LevelLoader : MonoBehaviour
         {
             float progress = Mathf.Clamp01(operation.progress / 0.9f);
             slider.value = progress;
-            progressText.text = progress * 100f + "%";
+            //progressText.text = progress * 100f + "%";
             
             if (operation.progress >= 0.9f)
             {
+
                 // Show the swap scene button when the game is loaded
                 if (activateLoadedSceneButton != null)
                 {

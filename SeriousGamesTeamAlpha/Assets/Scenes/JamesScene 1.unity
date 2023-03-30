@@ -2183,6 +2183,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1180637287}
     - target: {fileID: 4683527406127081218, guid: 6a32b21c599944646be18af626d26fb7, type: 3}
+      propertyPath: loadingText
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 4683527406127081218, guid: 6a32b21c599944646be18af626d26fb7, type: 3}
       propertyPath: progressText
       value: 
       objectReference: {fileID: 1228390117}

@@ -1156,11 +1156,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0cd44c1031e13a943bb63640046fad76, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_UiScaleMode: 0
+  m_UiScaleMode: 1
   m_ReferencePixelsPerUnit: 100
   m_ScaleFactor: 1
   m_ReferenceResolution: {x: 800, y: 600}
-  m_ScreenMatchMode: 0
+  m_ScreenMatchMode: 1
   m_MatchWidthOrHeight: 0
   m_PhysicalUnit: 3
   m_FallbackScreenDPI: 96
@@ -1427,16 +1427,21 @@ MonoBehaviour:
   - Carrots
   - Cheese
   - Croissant
-  - Fish
+  - Salmon
   - Lollipop
-  - Meat
+  - Ham
   - Milk
   - Mushrooms
   - Oranges
   - Sausages
   - Spagetti
-  - Sweets
+  - Candy
   - Tomatoes
+--- !u!1 &802510943 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7208019672136973955, guid: 9f9bd37dd0af894478a8ca1ba3d25a0d, type: 3}
+  m_PrefabInstance: {fileID: 274873455}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &852400148
 GameObject:
   m_ObjectHideFlags: 0
@@ -2499,6 +2504,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 274873458}
     - target: {fileID: 4683527406127081218, guid: 6a32b21c599944646be18af626d26fb7, type: 3}
+      propertyPath: loadingText
+      value: 
+      objectReference: {fileID: 802510943}
+    - target: {fileID: 4683527406127081218, guid: 6a32b21c599944646be18af626d26fb7, type: 3}
       propertyPath: progressText
       value: 
       objectReference: {fileID: 274873456}
@@ -2841,7 +2850,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -449.9, y: -263.1}
+  m_AnchoredPosition: {x: -425, y: -247}
   m_SizeDelta: {x: 181.6398, y: 75.7154}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1678179220
