@@ -1,0 +1,107 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &5543793649269138666
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5543793649269138664}
+  - component: {fileID: 5543793649269138667}
+  m_Layer: 0
+  m_Name: AudioManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5543793649269138664
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5543793649269138666}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 23
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &5543793649269138667
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5543793649269138666}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bee9ea74fd3950d4d869502290592254, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sounds:
+  - name: Walking
+    clip: {fileID: 8300000, guid: 214f94723b309d847a4ecb0d48e20d06, type: 3}
+    volume: 0.15
+    pitch: 0.98
+    loop: 0
+    source: {fileID: 0}
+  - name: Water
+    clip: {fileID: 8300000, guid: 01e18f0273ab11d4d83bc647ce550f86, type: 3}
+    volume: 0.899
+    pitch: 2.12
+    loop: 0
+    source: {fileID: 0}
+  - name: Fizzy
+    clip: {fileID: 8300000, guid: 8a65f37cbdaa57344b8fdf92a2c4498a, type: 3}
+    volume: 0.861
+    pitch: 1.7
+    loop: 0
+    source: {fileID: 0}
+  - name: Hit
+    clip: {fileID: 8300000, guid: 0442d0d7f8ba05343935827536021367, type: 3}
+    volume: 0.589
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+  - name: Boost Up
+    clip: {fileID: 8300000, guid: 2a17e4367035e6949a9e16dd1205b8ce, type: 3}
+    volume: 0.899
+    pitch: 0.8
+    loop: 0
+    source: {fileID: 0}
+  - name: Boost Down
+    clip: {fileID: 8300000, guid: 05c1abb581123f9418743e4db19fbba1, type: 3}
+    volume: 0.932
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+  - name: IconHover
+    clip: {fileID: 8300000, guid: 9abaa801b1c07cb41928532242efc4be, type: 3}
+    volume: 0.5
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+  - name: ButtonClick
+    clip: {fileID: 8300000, guid: 1413d0664424b614aa2597b47f889358, type: 3}
+    volume: 0.5
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+  - name: CorrectFP
+    clip: {fileID: 8300000, guid: 7619bce66d5ac7244b06d5d00279d031, type: 3}
+    volume: 0.5
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+  - name: IncorrectFP
+    clip: {fileID: 8300000, guid: 891b86b8db4456a4188affdef4c487a2, type: 3}
+    volume: 0.5
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}

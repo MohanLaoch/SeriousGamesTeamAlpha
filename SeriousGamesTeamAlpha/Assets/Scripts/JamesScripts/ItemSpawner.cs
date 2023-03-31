@@ -61,12 +61,14 @@ public class ItemSpawner : MonoBehaviour
     {
         StartCoroutine(Switch());
         animator.Play("Green");
+        FindObjectOfType<AudioManager>().Play("CorrectFP");
     }
 
     public void RedAnimation()
     {
         StartCoroutine(Switch());
         animator.Play("Red");
+        FindObjectOfType<AudioManager>().Play("IncorrectFP");
     }
 
     IEnumerator Switch()
