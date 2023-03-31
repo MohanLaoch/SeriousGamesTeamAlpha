@@ -76,7 +76,19 @@ public class AudioManager : MonoBehaviour
         return s.source.isPlaying;
     }
 
+
+    public void IconHover()
+    {
+        FindObjectOfType<AudioManager>().Play("IconHover");
+    }
+
+    public void ButtonClick()
+    {
+        FindObjectOfType<AudioManager>().Play("ButtonClick");
+    }
 }
+
+
 
 /* 
  * Play Sound
