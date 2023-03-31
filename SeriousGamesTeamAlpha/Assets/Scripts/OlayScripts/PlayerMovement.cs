@@ -113,8 +113,14 @@ public class PlayerMovement : MonoBehaviour
         if (isGrounded)
         {
             jumpCount = 0;
+            rb.drag = originaldrag;
         }
 
+        if (!isGrounded)
+        {
+            rb.drag = 1.3f;
+        }
+        
         
         //makes the player fall faster when jumping
         if (rb.velocity.y < 0)
@@ -138,7 +144,8 @@ public class PlayerMovement : MonoBehaviour
         {
             currentDrag = 0.8f;
         
-            rb.drag = Mathf.Lerp(rb.drag, currentDrag, Time.deltaTime * 2);
+            originaldrag = Mathf.Lerp(originaldrag, currentDrag, Time.deltaTime * 2);
+            
         }
     
         

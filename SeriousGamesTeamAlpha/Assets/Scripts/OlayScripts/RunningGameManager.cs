@@ -40,7 +40,7 @@ public class RunningGameManager : MonoBehaviour
     [HideInInspector]
     public float totalTime;
     
-    [HideInInspector]
+    
     public GameState gameState;
 
     [HideInInspector]

@@ -50,58 +50,22 @@ public class BlockScript : MonoBehaviour
     {
         for (int i = 0; i < possibleItemPositions.Count; i++)
         {
-            float distanceNext = 100000000000;
-            int c = Random.Range(0, items.Length);
 
-            ItemClass t_item = RunningGameManager.instance.previousItemSpawned;
-            if (RunningGameManager.instance.lastSpawnedItemPos != null && d > -1)
-            {
-                float distance = Vector2.Distance(RunningGameManager.instance.lastSpawnedItemPos.position,
-                    possibleItemPositions[i].position);
+            int c = -1;
+            int r = -1;
 
-                if (d > 0)
-                {
-                    distanceNext = Vector2.Distance(possibleItemPositions[i - 1].position,
-                        possibleItemPositions[i].position);
-                }
-
-
-                if (distance < maxDistanceBetweenItems || distanceNext < maxDistanceBetweenItems)
-                {
-                    float minutes = Mathf.FloorToInt(RunningGameManager.instance.totalTime % 60);
-
-
-                    if (items[d] == items[c])
-                    {
-                        switch (d)
-                        {
-                            case 0:
-                                c = Random.Range(1, 2);
-                                break;
-                            default:
-                                c = 0;
-                                break;
-                        }
-                    }
-
-                    switch (d)
-                    {
-                        case 0:
-                            //c = Random.Range(1, 2);
-                            break;
-                        case 1:
-                            c = 0;
-                            break;
-                        case 2:
-                            c = 0;
-                            break;
-                    }
-                }
-                
-            }
-
-
-            int r = Random.Range(0, 100);
+           
+            
+            c = Random.Range(0, items.Length);
+            
+            
+             r = Random.Range(0, 100);
+             
+             if (isTouching(possibleItemPositions[i].position))
+             {
+                 c = 0;
+                 r = Mathf.FloorToInt(items[c].spawnChance / 2);
+             }
             if (r < items[c].spawnChance)
             {
            
@@ -123,16 +87,37 @@ public class BlockScript : MonoBehaviour
         
     }
 
+    public bool isTouching(Vector2 position)
+    {
+        GameObject empty = new GameObject();
+        BoxCollider2D col = empty.AddComponent<BoxCollider2D>();
+        empty.transform.position = position;
+        if (col.IsTouchingLayers(10))
+        {
+            Destroy(empty);
+            return true;
+        }
+
+        Destroy(empty);
+        return false;
+        
+        
+    }
     private void GenerateItem()
     {
+        if(possibleItemPositions.Count < 2)
+            return;
         if (spawnedItems > 1)
             return;
         int r = Random.Range(0, 100);
         int count = 0;
         int x = Random.Range(0, items.Length);
+        
+        
         while (spawnedItems < 2 && count < 200)
         {
             int i = Random.Range(0, possibleItemPositions.Count);
+            
             while (possibleItemPositions[i].childCount > 0 && count < 150)
             {
                 i = Random.Range(0, possibleItemPositions.Count);
@@ -166,9 +151,14 @@ public class BlockScript : MonoBehaviour
 
             r = Random.Range(0, 100);
 
+
+
+            if (isTouching(possibleItemPositions[i].position))
+            {
+                x = 0;
+            }
             
-            
-            ItemClass item = Instantiate(items[CheckDistance(i, x)], possibleItemPositions[i].position, Quaternion.identity);
+            ItemClass item = Instantiate(items[x], possibleItemPositions[i].position, Quaternion.identity);
             item.index = x;
             item.transform.parent = possibleItemPositions[i];
             RunningGameManager.instance.previousItemSpawned = item;

@@ -3,7 +3,12 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - F&V
+  - Meat
+  - Dairy
+  - Carbs
+  - Sweets
   layers:
   - Default
   - TransparentFX
@@ -15,7 +20,7 @@ TagManager:
   - Player
   - Particles
   - Obstacle
-  - 
+  - Box
   - 
   - 
   - 
