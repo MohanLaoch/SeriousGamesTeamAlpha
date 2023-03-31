@@ -16,6 +16,8 @@ public class BlockScript : MonoBehaviour
     private int d = -1;
     private int spawnedItems = 0;
 
+    private bool value;
+    [SerializeField]private LayerMask mask;
     public LayerMask ObstacleMask;
     void Start()
     {
@@ -69,7 +71,7 @@ public class BlockScript : MonoBehaviour
             if (r < items[c].spawnChance)
             {
            
-                ItemClass item = Instantiate(items[CheckDistance(i, c)], possibleItemPositions[i].position, Quaternion.identity);
+                ItemClass item = Instantiate(items[c], possibleItemPositions[i].position, Quaternion.identity);
                 item.transform.parent = possibleItemPositions[i];
 
                 item.index = c;
@@ -89,19 +91,9 @@ public class BlockScript : MonoBehaviour
 
     public bool isTouching(Vector2 position)
     {
-        GameObject empty = new GameObject();
-        BoxCollider2D col = empty.AddComponent<BoxCollider2D>();
-        empty.transform.position = position;
-        if (col.IsTouchingLayers(10))
-        {
-            Destroy(empty);
-            return true;
-        }
+        StartCoroutine(CheckDistance(position));
 
-        Destroy(empty);
-        return false;
-        
-        
+        return value;
     }
     private void GenerateItem()
     {
@@ -170,88 +162,33 @@ public class BlockScript : MonoBehaviour
         
     }
 
-    private int CheckDistance(int x, int c)
+    private IEnumerator CheckDistance(Vector3 position)
     {
-        bool canOperate = true;
-        int a = -1;
-        int b = -2;
-
-
-        RaycastHit2D leftRay = Physics2D.Raycast(possibleItemPositions[x].position,
-            -possibleItemPositions[x].right, maxDistanceBetweenItems, ObstacleMask);
-        RaycastHit2D rightRay = Physics2D.Raycast(possibleItemPositions[x].position,
-            possibleItemPositions[x].right, maxDistanceBetweenItems, ObstacleMask);
-
-        ItemClass item;
-
-        if (d > -1)
+        GameObject empty = new GameObject();
+        BoxCollider2D col = empty.AddComponent<BoxCollider2D>();
+        Rigidbody2D rb =empty.AddComponent<Rigidbody2D>();
+        rb.isKinematic = true;
+        empty.layer = 0;
+        col.isTrigger = true;
+        empty.transform.position = position;
+        Debug.Log(col.transform.position);
+        Debug.Log(col.bounds);
+        yield return new WaitForFixedUpdate();
+        if (col.IsTouchingLayers(mask))
         {
-
-
-            if (leftRay.collider == null && rightRay.collider == null)
-            {
-                canOperate = false;
-            }
-
-            if (leftRay.collider == null)
-            {
-                canOperate = false;
-            }
-
-            if (canOperate)
-            {
-
-
-                if (leftRay.collider.TryGetComponent(out ItemClass itemL))
-                {
-                    item = itemL;
-                    a = item.index;
-
-                }
-
-                else if (rightRay.collider.TryGetComponent(out ItemClass itemR))
-                {
-                    item = itemR;
-                    a = item.index;
-                }
-
-
-                if (c == a)
-                {
-                    b = 0;
-                }
-                else
-                {
-                    switch (a)
-                    {
-                        case 0:
-                            b = Random.Range(1, 2);
-                            break;
-                        case 1:
-                            b = 0;
-                            break;
-                        case 2:
-                            b = 0;
-                            break;
-                        default:
-                            break;
-                    }
-
-                }
-            }
-
-            else
-            {
-                b = c;
-            }
+            Debug.Log("True");
+            Destroy(empty);
+            value = true;
         }
 
         else
         {
-            b = c;
+            Debug.Log("False");
+            Destroy(empty);
+            value = false;
         }
 
-        return b;
+        
     }
 
 
