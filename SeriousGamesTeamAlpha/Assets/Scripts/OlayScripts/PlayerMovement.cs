@@ -109,15 +109,20 @@ public class PlayerMovement : MonoBehaviour
         //self-explanatory
         isGrounded = Physics2D.IsTouchingLayers(groundCollider, GroundLayer);
 
+        //reset jump counter
         if (isGrounded)
         {
             jumpCount = 0;
         }
 
+        
+        //makes the player fall faster when jumping
         if (rb.velocity.y < 0)
         {
             rb.velocity += Vector2.up * (Physics.gravity.y * (fallMultiplier - 1) * Time.deltaTime);
         }
+        
+        
         //sets the isGrounded variable in the animator to be the result of the isGrounded variable here
         animator.SetBool(isGroundedHash, isGrounded);
         //sets the MoveSpeed variable in the animator to be the result of the moveInput x variable
@@ -128,6 +133,7 @@ public class PlayerMovement : MonoBehaviour
         if(!isGrounded)
             return;
 
+        //player moves faster when the gamespeed is above 1
         if (RunningGameManager.instance.GameSpeed > 1)
         {
             currentDrag = 0.8f;
@@ -135,6 +141,7 @@ public class PlayerMovement : MonoBehaviour
             rb.drag = Mathf.Lerp(rb.drag, currentDrag, Time.deltaTime * 2);
         }
     
+        
         if (Input.GetButtonDown("Vertical") || Input.GetKeyDown(KeyCode.Space))
         {
             JumpFunction();
@@ -145,15 +152,16 @@ public class PlayerMovement : MonoBehaviour
     void JumpFunction()
     {
         
+        //prevents jump bug
         if(jumpCount > 0)
             return;
         jumpCount = 1;
         //makes player jump based on its mass
-        rb.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
+        rb.AddForce(Vector2.up * (jumpForce), ForceMode2D.Impulse);
         
         
 
-
+        
         //sets the trigger in animator
         animator.SetTrigger(JumpedHash);
         
