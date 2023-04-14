@@ -14,26 +14,11 @@ public class PlayerMovement : MonoBehaviour
     public float speed { get; private set; }
 
     private Rigidbody2D rb;
-    
-    [SerializeField] float walkSpeed = 6f;
-
-    [SerializeField] private float boostRate = 2f;
-
-    [SerializeField] float acceleration;
-
-    private float maxVelocity;
-    
-    [SerializeField] float maxWalkVelocity = 10f;
-
-    [SerializeField] float maxRunVelocity = 40f;
-
+   
     [SerializeField] Animator animator;
     
     
-    public float walkSpeedRef { get; private set; }
-
-    public Vector2 moveInput { get; private set; }
-
+   
     private bool isGrounded;
 
   
@@ -41,8 +26,7 @@ public class PlayerMovement : MonoBehaviour
     private float startSpeed;
    
     private bool isBoosting;
-
-    public KeyCode[] jumpKeys;
+    
     public bool canMove { get;  set; }
     private static readonly int MoveSpeedHash = Animator.StringToHash("moveSpeed");
     private static readonly int JumpedHash = Animator.StringToHash("Jumped");
@@ -72,6 +56,11 @@ public class PlayerMovement : MonoBehaviour
 
     private float originaldrag;
     private float currentDrag;
+
+    private Vector2 originalColliderSize;
+    private Vector2 originalColliderOffset;
+
+    private BoxCollider2D playerCollider;
     
     private void Awake()
     {
@@ -94,14 +83,46 @@ public class PlayerMovement : MonoBehaviour
     {
         rb = GetComponent<Rigidbody2D>();
         boostParticleSystem.SetActive(false);
-        
+        playerCollider = GetComponent<BoxCollider2D>();
         originaldrag = rb.drag;
         currentDrag = originaldrag;
         //temporary walking speed reference allowing us to reference the walking speed at anypoint
         //bruh I legit could've just made the walkingSpeed variable public...
-        walkSpeedRef = walkSpeed;
+        originalColliderSize = playerCollider.size;
+        originalColliderOffset = playerCollider.offset;
+        RunningGameManager.instance.boostEvent += OnBoostEvent;
+        RunningGameManager.instance.hitEvent += OnHitEvent;
 
     }
+
+
+    void OnBoostEvent()
+    {
+        StartCoroutine(Boost(boostTime));
+    }
+
+    IEnumerator Boost(float time)
+    {
+        //waits a single frame
+        yield return null;
+        isBoosting = true;
+        boostParticleSystem.SetActive(true);
+        AudioManager.instance.Play("Boost Up");
+        
+        RunningGameManager.instance.SetGameState(GameState.Boosted);
+        //Makes the game go twice as fast.
+        yield return new WaitForSeconds(time);
+        isBoosting = false;
+        //Game resumes original speed.
+        AudioManager.instance.Stop("Boost Up");
+        AudioManager.instance.Play("Boost Down");
+        //Time.timeScale = 1;
+        boostParticleSystem.SetActive(false);
+        RunningGameManager.instance.SetGameState(GameState.Normal);
+
+
+    }
+   
 
     // Update is called once per frame
     void Update()
@@ -114,11 +135,15 @@ public class PlayerMovement : MonoBehaviour
         {
             jumpCount = 0;
             rb.drag = originaldrag;
+            playerCollider.size = originalColliderSize;
+            playerCollider.offset = originalColliderOffset;
         }
 
         if (!isGrounded)
         {
             rb.drag = 1.3f;
+            playerCollider.size = new Vector2(0.908728123f, 1.62065017f);
+            playerCollider.offset = new Vector2(-0.20992589f, 0.164290011f);
         }
         
         
@@ -132,7 +157,7 @@ public class PlayerMovement : MonoBehaviour
         //sets the isGrounded variable in the animator to be the result of the isGrounded variable here
         animator.SetBool(isGroundedHash, isGrounded);
         //sets the MoveSpeed variable in the animator to be the result of the moveInput x variable
-        animator.SetFloat(MoveSpeedHash, moveInput.x);
+        animator.SetFloat(MoveSpeedHash, 1);
 
         if(!canMove)
             return;
@@ -140,15 +165,8 @@ public class PlayerMovement : MonoBehaviour
             return;
 
         //player moves faster when the gamespeed is above 1
-        if (RunningGameManager.instance.GameSpeed > 1)
-        {
-            currentDrag = 0.8f;
-        
-            originaldrag = Mathf.Lerp(originaldrag, currentDrag, Time.deltaTime * 2);
-            
-        }
-    
-        
+
+
         if (Input.GetButtonDown("Vertical") || Input.GetKeyDown(KeyCode.Space))
         {
             JumpFunction();
@@ -164,56 +182,26 @@ public class PlayerMovement : MonoBehaviour
             return;
         jumpCount = 1;
         //makes player jump based on its mass
+        animator.SetTrigger(JumpedHash);
         rb.AddForce(Vector2.up * (jumpForce), ForceMode2D.Impulse);
         
         
 
         
         //sets the trigger in animator
-        animator.SetTrigger(JumpedHash);
+        
+        
+        
         
         
         
         
     }
+    
+    
+    
 
-    private bool CheckForDoubleJumpInput(bool space, bool up, bool W)
-    {
-        
-        
-        if (space)
-        {
-            return true;
-        }
-
-        else if ((up && !W) || (!up && W))
-        {
-            up = false;
-            W = false;
-            return true;
-        }
-        
-        else if (up & W)
-        {
-            up = false;
-            W = false;
-            Debug.Log("Pressed At Same Tiem");
-            return false;
-        }
-
-        else
-        {
-            return false;
-        }
-
-
-
-    }
-
-    public void StartBoost()
-    {
-        StartCoroutine(Boost(boostTime));
-    }
+    
     private void FixedUpdate()
     {
         if(!canMove)
@@ -225,6 +213,7 @@ public class PlayerMovement : MonoBehaviour
     void HandleMovement()
     {
         
+        /*
         //if isBoosting is true, set the maxVelocity to maxRunVelocity otherwise set it to maxWalkVelocity.
         maxVelocity = isBoosting ? maxRunVelocity : maxWalkVelocity;
 
@@ -248,23 +237,28 @@ public class PlayerMovement : MonoBehaviour
         
         
         //creates score based on the speed of the rigidbody, score modifier and walkingScoreModifier. 
-        int s = Mathf.FloorToInt(RunningGameManager.instance.walkingScoreModifier * rb.velocity.magnitude * scoreRatio);
+        
+        */
+        int s = Mathf.FloorToInt(5 * RunningGameManager.instance.GameSpeed * scoreRatio);
        
         RunningGameManager.instance.UpdateScoreText(s);
 
         
         
+        /*
         if (AudioManager.instance.CheckIfPlaying("Walking") == false)
         {
             AudioManager.instance.Play("Walking");
         }
+        */
+        
 
        
 
 
     }
 
-    public void PlayHit()
+    public void OnHitEvent()
     {
         
         StartCoroutine(HitBlinks());
@@ -300,33 +294,8 @@ public class PlayerMovement : MonoBehaviour
     }
     
 
-    public void ResetAcceleration()
-    {
-        //slowly interpolate the boost speed back to the walkSpeed. This probably won't work as well considering the speed change 
-        //happens in the fixedUpdate
-        speed = Mathf.Lerp(speed, walkSpeed, Time.deltaTime * 2);
-    }
+    
 
-    IEnumerator Boost(float time)
-    {
-        //waits a single frame
-        yield return null;
-        isBoosting = true;
-        boostParticleSystem.SetActive(true);
-        AudioManager.instance.Play("Boost Up");
-        
-        RunningGameManager.instance.SetGameState(GameState.Boosted);
-        //Makes the game go twice as fast.
-        yield return new WaitForSeconds(time);
-        isBoosting = false;
-        //Game resumes original speed.
-        AudioManager.instance.Stop("Boost Up");
-        AudioManager.instance.Play("Boost Down");
-        //Time.timeScale = 1;
-        boostParticleSystem.SetActive(false);
-        RunningGameManager.instance.SetGameState(GameState.Normal);
-
-
-    }
+    
 }
 

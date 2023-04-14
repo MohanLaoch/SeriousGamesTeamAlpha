@@ -74,9 +74,9 @@ public class BlockScript : MonoBehaviour
                 ItemClass item = Instantiate(items[c], possibleItemPositions[i].position, Quaternion.identity);
                 item.transform.parent = possibleItemPositions[i];
 
-                item.index = c;
+                
                 RunningGameManager.instance.previousItemSpawned = item;
-                RunningGameManager.instance.lastSpawnedItemPos = possibleItemPositions[i];
+               // RunningGameManager.instance.lastSpawnedItemPos = possibleItemPositions[i];
             
             
            
@@ -151,10 +151,9 @@ public class BlockScript : MonoBehaviour
             }
             
             ItemClass item = Instantiate(items[x], possibleItemPositions[i].position, Quaternion.identity);
-            item.index = x;
             item.transform.parent = possibleItemPositions[i];
             RunningGameManager.instance.previousItemSpawned = item;
-            RunningGameManager.instance.lastSpawnedItemPos = possibleItemPositions[i];
+            //RunningGameManager.instance.lastSpawnedItemPos = possibleItemPositions[i];
             spawnedItems += 1;
             d = x;
 

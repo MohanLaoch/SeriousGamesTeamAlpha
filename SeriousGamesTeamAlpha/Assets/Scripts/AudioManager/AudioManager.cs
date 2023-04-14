@@ -50,6 +50,25 @@ public class AudioManager : MonoBehaviour
         s.source.Play();
     }
 
+    public void PlaySoundAtCertainPitch(string name, float value)
+    {
+        Sound s = Array.Find(sounds, sound => sound.name == name);
+
+        if (s != null)
+        {
+            if (CheckIfPlaying(name))
+            {
+                s.pitch = value;
+            }
+
+            else
+            {
+                s.source.Play();
+            }
+            
+            
+        }
+    }
     public void Stop(string name)
     {
         Sound s = Array.Find(sounds, sound => sound.name == name);

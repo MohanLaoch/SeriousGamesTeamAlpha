@@ -12,11 +12,10 @@ namespace OlayScripts.ItemClassScripts
                 return;
             //decrease hydration
             float gameSpeed = RunningGameManager.instance.GameSpeed;
-            float calculation = gameSpeed > 1 ? gameSpeed * (1 + (1 / gameSpeed)) : 1;
-            RunningGameManager.instance.DecreaseHydration(EnergyHydrationAmount * calculation);
+            RunningGameManager.instance.DecreaseHydration(EnergyHydrationAmount * gameSpeed);
             //activates boost from the GameManager as I only have a single frame to activate all these scripts 
             AudioManager.instance.Play("Fizzy");
-            RunningGameManager.instance.StartBoost();
+            RunningGameManager.instance.OnPlayerBoost();
         }
     }
 }

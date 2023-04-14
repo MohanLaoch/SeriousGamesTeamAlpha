@@ -9,9 +9,10 @@ public class RunningGameSplash : MonoBehaviour
     public GameObject informationPanel;
     public GameObject keyPanel;
     private int stateId;
+    private bool notFirstTime;
     private void Awake()
     {
-        Time.timeScale = 0;
+        
         
     }
     
@@ -20,7 +21,20 @@ public class RunningGameSplash : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        stateId = 0;
+        Time.timeScale = 0;
         OnInformationRead(0);
+    }
+
+
+    private void OnEnable()
+    {
+        if (notFirstTime)
+        {
+            stateId = 0;
+            Time.timeScale = 0;
+            OnInformationRead(0);
+        }
     }
 
     public void OnInformationRead(int state)
@@ -31,6 +45,7 @@ public class RunningGameSplash : MonoBehaviour
                 informationPanel.SetActive(true);
                 keyPanel.SetActive(false);
                 Time.timeScale = 0;
+                AudioManager.instance.Stop("Main Runner Game Music");
                 PlayerMovement.instance.canMove = false;
                 break;
             case 1:
@@ -43,9 +58,14 @@ public class RunningGameSplash : MonoBehaviour
                 gameObject.SetActive(false);
                 PlayerMovement.instance.canMove = true;
                 Time.timeScale = 1;
+                AudioManager.instance.Play("Main Runner Game Music");
+                notFirstTime = true;
                 break;
             
         }
+        
+        
+        
     }
     // Update is called once per frame
     void Update()

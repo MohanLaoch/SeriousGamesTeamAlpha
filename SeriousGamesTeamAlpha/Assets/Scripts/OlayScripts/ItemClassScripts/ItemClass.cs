@@ -3,12 +3,12 @@ using UnityEngine;
 
 namespace OlayScripts.ItemClassScripts
 {
+    
     public class ItemClass : MonoBehaviour
     {
         public float spawnChance;
 
-        [HideInInspector]
-        public int index = -1;
+        public float itemSpeed;
         //More frequent the farther you go if yes or less common the farther you go
         public bool inverseSpawnRate;
         //Bit of an explanation as to why I made this a class instead of a scriptableObject. I thought about making it a scriptable Object
@@ -19,21 +19,14 @@ namespace OlayScripts.ItemClassScripts
         {
             //checks to see if it collides with the player, when it does activates a function and then destroys. This applies to all classes so I don't have to individually write each one..
 
-            if(RunningGameManager.instance.gameState == GameState.Finished)
-                return;
+           
             
             if (col.gameObject.CompareTag("Player"))
             {
-                if (RunningGameManager.instance.gameState == GameState.Boosted)
-                {
-                    Destroy(gameObject);
-                }
-
-                else
-                {
-                    OnPlayerCollide();
-                    Destroy(gameObject);
-                }
+               
+                OnPlayerCollide();
+                Destroy(gameObject);
+               
                 
                 
             }
@@ -43,22 +36,29 @@ namespace OlayScripts.ItemClassScripts
         {
             //checks to see if it collides with the player, when it does activates a function and then destroys. This applies to all classes so I don't have to individually write each one..
 
-            if (RunningGameManager.instance.gameState == GameState.Boosted)
+            /*if (RunningGameManager.instance.gameState == GameState.Boosted)
             {
-                Destroy(gameObject);
-            }
+                gameObject.SetActive(false);
+            }*/
 
-            else
+            if (col.gameObject.CompareTag("Player"))
             {
                 OnPlayerCollide();
                 Destroy(gameObject);
             }
+            
+            
+            
         }
+        
         
 
         public virtual void OnPlayerCollide()
         {
             
         }
+
+        
     }
+    
 }

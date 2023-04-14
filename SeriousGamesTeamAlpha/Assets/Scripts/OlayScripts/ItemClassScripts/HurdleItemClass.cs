@@ -14,8 +14,7 @@ namespace OlayScripts.ItemClassScripts
                 return;
             AudioManager.instance.Play("Hit");
             float gameSpeed = RunningGameManager.instance.GameSpeed;
-            float calculation = gameSpeed > 1 ? gameSpeed * (1 + (1 / gameSpeed)) : 1;
-            RunningGameManager.instance.DecreaseHydration(HitHydrationAmount * calculation);
+            RunningGameManager.instance.DecreaseHydration(HitHydrationAmount * (gameSpeed));
             RunningGameManager.instance.StartHurdleHit();
             
         }

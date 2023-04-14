@@ -9,6 +9,8 @@ TagManager:
   - Dairy
   - Carbs
   - Sweets
+  - Platform
+  - Item
   layers:
   - Default
   - TransparentFX
@@ -21,8 +23,8 @@ TagManager:
   - Particles
   - Obstacle
   - Box
-  - 
-  - 
+  - Item
+  - GroundedPlayer
   - 
   - 
   - 

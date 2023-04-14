@@ -17,7 +17,7 @@ public class ParallaxScript : MonoBehaviour
     {
         
         //gets the player position and creates the offset based on the player's speed and if they're boosting / not
-        float x = PlayerMovement.instance.moveInput.x * (PlayerMovement.instance.speed / PlayerMovement.instance.walkSpeedRef) * parallaxSpeed * Time.deltaTime;
+        float x = 2 * RunningGameManager.instance.GameSpeed * parallaxSpeed * Time.deltaTime;
         //prevents it from going over the 32 bit integer limit
         x = Mathf.Clamp(x, 0, float.MaxValue);
         //moves offset based on the x value
