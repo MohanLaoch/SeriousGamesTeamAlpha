@@ -116,6 +116,7 @@ public class PlayerMovement : MonoBehaviour
         //Game resumes original speed.
         AudioManager.instance.Stop("Boost Up");
         AudioManager.instance.Play("Boost Down");
+        RunningGameManager.instance.boostCancelEvent();
         //Time.timeScale = 1;
         boostParticleSystem.SetActive(false);
         RunningGameManager.instance.SetGameState(GameState.Normal);

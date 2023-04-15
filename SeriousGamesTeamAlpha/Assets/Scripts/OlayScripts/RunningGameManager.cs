@@ -84,7 +84,13 @@ public class RunningGameManager : MonoBehaviour
 
      public float audioPitchRate;
 
+     public GameObject PauseMenu;
+     public delegate void OnBoostCancel();
+
+     public OnBoostCancel boostCancelEvent;
      private float audioPitch = 0;
+     
+     
      private void Awake()
     {
         //checks to see if there's already an instance of the class, if not we set the instance. This only should apply at the start of the game since theres no instance of the class yet
@@ -113,7 +119,7 @@ public class RunningGameManager : MonoBehaviour
         hydrationMeter.value = initialSliderValue;
         totalTime = 0;
         PlayerMovement.instance.canMove = true;
-        
+        PauseMenu.SetActive(false);
        
         
         //checks to see if there's a child attached to the block parent, if so add it to the list.
@@ -137,6 +143,13 @@ public class RunningGameManager : MonoBehaviour
         }
     }
 
+    public void OnBoostCancelEvent()
+    {
+        if (boostCancelEvent != null)
+        {
+            boostCancelEvent();
+        }
+    }
     public void OnHitCancelEvent()
     {
         if (hitCancelEvent != null)
@@ -237,7 +250,8 @@ public class RunningGameManager : MonoBehaviour
         GameSpeed = Mathf.Clamp(GameSpeed, 1, 2);
         audioPitch += ((GameSpeed - 1) * audioPitchRate);
         
-            
+        
+        
         AudioManager.instance.PlaySoundAtCertainPitch("Main Runner Game Music", audioPitch);
         //checks to see if the game speed goes to infinity, in case of a divide by 0 situation
 
@@ -317,6 +331,7 @@ public class RunningGameManager : MonoBehaviour
                 Time.timeScale = 1;
                 BoostHydrationSpeed = 1;
                 player.gameObject.layer = 7;
+                
                 break;
             case GameState.Boosted:
                 //makes the game go twice as fast
@@ -336,7 +351,7 @@ public class RunningGameManager : MonoBehaviour
                 break;
             case GameState.Finished:
                 PlayerMovement.instance.canMove = false;
-                
+                AudioManager.instance.Stop("Main Runner Game Music");
                 //Time.timeScale = 0f;
 
                 
@@ -359,6 +374,25 @@ public class RunningGameManager : MonoBehaviour
     }
 
 
+
+    public void ResumeGame(int state)
+    {
+        switch (state)
+        {
+            case 0:
+                PauseMenu.SetActive(true);
+                Time.timeScale = 0;
+                PlayerMovement.instance.canMove = false;
+                
+                break;
+            case 1:
+                PauseMenu.SetActive(false);
+                Time.timeScale = 1;
+                PlayerMovement.instance.canMove = true;
+                break;
+        }
+        
+    }
   
     
 }

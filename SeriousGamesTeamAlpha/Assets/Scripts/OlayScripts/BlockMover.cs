@@ -7,6 +7,12 @@ using Random = UnityEngine.Random;
 
 public class BlockMover : MonoBehaviour
 {
+    private enum state
+    {
+        Normal,
+        Boosted,
+        Hit
+    }
     private Rigidbody2D rb;
 
     public float speed;
@@ -15,9 +21,10 @@ public class BlockMover : MonoBehaviour
 
     public bool begin;
 
-
+    private state itemState;
 
     private float originalSpeed;
+    
     
    
     // Start is called before the first frame update
@@ -35,10 +42,8 @@ public class BlockMover : MonoBehaviour
 
     void Start()
     {
-        originalSpeed = speed;
-        RunningGameManager.instance.boostEvent += OnBoostEvent;
-        RunningGameManager.instance.hitEvent += OnHitEvent;
-        RunningGameManager.instance.hitCancelEvent += OnHitCanceled;
+        
+        
         
        rb = GetComponent<Rigidbody2D>();
       
@@ -99,21 +104,9 @@ public class BlockMover : MonoBehaviour
        
     }
 
-    private void OnHitEvent()
-    {
-        speed = originalSpeed / 2;
-    }
+   
 
-    private void OnBoostEvent()
-    {
-        speed = originalSpeed * 1.5f;
-    }
-
-    private void OnHitCanceled()
-    {
-        speed = originalSpeed;
-    }
-
+   
     private void OnEnable()
     {
         
@@ -129,8 +122,8 @@ public class BlockMover : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
+        speed = ObstaclePooler.SharedInstance.speed;
         rb.velocity = speed * RunningGameManager.instance.GameSpeed * Vector2.left;
-        
         
         
     }

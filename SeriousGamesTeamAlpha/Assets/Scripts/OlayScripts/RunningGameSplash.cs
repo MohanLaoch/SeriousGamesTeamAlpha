@@ -56,8 +56,12 @@ public class RunningGameSplash : MonoBehaviour
                 keyPanel.SetActive(false);
                 informationPanel.SetActive(false);
                 gameObject.SetActive(false);
-                PlayerMovement.instance.canMove = true;
-                Time.timeScale = 1;
+                if (!notFirstTime)
+                {
+                    PlayerMovement.instance.canMove = true;
+                    Time.timeScale = 1;
+                }
+                
                 AudioManager.instance.Play("Main Runner Game Music");
                 notFirstTime = true;
                 break;

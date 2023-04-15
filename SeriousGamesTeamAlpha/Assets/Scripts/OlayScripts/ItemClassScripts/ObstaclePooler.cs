@@ -28,6 +28,10 @@ public class ObstaclePooler : MonoBehaviour
     public List<GameObject> pooledItemObjects;
     public ItemClass lastSpawnedItem;
     public bool hasSpawnedFirstItem;
+
+    public float speed;
+
+    private float originalSpeed;
     private void Awake()
     {
         SharedInstance = this;
@@ -35,98 +39,49 @@ public class ObstaclePooler : MonoBehaviour
 
     private void Start()
     {
-        
-       /*itemPool = new ObjectPool<GameObject>(CreateItem, OnTakeFromPool, OnReturnedToPool, OnDestroyPoolObject,
-            collectionChecks, 10, maxPoolSize);*/
+        RunningGameManager.instance.boostEvent += OnBoostEvent;
+        RunningGameManager.instance.hitEvent += OnHitEvent;
+        RunningGameManager.instance.hitCancelEvent += OnHitCanceled;
+        RunningGameManager.instance.boostCancelEvent += OnBoostCanceled;
 
-       //random = Random.Range(0, 2);
-
-
-       /*pooledItemObjects = new List<GameObject>();
-
-       GameObject newItemObject;
-
-       for (int i = 0; i < maxPoolSize; i++)
-       {
-           newItemObject = Instantiate(item);
-           foreach (Transform child in newItemObject.transform)
-           {
-              child.gameObject.SetActive(false);
-           }
-           newItemObject.SetActive(false);
-           
-           pooledItemObjects.Add(newItemObject);
-       }*/
-
+        originalSpeed = speed;
 
 
     }
-    
-   // public void ReleaseItem(GameObject Item) => itemPool.Release(Item);
-  
-    
-    
-    private GameObject CreateItem()
+
+    private void OnHitEvent()
     {
-        GameObject Item = Instantiate(item, transform);
-        if (hasSpawnedFirstItem == false)
-        {
-            item.GetComponent<BlockMover>().begin = true;
-            hasSpawnedFirstItem = true;
-            item.SetActive(true);
-        }
-
-        else
-        {
-            Item.SetActive(false);
-        }
-       
-
-        return Item;
+        speed = originalSpeed / 1.5f;
     }
 
-    private void OnTakeFromPool(GameObject Item)
+    private void OnBoostEvent()
     {
-        
-        /*
-        float a = 0;
-        
-        
-        
-        
-        a = Random.Range( defaultXPos, maxDefaultXPos);
-        Item.transform.position = new Vector3(a, 1, 0);
-        Item.gameObject.SetActive(true);
-        lastSpawned = item;
-        */
-        
-        
+        speed = originalSpeed * 1.5f;
     }
-    
-    private void OnDestroyPoolObject(GameObject Item)
+
+    private void OnBoostCanceled()
     {
-        //Destroy(Item);
+        speed = originalSpeed;
     }
-
-    private void OnReturnedToPool(GameObject Item)
+    private void OnHitCanceled()
     {
-        //Item.gameObject.SetActive(false);
+        speed = originalSpeed;
     }
 
-   // public void SpawnItem() => itemPool.Get();
-
-
-   public void SpawnItem()
+    public void SpawnItem()
    {
        Vector2 position = new Vector2(Random.Range(defaultXPos, maxDefaultXPos), 1);
        GameObject itemObject = Instantiate(item, position, Quaternion.identity, transform);
-    
+
+       BlockMover mover = itemObject.GetComponent<BlockMover>();
        if (!hasSpawnedFirstItem)
        {
-           itemObject.GetComponent<BlockMover>().begin = true;
+           mover.begin = true;
            hasSpawnedFirstItem = true;
        }
+
        
+
    }
 
     private void Update()
@@ -135,16 +90,5 @@ public class ObstaclePooler : MonoBehaviour
     }
 
 
-    /*public GameObject GetPooledObject()
-    {
-        for (int i = 0; i < maxPoolSize; i++)
-        {
-            if (!pooledItemObjects[i].activeInHierarchy)
-            {
-                return pooledItemObjects[i];
-            }
-        }
-
-        return null;
-    }*/
+ 
 }
