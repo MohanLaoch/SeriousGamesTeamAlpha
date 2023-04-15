@@ -8,10 +8,30 @@ namespace OlayScripts
     public class RunningGameHighScore : MonoBehaviour
     {
         public TextMeshProUGUI text;
-        private bool resetScore;
+        [SerializeField] private bool resetScore;
         public int TemporaryHighScore;
+
+        [SerializeField] private bool useTemporaryHighScore;
         private void Start()
         {
+            if (resetScore)
+            {
+                if (PlayerPrefs.HasKey("HighScore"))
+                {
+                    PlayerPrefs.DeleteKey("HighScore");
+                    Debug.Log("High Score Reset!");
+                }
+            }
+
+            if (useTemporaryHighScore)
+            {
+                if (GUILayout.Button("Make Temporary HighScore"))
+                {
+                    SetHighScoreTemp(TemporaryHighScore);
+                    Debug.Log("Score Set to Be " + TemporaryHighScore);
+                }
+            }
+            
             RunningGameManager.instance.GameOverEvent += OnGameOver;
             
         }
@@ -63,35 +83,5 @@ namespace OlayScripts
             PlayerPrefs.SetInt("HighScore", value);
         }
     }
-
-    [CustomEditor(typeof(RunningGameHighScore))]
-    public class HighScoreEditor : Editor
-    {
-        override public void OnInspectorGUI()
-        {
-
-            DrawDefaultInspector();
-            
-            RunningGameHighScore script = (RunningGameHighScore)target;
-            if (GUILayout.Button("Reset High Scores"))
-            {
-                if (PlayerPrefs.HasKey("HighScore"))
-                {
-                    PlayerPrefs.DeleteKey("HighScore");
-                    Debug.Log("High Score Reset!");
-                }
-
-                else
-                {
-                    Debug.LogError("No High Score!");
-                }
-            }
-
-            if (GUILayout.Button("Make Temporary HighScore"))
-            {
-                script.SetHighScoreTemp(script.TemporaryHighScore);
-                Debug.Log("Score Set to Be " + script.TemporaryHighScore);
-            }
-        }
-    }
+    
 }
