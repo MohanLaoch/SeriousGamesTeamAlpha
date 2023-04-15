@@ -37,8 +37,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 266.1, y: -226}
-  m_SizeDelta: {x: 183.2625, y: 68.326}
+  m_AnchoredPosition: {x: 346, y: -287.36}
+  m_SizeDelta: {x: 235.8626, y: 87.937}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &7208019671144506947
 CanvasRenderer:
@@ -131,6 +131,18 @@ MonoBehaviour:
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
+          m_StringArgument: MainMenu
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 0}
+        m_TargetAssemblyTypeName: PlaySound, Assembly-CSharp
+        m_MethodName: ButtonClick
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
@@ -169,8 +181,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 27.479}
-  m_SizeDelta: {x: 732.83, y: 236.5}
+  m_AnchoredPosition: {x: 20.966, y: -3.1155}
+  m_SizeDelta: {x: 1103.7, y: 393.2973}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &7208019671157585140
 CanvasRenderer:
@@ -227,8 +239,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 36
-  m_fontSizeBase: 36
+  m_fontSize: 40
+  m_fontSizeBase: 40
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -489,7 +501,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: -0.0048297, y: 60}
-  m_SizeDelta: {x: 1067, y: 759.3952}
+  m_SizeDelta: {x: 1586.1, y: 989.2807}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &7208019671522210349
 CanvasRenderer:
@@ -874,7 +886,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 18.3
+  m_fontSize: 33.5
   m_fontSizeBase: 14
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -953,8 +965,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -0.0048286, y: -226}
-  m_SizeDelta: {x: 392.7745, y: 62.5662}
+  m_AnchoredPosition: {x: -0.0048286, y: -287.36}
+  m_SizeDelta: {x: 492.75, y: 78.4916}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &7208019671939561761
 MonoBehaviour:
@@ -1120,8 +1132,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 298.62, y: -118.25}
-  m_SizeDelta: {x: 135.5879, y: 54.957}
+  m_AnchoredPosition: {x: 460.4655, y: -148.0948}
+  m_SizeDelta: {x: 224.6569, y: 86.7673}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &7208019672749597426
 CanvasRenderer:
@@ -1217,6 +1229,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 0}
+        m_TargetAssemblyTypeName: PlaySound, Assembly-CSharp
+        m_MethodName: ButtonClick
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &7208019672815321088
 GameObject:
   m_ObjectHideFlags: 0
@@ -1283,7 +1307,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Continue to Game...
+  m_text: Continue to Menu...
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: a0ea415b233db504293da1777111f5dd, type: 2}
   m_sharedMaterial: {fileID: 1292950063131215851, guid: a0ea415b233db504293da1777111f5dd, type: 2}
@@ -1310,7 +1334,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 21.05
+  m_fontSize: 27.95
   m_fontSizeBase: 14
   m_fontWeight: 400
   m_enableAutoSizing: 1
