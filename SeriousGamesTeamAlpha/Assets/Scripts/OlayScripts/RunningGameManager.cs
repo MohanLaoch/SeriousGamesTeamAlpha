@@ -94,7 +94,8 @@ public class RunningGameManager : MonoBehaviour
      public delegate void OnGameOver();
 
      public OnGameOver GameOverEvent;
-     
+
+     public GameObject runningSplash;
      
      private void Awake()
     {
@@ -364,13 +365,14 @@ public class RunningGameManager : MonoBehaviour
                 break;
             case GameState.Finished:
                 PlayerMovement.instance.canMove = false;
+                Time.timeScale = 0;
                 OnGameOverEvent();
                 AudioManager.instance.Stop("Main Runner Game Music");
                 //Time.timeScale = 0f;
 
                 
                 endCanvas.SetActive(true);
-               
+                runningSplash.SetActive(true);
 
                 break;
         }

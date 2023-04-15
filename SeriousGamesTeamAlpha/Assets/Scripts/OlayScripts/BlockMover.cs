@@ -24,7 +24,8 @@ public class BlockMover : MonoBehaviour
     private state itemState;
 
     private float originalSpeed;
-    
+
+    private bool canMove;
     
    
     // Start is called before the first frame update
@@ -47,7 +48,7 @@ public class BlockMover : MonoBehaviour
         
        rb = GetComponent<Rigidbody2D>();
       
-       
+       RunningGameManager.instance.GameOverEvent += GameOverEvent; 
        
        int i = Random.Range(0, itemClasses.Count);
        int r = Random.Range(0, 100);
@@ -104,9 +105,14 @@ public class BlockMover : MonoBehaviour
        
     }
 
-   
+    private void GameOverEvent()
+    {
+        canMove = false;
+        //gameObject.SetActive(false);
+        //RunningGameManager.instance.GameOverEvent -= GameOverEvent; 
+    }
 
-   
+
     private void OnEnable()
     {
         
@@ -122,6 +128,8 @@ public class BlockMover : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
+        if(canMove)
+            return;
         speed = ObstaclePooler.SharedInstance.speed;
         rb.velocity = speed * RunningGameManager.instance.GameSpeed * Vector2.left;
         

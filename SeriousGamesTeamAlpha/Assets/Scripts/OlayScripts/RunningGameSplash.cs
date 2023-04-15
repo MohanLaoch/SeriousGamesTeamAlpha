@@ -10,6 +10,7 @@ public class RunningGameSplash : MonoBehaviour
     public GameObject keyPanel;
     private int stateId;
     private bool notFirstTime;
+    
     private void Awake()
     {
         
@@ -34,6 +35,14 @@ public class RunningGameSplash : MonoBehaviour
             stateId = 0;
             Time.timeScale = 0;
             OnInformationRead(0);
+            
+            if (RunningGameManager.instance.gameState == GameState.Finished)
+            {
+                stateId = 0;
+                Time.timeScale = 0;
+                OnInformationRead(0);
+            }
+            
         }
     }
 
