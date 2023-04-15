@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using OlayScripts.ItemClassScripts;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Playables;
 using UnityEngine.SceneManagement;
@@ -43,7 +44,7 @@ public class RunningGameManager : MonoBehaviour
 
      private float BoostHydrationSpeed = 1;
 
-     private float walkingScore;
+     public int walkingScore;
      
 
      [HideInInspector]
@@ -89,6 +90,10 @@ public class RunningGameManager : MonoBehaviour
 
      public OnBoostCancel boostCancelEvent;
      private float audioPitch = 0;
+
+     public delegate void OnGameOver();
+
+     public OnGameOver GameOverEvent;
      
      
      private void Awake()
@@ -107,7 +112,7 @@ public class RunningGameManager : MonoBehaviour
 
         if (seed != 0)
         {
-            seed = Random.Range(Int32.MinValue, Int32.MaxValue);
+            seed = (int)DateTime.Now.Ticks;
         }
         
         UnityEngine.Random.InitState(seed);
@@ -140,6 +145,14 @@ public class RunningGameManager : MonoBehaviour
         if (hitEvent != null)
         {
             hitEvent();
+        }
+    }
+
+    public void OnGameOverEvent()
+    {
+        if (GameOverEvent != null)
+        {
+            GameOverEvent();
         }
     }
 
@@ -351,6 +364,7 @@ public class RunningGameManager : MonoBehaviour
                 break;
             case GameState.Finished:
                 PlayerMovement.instance.canMove = false;
+                OnGameOverEvent();
                 AudioManager.instance.Stop("Main Runner Game Music");
                 //Time.timeScale = 0f;
 

@@ -92,9 +92,15 @@ public class PlayerMovement : MonoBehaviour
         originalColliderOffset = playerCollider.offset;
         RunningGameManager.instance.boostEvent += OnBoostEvent;
         RunningGameManager.instance.hitEvent += OnHitEvent;
-
+        RunningGameManager.instance.GameOverEvent += OnGameOver;
     }
 
+
+    void OnGameOver()
+    {
+        canMove = false;
+        RunningGameManager.instance.GameOverEvent -= OnGameOver;
+    }
 
     void OnBoostEvent()
     {

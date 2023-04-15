@@ -45,7 +45,11 @@ public class RunningGameSplash : MonoBehaviour
                 informationPanel.SetActive(true);
                 keyPanel.SetActive(false);
                 Time.timeScale = 0;
-                AudioManager.instance.Stop("Main Runner Game Music");
+                if (!notFirstTime)
+                {
+                    AudioManager.instance.Stop("Main Runner Game Music");
+                }
+               
                 PlayerMovement.instance.canMove = false;
                 break;
             case 1:
@@ -60,10 +64,12 @@ public class RunningGameSplash : MonoBehaviour
                 {
                     PlayerMovement.instance.canMove = true;
                     Time.timeScale = 1;
+                    AudioManager.instance.Play("Main Runner Game Music");
+                    notFirstTime = true;
                 }
                 
-                AudioManager.instance.Play("Main Runner Game Music");
-                notFirstTime = true;
+               
+               
                 break;
             
         }

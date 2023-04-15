@@ -31,6 +31,8 @@ public class ObstaclePooler : MonoBehaviour
 
     public float speed;
 
+    private bool canSpawn = true;
+
     private float originalSpeed;
     private void Awake()
     {
@@ -43,7 +45,7 @@ public class ObstaclePooler : MonoBehaviour
         RunningGameManager.instance.hitEvent += OnHitEvent;
         RunningGameManager.instance.hitCancelEvent += OnHitCanceled;
         RunningGameManager.instance.boostCancelEvent += OnBoostCanceled;
-
+        RunningGameManager.instance.GameOverEvent += OnGameOver;
         originalSpeed = speed;
 
 
@@ -70,19 +72,30 @@ public class ObstaclePooler : MonoBehaviour
 
     public void SpawnItem()
    {
-       Vector2 position = new Vector2(Random.Range(defaultXPos, maxDefaultXPos), 1);
-       GameObject itemObject = Instantiate(item, position, Quaternion.identity, transform);
-
-       BlockMover mover = itemObject.GetComponent<BlockMover>();
-       if (!hasSpawnedFirstItem)
+       if (canSpawn)
        {
-           mover.begin = true;
-           hasSpawnedFirstItem = true;
+           Vector2 position = new Vector2(Random.Range(defaultXPos, maxDefaultXPos), 1);
+           GameObject itemObject = Instantiate(item, position, Quaternion.identity, transform);
+
+           BlockMover mover = itemObject.GetComponent<BlockMover>();
+           if (!hasSpawnedFirstItem)
+           {
+               mover.begin = true;
+               hasSpawnedFirstItem = true;
+           }
        }
+      
 
        
 
    }
+
+    private void OnGameOver()
+    {
+        canSpawn = false;
+        speed = 0;
+        RunningGameManager.instance.GameOverEvent -= OnGameOver;
+    }
 
     private void Update()
     {
