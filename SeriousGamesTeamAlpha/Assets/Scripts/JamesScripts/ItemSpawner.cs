@@ -32,7 +32,7 @@ public class ItemSpawner : MonoBehaviour
     public void Awake()
     {
         score = 0;
-        scoreText.text = "Current Streak:" + " " + score.ToString();
+        scoreText.text = score.ToString();
         canSpawn = true;
         InstantiateItem();
     }

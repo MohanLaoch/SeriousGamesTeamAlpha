@@ -11,6 +11,7 @@ TagManager:
   - Sweets
   - Platform
   - Item
+  - Fats
   layers:
   - Default
   - TransparentFX

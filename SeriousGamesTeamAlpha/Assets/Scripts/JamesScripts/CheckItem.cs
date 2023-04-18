@@ -26,7 +26,7 @@ public class CheckItem : MonoBehaviour
             itemSpawner.RedAnimation();
         }
 
-        itemSpawner.scoreText.text = "Current Streak:" + " " + itemSpawner.score.ToString();
+        itemSpawner.scoreText.text = itemSpawner.score.ToString();
     }
 
 
