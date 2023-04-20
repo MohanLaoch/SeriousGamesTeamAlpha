@@ -99,8 +99,11 @@ public class PlayerMovement : MonoBehaviour
     void OnGameOver()
     {
         canMove = false;
-        gameObject.SetActive(false);
+        RunningGameManager.instance.boostEvent -= OnBoostEvent;
+        RunningGameManager.instance.hitEvent -= OnHitEvent;
+       // gameObject.SetActive(false);
         RunningGameManager.instance.GameOverEvent -= OnGameOver;
+      
     }
 
     void OnBoostEvent()
