@@ -2346,17 +2346,25 @@ MonoBehaviour:
   - {fileID: 9192463817090827139, guid: b6b6e0448459f4444b43c7d9dd68deb9, type: 3}
   - {fileID: 8003970715910247464, guid: 2ae6bcf9160377144bd7dc38a60774bb, type: 3}
   - {fileID: 3783720159741291755, guid: 9c71eab8cf52f5945b23a313d6677e8d, type: 3}
+  - {fileID: 2897759776890134580, guid: 6c54ea386658a3348bbd231c78b63b99, type: 3}
+  - {fileID: 8888601309443680676, guid: d1aed22a4f3bcb440be6c3d9bcfa99ab, type: 3}
+  - {fileID: 5584448885681345311, guid: f212dfd06a831f244b01c858ab2688ce, type: 3}
   - {fileID: 2766454788900046889, guid: e4976cea93045514298e46f2a0d8dc85, type: 3}
+  - {fileID: 9037239021721653918, guid: 54cc4935bbf4c424eb3c0e2efc86b475, type: 3}
   - {fileID: 6227144805692971628, guid: ffb4e5578628c6a41a1fd44940cba6d8, type: 3}
   - {fileID: 8381123233255749337, guid: ddfe538c5c3f3a34385690ef0a626954, type: 3}
+  - {fileID: 9065824080425718353, guid: b8462a7e576b35d48857f9ff948bfe6e, type: 3}
   - {fileID: 8669503192499425640, guid: 2e9207254a0db5f4bbcb4e662bdecd6c, type: 3}
   - {fileID: 2412869037940220291, guid: 0b2824eeecd4a794bb7247dd9750c60f, type: 3}
   - {fileID: 5023191806083842642, guid: f6999ea3922cea640b67940fd62c01f3, type: 3}
+  - {fileID: 2484145786451629344, guid: e0cf1fe3d975159489b5560e87a8d28e, type: 3}
   - {fileID: 2784840651313158297, guid: 5851d48e2d76868448651c6c02833857, type: 3}
+  - {fileID: 1482562393708062195, guid: abff78477607fda4e8937fee7aabc740, type: 3}
   - {fileID: 1925264198669701245, guid: 0c31eaf5cce0d614fa913d0fa0462d55, type: 3}
   - {fileID: 1322782210817794118, guid: 98dc345c25fcbde46b707df8e7c4a76b, type: 3}
   - {fileID: 7882436726553578578, guid: 96a4731d7bbadfa459a63fefba378093, type: 3}
   - {fileID: 323692729888731747, guid: c9795aa45e2f62e42afe44f58af05b8a, type: 3}
+  - {fileID: 408911012277098656, guid: c1b8f9bc2dbb1b3449f73640b3fb6d70, type: 3}
   currentFoodText: {fileID: 476385738}
   foodItemsText:
   - Apples
@@ -2366,17 +2374,25 @@ MonoBehaviour:
   - Butter
   - Carrots
   - Cheese
+  - Chocolate
+  - Cola
+  - Crisps
   - Croissant
+  - Eggs
   - Salmon
   - Lollipop
+  - Mayonnaise
   - Ham
   - Milk
   - Mushrooms
+  - Oil
   - Oranges
+  - Rice
   - Sausages
   - Spagetti
   - Candy
   - Tomatoes
+  - Yogurt
   canSpawn: 0
 --- !u!1 &852400148
 GameObject:
