@@ -76,7 +76,7 @@ I'm already feeling a lot better. Most of my muscles are already relaxed. I hope
     I'm glad that my programme is working for you! #emotion: excited
     ->StretchingSection3
 +[They aren't]
-    I got one more chance to make this work for you! #emotion: sad
+    Perhaps the next stretch will make them better for you! #emotion: sad
     ->StretchingSection3
     
     
