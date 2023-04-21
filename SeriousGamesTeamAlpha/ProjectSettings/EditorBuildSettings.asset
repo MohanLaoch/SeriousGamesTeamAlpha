@@ -20,4 +20,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Mindfulness.unity
     guid: c85271084ee916e4186d0724936c0afc
+  - enabled: 1
+    path: Assets/Scenes/Olay_Backup_Mindfulness.unity
+    guid: b0588a1c262440644965d48a9b003373
   m_configObjects: {}
