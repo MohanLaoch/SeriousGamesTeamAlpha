@@ -13,4 +13,9 @@ public class PlaySound : MonoBehaviour
     {
         FindObjectOfType<AudioManager>().Play("ButtonClick");
     }
+
+    public void StopRunnerMusic()
+    {
+        FindObjectOfType<AudioManager>().Stop("Main Runner Game Music");
+    }
 }

@@ -17,4 +17,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/FoodPyramid.unity
     guid: 31ea8050555d8ab41b4f30f4e9a86b4d
+  - enabled: 1
+    path: Assets/Scenes/Mindfulness.unity
+    guid: c85271084ee916e4186d0724936c0afc
   m_configObjects: {}

@@ -32,5 +32,14 @@ public class DragObject : MonoBehaviour
     {
         colldier.enabled = true;
         colldier.isTrigger = true;
+
+        StartCoroutine(Switch());
+    }
+
+    IEnumerator Switch()
+    {
+        
+        yield return new WaitForSeconds(0.01f);
+        colldier.isTrigger = false;
     }
 }
