@@ -47,6 +47,7 @@ public class ItemSpawner : MonoBehaviour
 
             GameObject newItem = Instantiate(foodItems[randomIndex], spawnPos, Quaternion.identity);
 
+            newItem.GetComponent<DragObject>().itemSpawnerPos = spawnPos;
             canSpawn = false;
 
             string foodText = foodItemsText[randomIndex];
@@ -56,6 +57,8 @@ public class ItemSpawner : MonoBehaviour
 
         StartCoroutine(SpawnTimer());
     }
+
+   
 
     public void GreenAnimation()
     {

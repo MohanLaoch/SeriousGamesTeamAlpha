@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -6,8 +7,13 @@ public class DragObject : MonoBehaviour
 {
     Vector2 difference = Vector2.zero;
 
+    public Vector3 itemSpawnerPos;
     BoxCollider2D colldier;
 
+    public int checkCount;
+
+    public int collisionCount;
+    
 
     private void Awake()
     {
@@ -20,6 +26,7 @@ public class DragObject : MonoBehaviour
 
         colldier.enabled = false;
         colldier.isTrigger = false;
+        
 
     }
 
@@ -35,11 +42,39 @@ public class DragObject : MonoBehaviour
 
         StartCoroutine(Switch());
     }
-
+    
     IEnumerator Switch()
     {
-        
-        yield return new WaitForSeconds(0.01f);
-        colldier.isTrigger = false;
+
+        yield return new WaitForFixedUpdate();
+        if (checkCount == 0)
+        {
+            colldier.isTrigger = false;
+            transform.position = itemSpawnerPos;
+            checkCount = 0;
+        }
+
+
+    }
+
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        other.TryGetComponent(out CheckItem checkItem);
+
+        if (checkItem)
+        {
+            if (checkCount > 0)
+                return;
+            checkItem.OnCollision(gameObject);
+            checkCount++;
+        }
+
+        else
+        {
+            transform.position = itemSpawnerPos;
+            colldier.isTrigger = false;
+        }
+
+       
     }
 }
