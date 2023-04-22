@@ -5,6 +5,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using Ink.Runtime;
+using OlayScripts.Dialogue;
 
 
 public class DialogueManager : MonoBehaviour
@@ -37,8 +38,8 @@ public class DialogueManager : MonoBehaviour
      private bool isAddingRichTextTag;
 
 
-     
-     
+
+     public LevelLoader loader;
      
      private float delay;
 
@@ -49,13 +50,14 @@ public class DialogueManager : MonoBehaviour
 
      private const string POSE_TAG = "pose";
      
-     private const string QUEST_TAG = "Quest";
-
      private const string WAIT_TAG = "delay";
 
+     [HideInInspector] public bool hasWrittenLots;
      public delegate void OpenJournalEvent();
 
      public OpenJournalEvent journalEvent;
+     
+     
      
     private void Awake()
     {
@@ -81,6 +83,13 @@ public class DialogueManager : MonoBehaviour
             journalEvent();
         }
     }
+    
+    
+    
+    public void ChangeBoolVariable(string index, bool value)
+    {
+        currentStory.variablesState[index] = value;
+    }
 
     void ClickFunction()
     {
@@ -93,6 +102,7 @@ public class DialogueManager : MonoBehaviour
 
         ContinueButton.onClick.AddListener(ClickFunction);
         choicesText = new TextMeshProUGUI[choices.Length];
+        //JournalScript.onJournalCompleteEvent += ClosingDialogue;
         
         int index = 0;
         
@@ -113,6 +123,8 @@ public class DialogueManager : MonoBehaviour
        
     }
 
+
+    
     private void DisplayChoices()
     {
         List<Choice> currentChoices = currentStory.currentChoices;
@@ -152,9 +164,15 @@ public class DialogueManager : MonoBehaviour
         _variables.StartListening(currentStory);
         
         currentStory.BindExternalFunction("openJournal", OnOpenJournalEvent);
+        currentStory.BindExternalFunction("CloseGame", OnMFGameFinish);
 
         
         ContinueDialogue();
+    }
+
+    void OnMFGameFinish()
+    {
+        loader.LoadLevel("MainMenu");
     }
 
     private IEnumerator CloseDialogue()
@@ -273,8 +291,10 @@ public class DialogueManager : MonoBehaviour
                 case EMOTION_TAG:
                     if (actorSprite != null)
                     {
+                        Debug.Log(tagValue);
                         actorSprite.CrossFade(tagValue, 0.3f);
                     }
+                    
                     break;
                 case POSE_TAG:
                     if (actorSprite != null)

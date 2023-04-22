@@ -5,7 +5,11 @@ namespace OlayScripts.Dialogue
 {
     public class JournalScript : MonoBehaviour
     {
+        public delegate void OnJournalComplete();
+
+        public static OnJournalComplete onJournalCompleteEvent;
         public GameObject Journal;
+        public TextAsset closingDialogue;
         private void Start()
         {
             Journal.SetActive(false);
@@ -24,6 +28,14 @@ namespace OlayScripts.Dialogue
                 return;
             Journal.SetActive(false);
             Debug.Log("made it to the end");
+            DialogueManager.instance.StartDialogue(closingDialogue);
+
+            if (input.Length > 15)
+            { 
+                DialogueManager.instance.ChangeBoolVariable("ManyWords", true);
+            }
+            
+            
         }
         
     }

@@ -99,7 +99,7 @@ How did that go for you?
     ->Closing
 
 ===Closing===
-That's all for the Stretching exercises. How do you feel about them? #emotion: neutral
+That's all for the Stretching exercises. How do you feel about them? #emotion: MF_Neutral
 +[Good]
     I'm glad to hear that the stretches have worked well for you. With your muscles now rested you can freely move to the next exercise! #emotion: MF_Excited
     -> NextClosing

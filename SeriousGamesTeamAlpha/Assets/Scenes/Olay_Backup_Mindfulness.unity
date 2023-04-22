@@ -164,6 +164,8 @@ MonoBehaviour:
   - {fileID: 1399982290}
   - {fileID: 689813328}
   - {fileID: 1868468262}
+  loader: {fileID: 2008197844}
+  hasWrittenLots: 0
 --- !u!4 &107154628
 Transform:
   m_ObjectHideFlags: 0
@@ -6797,6 +6799,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Journal: {fileID: 1670574506}
+  closingDialogue: {fileID: 4900000, guid: 877c2c7bc878bae49b32e6cd546f15b4, type: 3}
 --- !u!4 &1030000096
 Transform:
   m_ObjectHideFlags: 0
