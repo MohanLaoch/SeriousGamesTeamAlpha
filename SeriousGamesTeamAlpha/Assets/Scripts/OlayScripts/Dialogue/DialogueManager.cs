@@ -273,13 +273,13 @@ public class DialogueManager : MonoBehaviour
                 case EMOTION_TAG:
                     if (actorSprite != null)
                     {
-                        actorSprite.CrossFade(tagValue, 0.2f);
+                        actorSprite.CrossFade(tagValue, 0.3f);
                     }
                     break;
                 case POSE_TAG:
                     if (actorSprite != null)
                     {
-                        actorSprite.CrossFade(tagValue, 0.2f );
+                        actorSprite.CrossFade(tagValue, 0.3f );
                     }
                     
                     break;
