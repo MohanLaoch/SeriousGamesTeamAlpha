@@ -11,6 +11,11 @@ public class AudioManager : MonoBehaviour
 
     public static AudioManager instance;
 
+    public AudioMixerGroup soundGroup;
+    public AudioMixerGroup musicGroup;
+    
+    
+
     private void Awake()
     {
         if (instance == null)
@@ -31,6 +36,16 @@ public class AudioManager : MonoBehaviour
             s.source.volume = s.volume;
             s.source.pitch = s.pitch;
             s.source.loop = s.loop;
+
+            switch (s.SoundType)
+            {
+                case SoundType.SFX:
+                    s.source.outputAudioMixerGroup = soundGroup;
+                    break;
+                case SoundType.Music:
+                    s.source.outputAudioMixerGroup = musicGroup;
+                    break;
+            }
         }
     }
 
@@ -72,11 +87,13 @@ public class AudioManager : MonoBehaviour
     public void Stop(string name)
     {
         Sound s = Array.Find(sounds, sound => sound.name == name);
-        s.source.Stop();
+        
         if (s == null)
         {
             return;
         }
+        
+        s.source.Stop();
     }
 
     public void PlayAtLocation(string name, Vector3 position)
@@ -94,6 +111,8 @@ public class AudioManager : MonoBehaviour
 
         return s.source.isPlaying;
     }
+    
+    
 
 }
 

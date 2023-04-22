@@ -3,6 +3,12 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Audio;
 
+public enum SoundType
+{
+    SFX,
+    Music
+    
+};
 [System.Serializable]
 public class Sound
 {
@@ -17,6 +23,8 @@ public class Sound
 
     public bool loop;
 
+    public SoundType SoundType;
+    
     [HideInInspector]
     public AudioSource source;
 }

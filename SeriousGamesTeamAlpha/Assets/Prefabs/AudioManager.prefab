@@ -50,64 +50,77 @@ MonoBehaviour:
     volume: 0.365
     pitch: 1
     loop: 1
+    SoundType: 1
     source: {fileID: 0}
   - name: Walking
     clip: {fileID: 8300000, guid: 214f94723b309d847a4ecb0d48e20d06, type: 3}
     volume: 0.15
     pitch: 0.98
     loop: 0
+    SoundType: 0
     source: {fileID: 0}
   - name: Water
     clip: {fileID: 8300000, guid: 01e18f0273ab11d4d83bc647ce550f86, type: 3}
     volume: 0.472
     pitch: 2.12
     loop: 0
+    SoundType: 0
     source: {fileID: 0}
   - name: Fizzy
     clip: {fileID: 8300000, guid: 8a65f37cbdaa57344b8fdf92a2c4498a, type: 3}
     volume: 0.454
     pitch: 1.7
     loop: 0
+    SoundType: 0
     source: {fileID: 0}
   - name: Hit
     clip: {fileID: 8300000, guid: 0442d0d7f8ba05343935827536021367, type: 3}
     volume: 0.429
     pitch: 1
     loop: 0
+    SoundType: 0
     source: {fileID: 0}
   - name: Boost Up
     clip: {fileID: 8300000, guid: 2a17e4367035e6949a9e16dd1205b8ce, type: 3}
     volume: 0.401
     pitch: 0.8
     loop: 0
+    SoundType: 0
     source: {fileID: 0}
   - name: Boost Down
     clip: {fileID: 8300000, guid: 05c1abb581123f9418743e4db19fbba1, type: 3}
     volume: 0.427
     pitch: 1
     loop: 0
+    SoundType: 0
     source: {fileID: 0}
   - name: IconHover
     clip: {fileID: 8300000, guid: 9abaa801b1c07cb41928532242efc4be, type: 3}
     volume: 0.5
     pitch: 1
     loop: 0
+    SoundType: 0
     source: {fileID: 0}
   - name: ButtonClick
     clip: {fileID: 8300000, guid: 1413d0664424b614aa2597b47f889358, type: 3}
     volume: 0.5
     pitch: 1
     loop: 0
+    SoundType: 0
     source: {fileID: 0}
   - name: CorrectFP
     clip: {fileID: 8300000, guid: 7619bce66d5ac7244b06d5d00279d031, type: 3}
     volume: 0.5
     pitch: 1
     loop: 0
+    SoundType: 0
     source: {fileID: 0}
   - name: IncorrectFP
     clip: {fileID: 8300000, guid: 891b86b8db4456a4188affdef4c487a2, type: 3}
     volume: 0.5
     pitch: 1
     loop: 0
+    SoundType: 0
     source: {fileID: 0}
+  soundGroup: {fileID: -5150238401371088589, guid: 2644c23370daee94a8ae55b66d254e0c, type: 2}
+  musicGroup: {fileID: -3953468089374622395, guid: 2644c23370daee94a8ae55b66d254e0c, type: 2}
