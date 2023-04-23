@@ -1,4 +1,7 @@
+INCLUDE CharacterData.ink
 EXTERNAL CloseGame()
+
+
 VAR ManyWords = false
 
 #speaker: MFGirl #emotion: MF_Neutral
@@ -7,11 +10,11 @@ VAR ManyWords = false
 
 
 ===ExtraOpener==
-Wow you really <color=red>wrote a lot on the page!</color>
+Wow you really <color={HC}>wrote a lot on the page!</color>
 
-There's a lot to unpack and hopefully your mind is at ease after writing! 
+It's good to unpack, hopefully your mind is at ease after writing! 
 
-And if not, that's ok!, you've still managed to get a lot down!
+If not, that's okay, you've still managed to get a lot down.
 
 
 ->main
@@ -19,15 +22,15 @@ And if not, that's ok!, you've still managed to get a lot down!
 
 
 ===NotAsMuch===
-Not much to write there? That's no worries! 
+Not much to write there? That's no problem! 
 
-Just as long as that's what you need to write Hopefully, your mind is at ease! 
+Just as long as that's what you you want to write and your mind is at ease! 
 
-And if not, that's ok, you've still completed the exercise!
+If not, that's okay, you've still completed the exercise!
 
 ->main
 ===main===
-Thank you for trying out my Mindfulness Programme! <color=red>Feel free to comeback to repeat the programme! </color> #emotion: MF_Excited
+Thank you for trying out my Mindfulness Programme! <color={HC}>Feel free to comeback anytime! </color> #emotion: MF_Excited
 
 Have you felt positively since starting the exercise? #emotion: MF_Neutral
 
@@ -37,15 +40,14 @@ Have you felt positively since starting the exercise? #emotion: MF_Neutral
 ->NOOPTION
 
 ===YESOPTION===
-Then I'm glad my programme has managed to work for you, throughout all this! #emotion: MF_Excited
-I look forward to seeing you back here again! 
+That's great! I'm glad my programme has managed to work for you. #emotion: MF_Excited
+I look forward to seeing you back again! 
 ~CloseGame()
 ->END
 
-
 ===NOOPTION===
-I'm a little disappointed that it hasn't worked for you #emotion: MF_Sad
+That's unfortunate that it hasn't worked for you. #emotion: MF_Sad
 However! #emotion: MF_Neutral
-Perhaps the next time around it'll be a more pleasent experience for you!
+Perhaps the next time around it'll be a more pleasent experience!
 ~CloseGame()
 ->END

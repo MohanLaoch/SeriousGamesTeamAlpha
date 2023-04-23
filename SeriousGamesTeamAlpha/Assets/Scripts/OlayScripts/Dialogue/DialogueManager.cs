@@ -61,19 +61,12 @@ public class DialogueManager : MonoBehaviour
      
     private void Awake()
     {
-        if (instance == null)
-        {
-            instance = this;
-            DontDestroyOnLoad(gameObject);
-        }
 
-        else 
-        {
-            Destroy(gameObject);
-        }
-
+        instance = this;
         _variables = new DialogueVariables(loadGlobalsJSON);
     }
+    
+    
 
 
     public void OnOpenJournalEvent()
