@@ -41,8 +41,7 @@ public class RunningGameManager : MonoBehaviour
     [HideInInspector]
     public float GameSpeed = 1;
     
-
-     private float BoostHydrationSpeed = 1;
+    
 
      public int walkingScore;
      
@@ -98,7 +97,8 @@ public class RunningGameManager : MonoBehaviour
      public OnGameOver GameOverEvent;
 
      public GameObject runningSplash;
-     
+
+     public bool useRandomSeed = true;
      private void Awake()
     {
         //checks to see if there's already an instance of the class, if not we set the instance. This only should apply at the start of the game since theres no instance of the class yet
@@ -106,24 +106,22 @@ public class RunningGameManager : MonoBehaviour
         {
             instance = this;
         }
-
-        else
-        {
-            //deletes GameObject if theres two instances of the class
-            Destroy(gameObject);
-        }
-
-        if (seed != 0)
-        {
-            seed = (int)DateTime.Now.Ticks;
-        }
         
-        UnityEngine.Random.InitState(seed);
+        
     }
 
     // Start is called before the first frame update
     void Start()
     {
+        
+        if (useRandomSeed)
+        {
+            seed = (int)DateTime.Now.Ticks;
+        }
+        
+        UnityEngine.Random.InitState(seed);
+        
+        
         hydrationMeter.value = initialSliderValue;
         totalTime = 0;
         PlayerMovement.instance.canMove = true;
@@ -205,49 +203,7 @@ public class RunningGameManager : MonoBehaviour
 
     }
 
-    bool isAllowedToSpawn()
-    {
-        if (GeneratedItems.Count > 0)
-        {
-            
-            Debug.Log("Succeed");
-            Transform lastSpawned = GeneratedItems[0].transform;
-            Debug.Log(lastSpawned.transform.position);
-            float seconds = 0;
-            
-            
-
-            if (lastSpawned.gameObject.activeInHierarchy)
-            {
-                seconds += Time.deltaTime;
-                if ((ObstaclePooler.SharedInstance.maxDefaultXPos - lastSpawned.position.x) >=
-                    (minDistance - 0.1f))
-                {
-                    canSpawn = true;
-                }
-
-                else if(seconds >= 4f)
-                {
-                    canSpawn = true;
-                }
-                           
-            }
-
-            else
-            {
-                canSpawn = true;
-            }
-            
-        }
-
-        else
-        {
-            canSpawn = true;
-        }
-
-        return canSpawn;
-
-    }
+    
 
     void ClockFunc()
     {
@@ -256,7 +212,7 @@ public class RunningGameManager : MonoBehaviour
         if(!PlayerMovement.instance.canMove)
             return;
         totalTime += Time.deltaTime;
-        float minutes = Mathf.FloorToInt(totalTime / 60);
+        
 
 
        
@@ -345,7 +301,6 @@ public class RunningGameManager : MonoBehaviour
         {
             case GameState.Normal:
                 Time.timeScale = 1;
-                BoostHydrationSpeed = 1;
                 player.gameObject.layer = 7;
                 
                 break;
@@ -357,7 +312,6 @@ public class RunningGameManager : MonoBehaviour
                     Destroy(items.gameObject);
                 }*/
                 Time.timeScale = 1;
-                BoostHydrationSpeed = 1;
                 player.gameObject.layer = 9;
                 break;
             case GameState.Hit:

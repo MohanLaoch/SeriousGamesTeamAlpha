@@ -23169,6 +23169,8 @@ MonoBehaviour:
   maxPoolSize: 15
   minTimeDelay: 1
   maxTimeDelay: 4
+  hitRate: 1.5
+  BoostRate: 1.1
   lastSpawned: {fileID: 0}
   pooledItemObjects: []
   lastSpawnedItem: {fileID: 0}

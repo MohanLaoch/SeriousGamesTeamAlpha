@@ -13,20 +13,12 @@ public class ObstaclePooler : MonoBehaviour
 
     public float defaultXPos;
     public float maxDefaultXPos;
-    public float minTime;
+  
     
-    [SerializeField] private bool collectionChecks = true;
-    [SerializeField] private int maxPoolSize = 15;
-    
-    public float minTimeDelay, maxTimeDelay;
 
+    [SerializeField] private float hitRate, BoostRate;
     private int random;
-    public IObjectPool<GameObject> itemPool { get; set; }
 
-
-    public GameObject lastSpawned;
-    public List<GameObject> pooledItemObjects;
-    public ItemClass lastSpawnedItem;
     public bool hasSpawnedFirstItem;
 
     public float speed;
@@ -53,12 +45,12 @@ public class ObstaclePooler : MonoBehaviour
 
     private void OnHitEvent()
     {
-        speed = originalSpeed / 1.5f;
+        speed = originalSpeed / hitRate;
     }
 
     private void OnBoostEvent()
     {
-        speed = originalSpeed * 1.5f;
+        speed = originalSpeed * BoostRate;
     }
 
     private void OnBoostCanceled()
@@ -97,11 +89,7 @@ public class ObstaclePooler : MonoBehaviour
         RunningGameManager.instance.GameOverEvent -= OnGameOver;
     }
 
-    private void Update()
-    {
-        
-    }
-
+   
 
  
 }
