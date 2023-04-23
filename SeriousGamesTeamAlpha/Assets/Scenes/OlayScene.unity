@@ -12594,7 +12594,7 @@ MonoBehaviour:
   hydrationMeter: {fileID: 125291456}
   hydrationSpeed: 0.1
   hydrationAmount: 20
-  initialSliderValue: 0.1
+  initialSliderValue: 1
   totalTime: 0
   gameState: 0
   GameSpeed: 1
