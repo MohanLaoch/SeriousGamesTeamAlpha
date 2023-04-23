@@ -99,6 +99,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dab9db34b8afad949ad998bec58ffff6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  itemSpawnerPos: {x: 0, y: 0, z: 0}
+  checkCount: 0
+  collisionCount: 0
 --- !u!61 &8037158250353465621
 BoxCollider2D:
   m_ObjectHideFlags: 0
