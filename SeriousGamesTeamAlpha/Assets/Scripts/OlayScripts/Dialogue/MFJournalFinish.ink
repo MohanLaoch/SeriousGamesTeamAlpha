@@ -36,7 +36,7 @@ Have you felt positively since starting the exercise? #emotion: MF_Neutral
 
 +[Yes]
 -> YESOPTION
-+[NO]
++[No]
 ->NOOPTION
 
 ===YESOPTION===

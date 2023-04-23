@@ -66,7 +66,7 @@ That was good! I'm sure you feel nice and stretched. Those muscles feeling bette
     -> StretchingSection2
 
 ===StretchingSection2===
-Now I want you to <color={HC}>copy this pose</color> #pose: MF_Stretch_02
+Now I want you to <color={HC}>copy this pose!</color> #pose: MF_Stretch_02
 Hold this for <color={HC}> 8 seconds!</color>
 Go! #delay: 8
 

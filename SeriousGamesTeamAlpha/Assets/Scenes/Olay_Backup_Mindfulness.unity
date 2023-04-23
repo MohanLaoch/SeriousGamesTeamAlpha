@@ -218,6 +218,7 @@ MonoBehaviour:
   dialogueCanvas: {fileID: 1706831511}
   ContinueButton: {fileID: 1151753678}
   loadGlobalsJSON: {fileID: 4900000, guid: f7343bb1db6ac5344979868cb70dbad2, type: 3}
+  timeForContinueToAppear: 0.03
   isDialoguePlaying: 0
   choices:
   - {fileID: 1399982290}

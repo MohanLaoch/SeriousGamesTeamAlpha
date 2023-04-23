@@ -28,6 +28,8 @@ public class DialogueManager : MonoBehaviour
     private TextAsset loadGlobalsJSON;
     private Story currentStory;
 
+    [Range(0, 1)]
+    public float timeForContinueToAppear;
     private bool clicked;
     public bool isDialoguePlaying;  
 
@@ -37,7 +39,7 @@ public class DialogueManager : MonoBehaviour
      private DialogueVariables _variables;
      private bool isAddingRichTextTag;
 
-
+     private bool canUseContinue = true;
 
      public LevelLoader loader;
      
@@ -56,9 +58,10 @@ public class DialogueManager : MonoBehaviour
      public delegate void OpenJournalEvent();
 
      public OpenJournalEvent journalEvent;
-     
-     
-     
+
+     private bool canContinueToNextLine;
+     private int counter;
+     private bool displayFullLine;
     private void Awake()
     {
 
@@ -87,13 +90,15 @@ public class DialogueManager : MonoBehaviour
     void ClickFunction()
     {
         clicked = true;
-        
+        counter += 1;
+
     }
     // Start is called before the first frame update
     void Start()
     {
 
         ContinueButton.onClick.AddListener(ClickFunction);
+        
         choicesText = new TextMeshProUGUI[choices.Length];
         //JournalScript.onJournalCompleteEvent += ClosingDialogue;
         
@@ -185,11 +190,22 @@ public class DialogueManager : MonoBehaviour
     {
         if(!isDialoguePlaying)
             return;
-        if (clicked && currentStory.currentChoices.Count == 0)
+
+        if (clicked  && currentStory.currentChoices.Count == 0)
         {
             clicked = false;
-            ContinueDialogue();
+
+            if (canContinueToNextLine && counter > 1)
+            {
+                ContinueDialogue();
+                counter = 0;
+            }
+            
         }
+        
+        
+
+       
     }
 
 
@@ -219,13 +235,27 @@ public class DialogueManager : MonoBehaviour
 
     private IEnumerator DisplayLine(string line)
     {
+        ContinueButton.gameObject.SetActive(false);
         dialogueText.text = line;
         dialogueText.maxVisibleCharacters = 0;
+
+        canContinueToNextLine = false;
         HideChoices();
+        int data = 0;
+        int length = line.Length;
+        
+        
         
         foreach (char letter in line.ToCharArray())
         {
-            if (clicked)
+            data++;
+
+            if ((data > length * timeForContinueToAppear) && canUseContinue)
+            {
+                ContinueButton.gameObject.SetActive(true);
+            }
+            
+            if (counter == 1)
             {
                 dialogueText.maxVisibleCharacters = line.Length;
                 break;
@@ -251,6 +281,8 @@ public class DialogueManager : MonoBehaviour
         
         
         DisplayChoices();
+        canContinueToNextLine = true;   
+        counter = 2;
     }
 
     private void HideChoices()
@@ -312,10 +344,12 @@ public class DialogueManager : MonoBehaviour
 
     IEnumerator TimerDelay()
     {
+        canUseContinue = false;
         ContinueButton.gameObject.SetActive(false);
         yield return CoroutineUtilities.WaitForRealTime(delay);
         ContinueButton.gameObject.SetActive(true);
         clicked = true;
+        canUseContinue = true;
         //Time.timeScale = 1;
     }
 
