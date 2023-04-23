@@ -30,7 +30,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 17
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &5543793649269138667
 MonoBehaviour:
@@ -54,42 +54,42 @@ MonoBehaviour:
     source: {fileID: 0}
   - name: Walking
     clip: {fileID: 8300000, guid: 214f94723b309d847a4ecb0d48e20d06, type: 3}
-    volume: 0.15
+    volume: 0.5
     pitch: 0.98
     loop: 0
     SoundType: 0
     source: {fileID: 0}
   - name: Water
     clip: {fileID: 8300000, guid: 01e18f0273ab11d4d83bc647ce550f86, type: 3}
-    volume: 0.472
-    pitch: 2.12
+    volume: 0.5
+    pitch: 1
     loop: 0
     SoundType: 0
     source: {fileID: 0}
   - name: Fizzy
     clip: {fileID: 8300000, guid: 8a65f37cbdaa57344b8fdf92a2c4498a, type: 3}
-    volume: 0.454
+    volume: 0.5
     pitch: 1.7
     loop: 0
     SoundType: 0
     source: {fileID: 0}
   - name: Hit
     clip: {fileID: 8300000, guid: 0442d0d7f8ba05343935827536021367, type: 3}
-    volume: 0.429
+    volume: 0.5
     pitch: 1
     loop: 0
     SoundType: 0
     source: {fileID: 0}
   - name: Boost Up
     clip: {fileID: 8300000, guid: 2a17e4367035e6949a9e16dd1205b8ce, type: 3}
-    volume: 0.401
-    pitch: 0.8
+    volume: 0.5
+    pitch: 1
     loop: 0
     SoundType: 0
     source: {fileID: 0}
   - name: Boost Down
     clip: {fileID: 8300000, guid: 05c1abb581123f9418743e4db19fbba1, type: 3}
-    volume: 0.427
+    volume: 0.5
     pitch: 1
     loop: 0
     SoundType: 0

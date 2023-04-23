@@ -326,7 +326,7 @@ public class RunningGameManager : MonoBehaviour
                 AudioManager.instance.Stop("Main Runner Game Music");
                 //Time.timeScale = 0f;
 
-                
+                    
                 endCanvas.SetActive(true);
                 runningSplash.SetActive(true);
 
@@ -342,7 +342,8 @@ public class RunningGameManager : MonoBehaviour
 
     public void QuitRunner()
     {
-        Loader.LoadLevel("JamesScene");
+        Time.timeScale = 1;
+        Loader.LoadLevel("MainMenu");
     }
 
 
