@@ -366,6 +366,7 @@ public class DialogueManager : MonoBehaviour
     {
         currentStory.ChooseChoiceIndex(choiceIndex);
         ContinueButton.gameObject.SetActive(true);
+        canUseContinue = true;
         ContinueDialogue();
     }
 }

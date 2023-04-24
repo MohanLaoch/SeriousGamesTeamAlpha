@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 using UnityEngine.Audio;
 using UnityEngine.UI;
 
@@ -10,8 +11,7 @@ public class SettingsMenu : MonoBehaviour
     public AudioMixer audioMixer;
 
     [SerializeField] private Slider mainSlider, sfxSlider, musicSlider;
-
-
+    
     private void Awake()
     {
 
@@ -38,6 +38,8 @@ public class SettingsMenu : MonoBehaviour
         SetMainVolume(mainSlider.value);
         SetSFXVolume(sfxSlider.value);
         SetMusicVolume(musicSlider.value);
+        
+        
         
         
         

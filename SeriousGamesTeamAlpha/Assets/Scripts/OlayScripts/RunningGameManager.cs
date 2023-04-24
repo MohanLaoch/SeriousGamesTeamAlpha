@@ -198,9 +198,7 @@ public class RunningGameManager : MonoBehaviour
             SpawnTimer = 0;
             ObstaclePooler.SharedInstance.SpawnItem();
         }
-
-
-
+        
     }
 
     
