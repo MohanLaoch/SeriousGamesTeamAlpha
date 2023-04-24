@@ -12,6 +12,8 @@ public class LevelLoader : MonoBehaviour
     public GameObject loadingScreen;
     public GameObject activateLoadedSceneButton;
     public Slider slider;
+    
+    
     //public TMP_Text progressText;
 
     AsyncOperation operation;
@@ -28,6 +30,7 @@ public class LevelLoader : MonoBehaviour
     {
         loadingScreen.SetActive(true);
 
+        yield return null;
         if (activateLoadedSceneButton != null)
         {
             

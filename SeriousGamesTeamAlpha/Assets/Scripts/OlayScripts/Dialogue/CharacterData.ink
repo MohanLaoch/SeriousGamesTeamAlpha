@@ -1,2 +1,2 @@
-VAR HC = "\#FF7E54"
-VAR name = "MFGirl"
+VAR HC = "black"
+VAR name = "Olivia"

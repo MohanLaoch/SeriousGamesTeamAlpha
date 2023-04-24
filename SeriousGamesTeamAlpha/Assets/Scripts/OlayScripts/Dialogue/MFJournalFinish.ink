@@ -4,7 +4,7 @@ EXTERNAL CloseGame()
 
 VAR ManyWords = false
 
-#speaker: MFGirl #emotion: MF_Neutral
+#speaker: Olivia #emotion: MF_Neutral
 
 {ManyWords == false : -> NotAsMuch | -> ExtraOpener}
 
@@ -24,7 +24,7 @@ If not, that's okay, you've still managed to get a lot down.
 ===NotAsMuch===
 Not much to write there? That's no problem! 
 
-Just as long as that's what you you want to write and your mind is at ease! 
+Hopefully your mind feels more at ease. 
 
 If not, that's okay, you've still completed the exercise!
 
@@ -48,6 +48,6 @@ I look forward to seeing you back again!
 ===NOOPTION===
 That's unfortunate that it hasn't worked for you. #emotion: MF_Sad
 However! #emotion: MF_Neutral
-Perhaps the next time around it'll be a more pleasent experience!
+Perhaps the next time around it'll be a more pleasant experience!
 ~CloseGame()
 ->END

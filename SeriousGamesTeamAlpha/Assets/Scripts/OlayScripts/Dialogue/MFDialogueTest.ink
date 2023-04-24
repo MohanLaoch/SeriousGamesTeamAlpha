@@ -4,7 +4,8 @@ EXTERNAL openJournal()
 
 Hi There!
 
-#speaker: MFGirl #emotion: MF_Neutral
+#speaker: Olivia
+#emotion: MF_Neutral
 My name is {name} and welcome to the <color={HC}> Mindfulness Programme! </color>
 
 ->main
@@ -26,7 +27,7 @@ Are you excited for it?
 ===BreathingMain==
 
 Let's get started with the first breathing exercise. #emotion: MF_Neutral
-Firstly, <color={HC}> I want you to breathe ine for about 5 seconds! Then I want you to breathe out for another 5 seconds! </color> 
+Firstly, <color={HC}> I want you to breathe in for about 5 seconds! Then I want you to breathe out for another 5 seconds! </color> 
 
 Breathe in! #delay: 5
 
@@ -95,7 +96,7 @@ How do you feel?
     That's great to hear! I'm glad that stretch went well for you. #emotion: MF_Excited
     -> Closing
 +[Really Bad!]
-    That's unfortunate. Feel free to try again in you own time. It gets easier with practice! #emotion: MF_Sad
+    That's unfortunate. Feel free to try again in your own time. It gets easier with practice! #emotion: MF_Sad
     ->Closing
 
 ===Closing===
