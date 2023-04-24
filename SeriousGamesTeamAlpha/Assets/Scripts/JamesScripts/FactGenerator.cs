@@ -2,13 +2,18 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using UnityEngine.UI;
 
 public class FactGenerator : MonoBehaviour
 {
-    [TextArea(3,10)]
+    [TextArea(3, 10)]
     public string[] facts;
 
     public TMP_Text factText;
+
+    public Sprite[] factSprites;
+
+    public Image factImage;
 
     private void Awake()
     {
@@ -17,9 +22,15 @@ public class FactGenerator : MonoBehaviour
 
     public void GenerateFact()
     {
-        string randomFact = facts[Random.Range(0, facts.Length)];
+        int randomIndex = Random.Range(0, facts.Length);
+
+        string randomFact = facts[randomIndex];
+
+        Sprite randomSprite = factSprites[randomIndex];
 
         factText.text = randomFact;
+
+        factImage.sprite = randomSprite;
     }
 
 }

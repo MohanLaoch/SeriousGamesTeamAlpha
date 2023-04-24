@@ -1758,6 +1758,10 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Target
       value: 
       objectReference: {fileID: 1576375434}
+    - target: {fileID: 7208019671438284145, guid: 9f9bd37dd0af894478a8ca1ba3d25a0d, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7208019671526534170, guid: 9f9bd37dd0af894478a8ca1ba3d25a0d, type: 3}
       propertyPath: m_Name
       value: LoadScreen
