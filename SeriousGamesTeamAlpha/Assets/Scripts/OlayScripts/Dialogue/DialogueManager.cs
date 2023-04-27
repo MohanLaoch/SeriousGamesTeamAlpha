@@ -54,6 +54,8 @@ public class DialogueManager : MonoBehaviour
      
      private const string WAIT_TAG = "delay";
 
+     private const string AUDIO_TAG = "audio";
+
      [HideInInspector] public bool hasWrittenLots;
      public delegate void OpenJournalEvent();
 
@@ -62,11 +64,19 @@ public class DialogueManager : MonoBehaviour
      private bool canContinueToNextLine;
      private int counter;
      private bool displayFullLine;
+
+
+     public AudioClip[] DialogueClips;
+
+     public GameObject audioSourceObject;
+     private AudioSource audioSource;
     private void Awake()
     {
 
         instance = this;
         _variables = new DialogueVariables(loadGlobalsJSON);
+        audioSource = audioSourceObject.GetComponent<AudioSource>();
+
     }
     
     
@@ -334,7 +344,12 @@ public class DialogueManager : MonoBehaviour
                         delay = index;
                         //Time.timeScale = 0;
                         StartCoroutine(TimerDelay());
-
+                    }
+                    break;
+                case AUDIO_TAG:
+                    if (int.TryParse(tagValue, out int a))
+                    {
+                        PlayAudio(a);
                     }
                     break;
 
@@ -368,6 +383,16 @@ public class DialogueManager : MonoBehaviour
         ContinueButton.gameObject.SetActive(true);
         canUseContinue = true;
         ContinueDialogue();
+    }
+
+    public void PlayAudio(int index)
+    {
+        if (audioSource.isPlaying)
+        {
+            audioSource.Stop();
+        }
+        
+        audioSource.PlayOneShot(DialogueClips[index]);
     }
 }
 
