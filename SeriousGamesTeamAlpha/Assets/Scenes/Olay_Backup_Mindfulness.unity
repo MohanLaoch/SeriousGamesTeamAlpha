@@ -478,7 +478,7 @@ MonoBehaviour:
   - {fileID: 1868468262}
   loader: {fileID: 2008197844}
   hasWrittenLots: 0
-  audioSourceObject: {fileID: 1716774047}
+  mindfulnessObject: {fileID: 1716774047}
 --- !u!4 &107154628
 Transform:
   m_ObjectHideFlags: 0
