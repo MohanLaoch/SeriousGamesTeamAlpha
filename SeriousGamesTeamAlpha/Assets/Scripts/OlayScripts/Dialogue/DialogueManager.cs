@@ -6,6 +6,7 @@ using UnityEngine.UI;
 using TMPro;
 using Ink.Runtime;
 using OlayScripts.Dialogue;
+using UnityEngine.Serialization;
 
 
 public class DialogueManager : MonoBehaviour
@@ -66,17 +67,18 @@ public class DialogueManager : MonoBehaviour
      private bool displayFullLine;
 
 
-     public AudioClip[] DialogueClips;
 
-     public GameObject audioSourceObject;
-     private AudioSource audioSource;
+
+      public GameObject mindfulnessObject;
+
+     private MindfulnessManager mindfulnessManager;
     private void Awake()
     {
 
         instance = this;
         _variables = new DialogueVariables(loadGlobalsJSON);
-        audioSource = audioSourceObject.GetComponent<AudioSource>();
-
+       
+        
     }
     
     
@@ -92,10 +94,10 @@ public class DialogueManager : MonoBehaviour
     
     
     
-    public void ChangeBoolVariable(string index, bool value)
+    public void ChangeBoolVariable(int value)
     {
-        currentStory.variablesState[index] = value;
-    }
+        currentStory.EvaluateFunction("changeBoolValue", value);
+    }   
 
     void ClickFunction()
     {
@@ -127,8 +129,8 @@ public class DialogueManager : MonoBehaviour
             index++;
         }
 
-        
-       
+        mindfulnessManager = mindfulnessObject.GetComponent<MindfulnessManager>();
+
     }
 
 
@@ -180,7 +182,7 @@ public class DialogueManager : MonoBehaviour
 
     void OnMFGameFinish()
     {
-        loader.LoadLevel("MainMenu");
+        mindfulnessManager.QuitGame();
     }
 
     private IEnumerator CloseDialogue()
@@ -349,7 +351,7 @@ public class DialogueManager : MonoBehaviour
                 case AUDIO_TAG:
                     if (int.TryParse(tagValue, out int a))
                     {
-                        PlayAudio(a);
+                        mindfulnessManager.PlayAudio(a);
                     }
                     break;
 
@@ -364,7 +366,9 @@ public class DialogueManager : MonoBehaviour
         yield return CoroutineUtilities.WaitForRealTime(delay);
         ContinueButton.gameObject.SetActive(true);
         clicked = true;
+        counter = 2;
         canUseContinue = true;
+        canContinueToNextLine = true;
         //Time.timeScale = 1;
     }
 
@@ -382,18 +386,12 @@ public class DialogueManager : MonoBehaviour
         currentStory.ChooseChoiceIndex(choiceIndex);
         ContinueButton.gameObject.SetActive(true);
         canUseContinue = true;
+        canContinueToNextLine = true;
+        counter = 2;
         ContinueDialogue();
     }
 
-    public void PlayAudio(int index)
-    {
-        if (audioSource.isPlaying)
-        {
-            audioSource.Stop();
-        }
-        
-        audioSource.PlayOneShot(DialogueClips[index]);
-    }
+    
 }
 
 public static class CoroutineUtilities 

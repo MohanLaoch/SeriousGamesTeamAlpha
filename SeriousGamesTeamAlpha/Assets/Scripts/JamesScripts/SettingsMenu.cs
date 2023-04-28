@@ -31,9 +31,6 @@ public class SettingsMenu : MonoBehaviour
         sfxSlider.value = PlayerPrefs.GetFloat("SoundVolume", 0.3f);
         musicSlider.value = PlayerPrefs.GetFloat("MusicVolume", 0.5f);
         
-        Debug.Log(mainSlider.value);
-        Debug.Log(sfxSlider.value);
-        Debug.Log(musicSlider.value);
         
         SetMainVolume(mainSlider.value);
         SetSFXVolume(sfxSlider.value);
@@ -56,7 +53,7 @@ public class SettingsMenu : MonoBehaviour
 
     public void SetMainVolume (float volume)
     {
-        Debug.Log(volume);
+        
         audioMixer.SetFloat("MasterVolume", Mathf.Log10(volume) * 20);
     }
 

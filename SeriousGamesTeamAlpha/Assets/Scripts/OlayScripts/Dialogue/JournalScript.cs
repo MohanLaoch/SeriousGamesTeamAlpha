@@ -5,11 +5,13 @@ namespace OlayScripts.Dialogue
 {
     public class JournalScript : MonoBehaviour
     {
+        
         public delegate void OnJournalComplete();
 
         public static OnJournalComplete onJournalCompleteEvent;
         public GameObject Journal;
-        public TextAsset closingDialogue;
+        public TextAsset closingDialogueBad;
+        public TextAsset closingDialogueGood;
         private void Start()
         {
             Journal.SetActive(false);
@@ -19,6 +21,7 @@ namespace OlayScripts.Dialogue
 
         void OnJournalOpen()
         {
+            FindObjectOfType<MindfulnessManager>().StopAudio();
             Journal.SetActive(true);
         }
 
@@ -28,11 +31,17 @@ namespace OlayScripts.Dialogue
                 return;
             Journal.SetActive(false);
             Debug.Log("made it to the end");
-            DialogueManager.instance.StartDialogue(closingDialogue);
+            
 
-            if (input.Length > 15)
+            if (input.Length > 20)
             { 
-                DialogueManager.instance.ChangeBoolVariable("ManyWords", true);
+                Debug.Log(input.Length);
+                DialogueManager.instance.StartDialogue(closingDialogueGood);
+            }
+
+            else
+            {
+                DialogueManager.instance.StartDialogue(closingDialogueBad);
             }
             
             

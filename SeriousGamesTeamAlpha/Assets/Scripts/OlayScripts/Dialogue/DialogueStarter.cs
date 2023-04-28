@@ -7,8 +7,9 @@ public class DialogueStarter : MonoBehaviour
     public TextAsset starterDialogue;
     
     // Start is called before the first frame update
-    void Start()
+    IEnumerator Start()
     {
+        yield return new WaitForSeconds(0.5f);
         DialogueManager.instance.StartDialogue(starterDialogue);    
     }
 
