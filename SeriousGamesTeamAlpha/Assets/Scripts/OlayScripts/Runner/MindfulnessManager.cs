@@ -65,6 +65,7 @@ public class MindfulnessManager : MonoBehaviour
     {
         Time.timeScale = 1;
         StopAudio();
+        CloseCanvas();
         SaveValues();
         loader.LoadLevel("MainMenu");
         

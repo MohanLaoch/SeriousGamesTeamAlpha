@@ -365,10 +365,10 @@ public class DialogueManager : MonoBehaviour
         ContinueButton.gameObject.SetActive(false);
         yield return CoroutineUtilities.WaitForRealTime(delay);
         ContinueButton.gameObject.SetActive(true);
-        clicked = true;
-        counter = 2;
         canUseContinue = true;
         canContinueToNextLine = true;
+        counter = 0;
+        ContinueDialogue();
         //Time.timeScale = 1;
     }
 
@@ -387,7 +387,7 @@ public class DialogueManager : MonoBehaviour
         ContinueButton.gameObject.SetActive(true);
         canUseContinue = true;
         canContinueToNextLine = true;
-        counter = 2;
+        counter = 0;
         ContinueDialogue();
     }
 
