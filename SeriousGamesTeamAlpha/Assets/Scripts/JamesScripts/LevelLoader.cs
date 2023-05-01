@@ -29,7 +29,7 @@ public class LevelLoader : MonoBehaviour
     IEnumerator LoadScene (string sceneName)
     {
         loadingScreen.SetActive(true);
-
+        
         yield return null;
         if (activateLoadedSceneButton != null)
         {

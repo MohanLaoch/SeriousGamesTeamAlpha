@@ -16,7 +16,7 @@ public class MindfulnessManager : MonoBehaviour
 
     public GameObject canvas;
     private const string DIALOGUE_VOLUME = "DialogueVolume";
-
+    private const string MEDITATION_THEME = "Meditation Theme";
     public LevelLoader loader;
     // Start is called before the first frame update
 
@@ -30,6 +30,7 @@ public class MindfulnessManager : MonoBehaviour
     void Start()
     {
         audioSource = GetComponent<AudioSource>();
+        AudioManager.instance.Play(MEDITATION_THEME);
        
     }
 
@@ -67,6 +68,7 @@ public class MindfulnessManager : MonoBehaviour
         StopAudio();
         CloseCanvas();
         SaveValues();
+        AudioManager.instance.Stop(MEDITATION_THEME);
         loader.LoadLevel("MainMenu");
         
     }

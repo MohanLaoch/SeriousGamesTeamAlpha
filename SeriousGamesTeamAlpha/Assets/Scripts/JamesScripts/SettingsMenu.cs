@@ -11,6 +11,8 @@ public class SettingsMenu : MonoBehaviour
     public AudioMixer audioMixer;
 
     [SerializeField] private Slider mainSlider, sfxSlider, musicSlider;
+
+    private const string MAIN_MENU_THEME = "Main Menu Theme";
     
     private void Awake()
     {
@@ -21,7 +23,7 @@ public class SettingsMenu : MonoBehaviour
     private void Start()
     {
         
-        
+        AudioManager.instance.Play(MAIN_MENU_THEME);
         
         mainSlider.onValueChanged.AddListener(SetMainVolume);
         sfxSlider.onValueChanged.AddListener(SetSFXVolume);
@@ -49,6 +51,11 @@ public class SettingsMenu : MonoBehaviour
         PlayerPrefs.SetFloat("MusicVolume", musicSlider.value);
         PlayerPrefs.SetFloat("SoundVolume", sfxSlider.value);
         
+    }
+
+    public void OnDisable()
+    {
+        AudioManager.instance.Stop(MAIN_MENU_THEME);
     }
 
     public void SetMainVolume (float volume)
