@@ -12,7 +12,7 @@ EditorBuildSettings:
     path: Assets/Scenes/MainMenu.unity
     guid: 8c8f2bb2435133c40ae10f7d056d6ba9
   - enabled: 1
-    path: Assets/Scenes/OlayScene.unity
+    path: Assets/Scenes/RunnerGame.unity
     guid: afd44ed6167c3424c9ff4a70f5cd9cfa
   - enabled: 1
     path: Assets/Scenes/FoodPyramid.unity
@@ -21,6 +21,6 @@ EditorBuildSettings:
     path: Assets/Scenes/Mindfulness.unity
     guid: c85271084ee916e4186d0724936c0afc
   - enabled: 1
-    path: Assets/Scenes/Olay_Backup_Mindfulness.unity
+    path: Assets/Scenes/MindfulnessGame.unity
     guid: b0588a1c262440644965d48a9b003373
   m_configObjects: {}
