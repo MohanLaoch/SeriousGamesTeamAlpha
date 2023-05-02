@@ -30,7 +30,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 16
+  m_RootOrder: 32
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &5543793649269138667
 MonoBehaviour:
@@ -47,7 +47,7 @@ MonoBehaviour:
   sounds:
   - name: Main Runner Game Music
     clip: {fileID: 8300000, guid: 4bcaf70f2d5c588429142e311b754c7c, type: 3}
-    volume: 0.279
+    volume: 0.365
     pitch: 1
     loop: 1
     SoundType: 1
@@ -60,9 +60,9 @@ MonoBehaviour:
     SoundType: 0
     source: {fileID: 0}
   - name: Water
-    clip: {fileID: 8300000, guid: 01e18f0273ab11d4d83bc647ce550f86, type: 3}
-    volume: 0.777
-    pitch: 2.38
+    clip: {fileID: 8300000, guid: 9dfa669626f56dd44a17140d42be48bb, type: 3}
+    volume: 0.5
+    pitch: 1.6
     loop: 0
     SoundType: 0
     source: {fileID: 0}
@@ -131,6 +131,13 @@ MonoBehaviour:
     source: {fileID: 0}
   - name: Meditation Theme
     clip: {fileID: 8300000, guid: 52ee9f49fb69436498d0ecdb05afedf9, type: 3}
+    volume: 0.365
+    pitch: 1
+    loop: 1
+    SoundType: 1
+    source: {fileID: 0}
+  - name: Food Pyramid Theme
+    clip: {fileID: 8300000, guid: 7728e6bb8c5464445839b61a1804b82e, type: 3}
     volume: 0.365
     pitch: 1
     loop: 1
