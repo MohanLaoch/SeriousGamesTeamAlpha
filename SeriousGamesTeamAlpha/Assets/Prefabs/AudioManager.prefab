@@ -30,7 +30,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 32
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &5543793649269138667
 MonoBehaviour:
@@ -61,8 +61,8 @@ MonoBehaviour:
     source: {fileID: 0}
   - name: Water
     clip: {fileID: 8300000, guid: 9dfa669626f56dd44a17140d42be48bb, type: 3}
-    volume: 0.5
-    pitch: 1.6
+    volume: 0.438
+    pitch: 1
     loop: 0
     SoundType: 0
     source: {fileID: 0}

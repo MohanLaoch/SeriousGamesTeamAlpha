@@ -1,5 +1,8 @@
 ﻿using System;
+using TMPro;
 using UnityEngine;
+using UnityEngine.EventSystems;
+using UnityEngine.UI;
 
 namespace OlayScripts.Dialogue
 {
@@ -12,6 +15,9 @@ namespace OlayScripts.Dialogue
         public GameObject Journal;
         public TextAsset closingDialogueBad;
         public TextAsset closingDialogueGood;
+        private bool wasFocused;
+        public TMP_InputField inputField;
+        private bool hasSubmitted;
         private void Start()
         {
             Journal.SetActive(false);
@@ -19,16 +25,29 @@ namespace OlayScripts.Dialogue
         }
 
 
+        private void Update()
+        {
+            if(hasSubmitted)
+                return;
+            if (Input.GetKeyDown(KeyCode.Return))
+            {
+                JournalInput(inputField.text);
+            }
+            
+        }
+
         void OnJournalOpen()
         {
             FindObjectOfType<MindfulnessManager>().StopAudio();
             Journal.SetActive(true);
+            
         }
 
         public void JournalInput(string input)
         {
             if(String.IsNullOrEmpty(input))
                 return;
+            hasSubmitted = true;
             Journal.SetActive(false);
             Debug.Log("made it to the end");
             

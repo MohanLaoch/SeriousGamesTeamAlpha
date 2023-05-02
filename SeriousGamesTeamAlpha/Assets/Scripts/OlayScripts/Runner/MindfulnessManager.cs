@@ -23,7 +23,12 @@ public class MindfulnessManager : MonoBehaviour
     private void Awake()
     {
         dialogueSlider.onValueChanged.AddListener(SetDialogueVolume);
-        dialogueSlider.value = PlayerPrefs.GetFloat(DIALOGUE_VOLUME, 0.5f);
+
+        if (PlayerPrefs.HasKey(DIALOGUE_VOLUME))
+        {
+            dialogueSlider.value = PlayerPrefs.GetFloat(DIALOGUE_VOLUME);
+        }
+        
         SetDialogueVolume(dialogueSlider.value);
     }
 
@@ -76,7 +81,13 @@ public class MindfulnessManager : MonoBehaviour
     {
         audioMixer.SetFloat(DIALOGUE_VOLUME, Mathf.Log10(volume) * 20);
     }
-    
+
+
+    private void OnDisable()
+    {
+        SaveValues();   
+    }
+
     public void StopAudio()
     {
         audioSource.Stop();

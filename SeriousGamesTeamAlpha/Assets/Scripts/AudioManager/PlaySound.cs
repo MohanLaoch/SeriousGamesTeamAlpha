@@ -6,12 +6,12 @@ public class PlaySound : MonoBehaviour
 {
     public void IconHover()
     {
-        FindObjectOfType<AudioManager>().Play("IconHover");
+        AudioManager.instance.Play("IconHover");
     }
 
     public void ButtonClick()
     {
-        FindObjectOfType<AudioManager>().Play("ButtonClick");
+        AudioManager.instance.Play("ButtonClick");
     }
 
     public void StopRunnerMusic()
