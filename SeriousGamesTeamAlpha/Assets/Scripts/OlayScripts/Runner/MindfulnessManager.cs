@@ -36,7 +36,8 @@ public class MindfulnessManager : MonoBehaviour
     {
         audioSource = GetComponent<AudioSource>();
         AudioManager.instance.Play(MEDITATION_THEME);
-       
+        Time.timeScale = 1;
+
     }
 
     // Update is called once per frame
